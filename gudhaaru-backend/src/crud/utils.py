@@ -10,6 +10,10 @@ async def initialise_db():
         await connection.run_sync(Base.metadata.create_all)
 
 
+async def close_db():
+    await engine.dispose()
+
+
 async def add_object(record) -> None:
     try:
         async with async_session() as session:
