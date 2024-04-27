@@ -13,7 +13,7 @@ class ItemType(BaseModel):
     id: int
     name: str
     parent: int | None = None
-    category: Category | None = None
+    category: Category | None | int = None
 
 
 class ItemAttributeTemplate(BaseModel):

@@ -10,8 +10,8 @@ from src.schema.item import Category
 router = APIRouter(prefix="/categories", tags=["Categories"])
 
 
-@router.post("/category", status_code=201, tags=["Unfinished"])
-async def create_category(category: Category):
+@router.post("/category", status_code=201)
+async def create_category(category: Category) -> Category:
     if category.parent is None:
         parent = 0
     else:
@@ -27,8 +27,8 @@ async def create_category(category: Category):
     return ItemFactory.create_category(_record)
 
 
-@router.patch("/category", status_code=201, tags=["Unfinished"])
-async def update_category(category: Category):
+@router.patch("/category", status_code=201)
+async def update_category(category: Category) -> Category:
     if category.parent is None:
         parent = 0
     else:

@@ -1,4 +1,4 @@
-from src.schema.item import Category
+from src.schema.item import *
 from src.utils.db_initialzation import main as db_init
 from tests._test import Test
 from tests.client import Client
@@ -78,6 +78,78 @@ def main():
             req_params=None,
             req_body=Category(
                 id=5, name="Adhesives & Tape", parent=1
+            ),
+        ),
+        "8": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Screws and Bolts",
+                category=Category(
+                    id=5, name="Fasteners", parent=0
+                )
+            ),
+        ),
+        "9": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Threaded Rods & Studs",
+                category=Category(
+                    id=5, name="Fasteners", parent=0
+                )
+            ),
+        ),
+        "10": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Adhesives",
+                category=Category(
+                    id=1, name="Adhesives & Tape", parent=0
+                )
+            ),
+        ),
+        "11": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Tapes",
+                category=Category(
+                    id=1, name="Adhesives & Tape", parent=0
+                )
+            ),
+        ),
+        "12": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="patch",
+            req_params=None,
+            req_body=ItemType(
+                id=4, name="Tape",
+                category=Category(
+                    id=1, name="Adhesives & Tape", parent=0
+                )
+            ),
+        ),
+        "13": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=422,
+            req_type="patch",
+            req_params=None,
+            req_body=ItemType(
+                id=4, name="Tape",
+                category=Category(
+                    id=112312, name="Adhesives & Tape", parent=0
+                )
             ),
         ),
     }

@@ -1,5 +1,6 @@
 from sqlalchemy import (
-    Column, String, DateTime, func, ForeignKey, UniqueConstraint, CheckConstraint
+    Column, String, DateTime, func, ForeignKey, UniqueConstraint,
+    CheckConstraint
 )
 from sqlalchemy.dialects.mysql.types import BIT, INTEGER
 
@@ -56,7 +57,7 @@ class TypeRecord(Base):
     )
     category = Column(
         INTEGER(unsigned=True),
-        ForeignKey("category.id"),
+        ForeignKey("category.id"), nullable=False
     )
     __table_args__ = (
         UniqueConstraint(
@@ -92,8 +93,8 @@ class ItemRecord(Base):
     )
 
 
-class AttributeTemplateRecord(Base):
-    __tablename__ = "attribute_template"
+class AttributeRecord(Base):
+    __tablename__ = "attribute"
     id = Column(
         INTEGER(unsigned=True),
         primary_key=True,
@@ -118,8 +119,8 @@ class AttributeTemplateRecord(Base):
     )
 
 
-class AttributeRecord(Base):
-    __tablename__ = "attribute"
+class AttributeValueRecord(Base):
+    __tablename__ = "attribute_value"
     id = Column(
         INTEGER(unsigned=True),
         primary_key=True,
@@ -127,9 +128,9 @@ class AttributeRecord(Base):
         nullable=False,
         unique=True,
     )
-    attribute_template = Column(
+    attribute = Column(
         INTEGER(unsigned=True),
-        ForeignKey("attribute_template.id"),
+        ForeignKey("attribute.id"),
         nullable=False,
         unique=True
     )

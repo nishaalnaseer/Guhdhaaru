@@ -70,6 +70,9 @@ class Client:
             self._logger.error(
                 f"Test ID: {_test.test_id} returned {response.status_code}"
             )
+            self._logger.error(
+                f"Response: {json.loads(response.content.decode())}"
+            )
         else:
             self._logger.info(
                 f"Test ID: {_test.test_id} succeeded"
