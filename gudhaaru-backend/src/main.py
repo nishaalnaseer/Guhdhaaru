@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.crud.tables import *
+from src.crud.models import *
 from src.utils.utils import lifespan
 from src.schema.users import *
 
