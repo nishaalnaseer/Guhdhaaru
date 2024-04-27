@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 from pydantic import BaseModel
 
@@ -6,14 +6,14 @@ from pydantic import BaseModel
 class Category(BaseModel):
     id: int
     name: str
-    parent: int | None
+    parent: int | None = None
 
 
 class ItemType(BaseModel):
     id: int
     name: str
-    parent: int | None
-    category: Category | None
+    parent: int | None = None
+    category: Category | None = None
 
 
 class ItemAttributeTemplate(BaseModel):
@@ -32,10 +32,4 @@ class Item(BaseModel):
     id: int
     name: str
     item_type: ItemType
-    attributes: List[List[ItemAttributeTemplate, Attribute]]
-
-
-
-
-
-
+    attributes: List[Tuple[ItemAttributeTemplate, Attribute]]

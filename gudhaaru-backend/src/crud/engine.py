@@ -1,10 +1,7 @@
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from os import getenv
-from dotenv import load_dotenv
 
-
-load_dotenv()
 db = getenv("DATABASE")
 host = getenv("DATABASE_HOST")
 port = int(getenv("DATABASE_PORT"))

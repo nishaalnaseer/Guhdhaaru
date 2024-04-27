@@ -31,7 +31,7 @@ class CategoryRecord(Base):
         UniqueConstraint(
             'parent', "name",
             name='_category-name'
-        )
+        ),
     )
 
 
@@ -60,7 +60,7 @@ class TypeRecord(Base):
         UniqueConstraint(
             'parent', "name", "category",
             name='_category-name-parent'
-        )
+        ),
     )
 
 
@@ -86,7 +86,7 @@ class ItemRecord(Base):
         UniqueConstraint(
             'item_type', "name",
             name='_type-name'
-        )
+        ),
     )
 
 
@@ -112,7 +112,7 @@ class AttributeTemplateRecord(Base):
         UniqueConstraint(
             'item', "name",
             name='_type-name'
-        )
+        ),
     )
 
 
@@ -128,7 +128,8 @@ class AttributeRecord(Base):
     attribute_template = Column(
         INTEGER(unsigned=True),
         ForeignKey("attribute_template.id"),
-        nullable=False
+        nullable=False,
+        unique=True
     )
     value = Column(
         String(50, collation=_COLLATION),
