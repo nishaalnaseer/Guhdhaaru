@@ -1,5 +1,6 @@
 import aiomysql
 from src.crud.engine import db, host, port, user, password
+from src.crud.models import *
 from src.crud.utils import initialise_db
 
 

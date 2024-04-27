@@ -5,18 +5,20 @@ import requests
 from tests._logger import get_logger
 from tests._test import Test
 
-logger = get_logger("TRACE")
-
 
 class Client:
     def __init__(self):
-        pass
-
-        self._headers = None
+        self._headers: dict | None = None
         host = os.getenv("host")
         port = os.getenv("port")
 
-        self._server = f"http://127.0.0.1:{port}"
+        if host == "0.0.0.0":
+            _host = "127.0.0.1"
+        else:
+            _host = host
+
+        self._server = f"http://{_host}:{port}"
+        self._logger = get_logger(f"Logging {__name__}")
 
     def login(self):
         username = "nishawl.naseer@outlook.com"
@@ -65,6 +67,10 @@ class Client:
             raise Exception("invalid req type")
 
         if response.status_code != _test.res_status_code:
-            logger.error(f"{_test.test_id} returned {response.status_code}")
+            self._logger.error(
+                f"Test ID: {_test.test_id} returned {response.status_code}"
+            )
         else:
-            logger.info(f"{_test.test_id} succeeded")
+            self._logger.info(
+                f"Test ID: {_test.test_id} succeeded"
+            )

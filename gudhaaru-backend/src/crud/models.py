@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    Column, String, DateTime, func, ForeignKey, UniqueConstraint
+    Column, String, DateTime, func, ForeignKey, UniqueConstraint, CheckConstraint
 )
 from sqlalchemy.dialects.mysql.types import BIT, INTEGER
 
@@ -24,13 +24,14 @@ class CategoryRecord(Base):
     )
     parent = Column(
         INTEGER(unsigned=True),
-        ForeignKey("category.id"),
+        # ForeignKey("category.id"),
+        nullable=False
     )
 
     __table_args__ = (
         UniqueConstraint(
-            'parent', "name",
-            name='_category-name'
+            "name", "parent",
+            name="_name-name-unique"
         ),
     )
 
@@ -50,7 +51,8 @@ class TypeRecord(Base):
     )
     parent = Column(
         INTEGER(unsigned=True),
-        ForeignKey("type.id"),
+        # ForeignKey("type.id"),
+        nullable=False
     )
     category = Column(
         INTEGER(unsigned=True),

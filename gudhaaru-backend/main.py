@@ -25,6 +25,7 @@ if __name__ == '__main__':
     else:
         uvicorn.run(
             host=host,
-            app=app,
-            port=port
+            app="main:app",
+            port=port,
+            reload=True
         )

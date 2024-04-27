@@ -4,7 +4,7 @@ from src.crud.engine import async_session
 from src.crud.models import CategoryRecord
 
 
-async def select_category_by_name(name: str, parent: str | None):
+async def select_category_by_name(name: str, parent: int):
     query = select(
         CategoryRecord
     ).where(
@@ -12,6 +12,19 @@ async def select_category_by_name(name: str, parent: str | None):
             CategoryRecord.name == name,
             CategoryRecord.parent == parent
         )
+    )
+    async with async_session() as session:
+        async with session.begin():
+
+            result = await session.execute(query)
+            return result.scalar()
+
+
+async def select_category_by_id(cat_id: int):
+    query = select(
+        CategoryRecord
+    ).where(
+        CategoryRecord.id == cat_id
     )
     async with async_session() as session:
         async with session.begin():
