@@ -16,20 +16,20 @@ class ItemType(BaseModel):
     category: Category | None | int = None
 
 
-class ItemAttributeTemplate(BaseModel):
+class ItemAttribute(BaseModel):
     id: int
     name: str
-    item_id: int
+    type_id: int
 
 
-class Attribute(BaseModel):
-    id: int
-    attribute_template: int
-    value: str
+# class Attribute(BaseModel):
+#     id: int
+#     attribute_template: int
+#     value: str
 
 
 class Item(BaseModel):
     id: int
     name: str
-    item_type: ItemType
-    attributes: List[Tuple[ItemAttributeTemplate, Attribute]]
+    item_type: ItemType | int
+    # attributes: List[Tuple[ItemAttributeTemplate, Attribute]]

@@ -152,6 +152,58 @@ def main():
                 )
             ),
         ),
+        "14": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Socket Head Screws", parent=1,
+                category=Category(
+                    id=5, name="Screws and Bolts", parent=1
+                )
+            ),
+        ),
+        "15": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="1-64", parent=5,
+                category=Category(
+                    id=5, name="Screws and Bolts", parent=1
+                )
+            ),
+        ),
+        "16": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Black - Oxide Alloy Steel", parent=6,
+                category=Category(
+                    id=5, name="Screws and Bolts", parent=1
+                )
+            ),
+        ),
+        "17": Test(
+            req_url_path="/items/item/attributes",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=[
+                ItemAttribute(id=0, name="Lg.", type_id=6),
+                ItemAttribute(id=0, name="Threading", type_id=6),
+                ItemAttribute(id=0, name="Min.Thread Lg.", type_id=6),
+                ItemAttribute(id=0, name="Thread Spacing", type_id=6),
+                ItemAttribute(id=0, name="Dia.", type_id=6),
+                ItemAttribute(id=0, name="Ht.", type_id=6),
+                ItemAttribute(id=0, name="Drive Size", type_id=6),
+                ItemAttribute(id=0, name="Tensile Strength, psi", type_id=6),
+            ],
+        ),
     }
 
     final = items_tests

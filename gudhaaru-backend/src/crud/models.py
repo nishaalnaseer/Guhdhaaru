@@ -61,7 +61,7 @@ class TypeRecord(Base):
     )
     __table_args__ = (
         UniqueConstraint(
-            'parent', "name", "category",
+            'parent', "name",
             name='_category-name-parent'
         ),
     )
@@ -106,14 +106,14 @@ class AttributeRecord(Base):
         String(50, collation=_COLLATION),
         nullable=False,
     )
-    item = Column(
+    item_type = Column(
         INTEGER(unsigned=True),
         ForeignKey("type.id"),
         nullable=False
     )
     __table_args__ = (
         UniqueConstraint(
-            'item', "name",
+            'item_type', "name",
             name='_type-name'
         ),
     )

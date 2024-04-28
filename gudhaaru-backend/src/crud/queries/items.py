@@ -46,3 +46,7 @@ async def select_type_by_id(type_id: int):
         TypeRecord.id == type_id
     )
     return await scalar_selection(query)
+
+
+async def select_attributes(item_type_id: int):
+    query = select()

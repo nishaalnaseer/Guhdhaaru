@@ -47,7 +47,13 @@ class Client:
 
     def req(self, _test: Test):
         if _test.req_body is not None:
-            _body = _test.req_body.model_dump()
+
+            if type(_test.req_body) is list:
+                _body = [
+                    x.model_dump() for x in _test.req_body
+                ]
+            else:
+                _body = _test.req_body.model_dump()
         else:
             _body = None
 
