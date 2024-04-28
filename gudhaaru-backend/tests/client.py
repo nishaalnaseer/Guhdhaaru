@@ -76,6 +76,10 @@ class Client:
             self._logger.error(
                 f"Test ID: {_test.test_id} returned {response.status_code}"
             )
+
+            if response.status_code >= 500 or response.status_code == 204:
+                return
+
             self._logger.error(
                 f"Response: {json.loads(response.content.decode())}"
             )

@@ -1,8 +1,9 @@
 from sqlalchemy import select, and_
+from sqlalchemy.orm import aliased
 
 from src.crud.engine import async_session
-from src.crud.models import CategoryRecord, TypeRecord
-from src.crud.utils import scalar_selection
+from src.crud.models import CategoryRecord, TypeRecord, AttributeRecord
+from src.crud.utils import scalar_selection, scalars_selection
 
 
 async def select_category_by_name(name: str, parent: int):
@@ -49,4 +50,22 @@ async def select_type_by_id(type_id: int):
 
 
 async def select_attributes(item_type_id: int):
-    query = select()
+    query = select(
+        AttributeRecord
+    ).where(
+        AttributeRecord.item_type == item_type_id
+    )
+
+    return await scalars_selection(query)
+
+
+async def select_attribute2(attribute_id):
+    _aliased = aliased(AttributeRecord)
+    query = select(
+        AttributeRecord
+    ).join(
+        _aliased.id == attribute_id
+    ).where(
+        AttributeRecord.item_type == _aliased.item_type
+    )
+    return await scalars_selection(query)

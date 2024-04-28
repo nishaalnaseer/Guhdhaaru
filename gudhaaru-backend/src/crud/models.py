@@ -131,8 +131,7 @@ class AttributeValueRecord(Base):
     attribute = Column(
         INTEGER(unsigned=True),
         ForeignKey("attribute.id"),
-        nullable=False,
-        unique=True
+        nullable=False
     )
     value = Column(
         String(50, collation=_COLLATION),

@@ -22,14 +22,7 @@ class ItemAttribute(BaseModel):
     type_id: int
 
 
-# class Attribute(BaseModel):
-#     id: int
-#     attribute_template: int
-#     value: str
-
-
-class Item(BaseModel):
+class ItemAttributeValue(BaseModel):
     id: int
-    name: str
-    item_type: ItemType | int
-    # attributes: List[Tuple[ItemAttributeTemplate, Attribute]]
+    attribute: int
+    value: str

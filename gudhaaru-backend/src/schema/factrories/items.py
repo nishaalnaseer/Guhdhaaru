@@ -1,4 +1,6 @@
-from src.schema.item import Category, Item, ItemType
+from typing import List
+
+from src.schema.item import Category, Item, ItemType, ItemAttribute
 
 
 class ItemFactory:
@@ -18,3 +20,17 @@ class ItemFactory:
             parent=record.parent,
             category=record.category,
         )
+
+    @staticmethod
+    def create_attribute(record) -> ItemAttribute:
+        return ItemAttribute(
+            id=record.id,
+            name=record.name,
+            type_id=record.item_type,
+        )
+
+    @staticmethod
+    def create_attributes(records) -> List[ItemAttribute]:
+        return [
+            ItemFactory.create_attribute(record) for record in records
+        ]
