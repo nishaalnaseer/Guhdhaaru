@@ -137,6 +137,16 @@ class AttributeValueRecord(Base):
         String(50, collation=_COLLATION),
         nullable=False,
     )
+    item_id = Column(
+        INTEGER(unsigned=True),
+        nullable=False
+    )
+    __table_args__ = (
+        UniqueConstraint(
+            'item_id', "attribute",
+            name='_item_id-attribute'
+        ),
+    )
 
 
 # class EscrowRecord(Base):

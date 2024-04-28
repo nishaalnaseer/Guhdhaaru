@@ -73,3 +73,10 @@ async def scalars_selection(query):
             result = await session.execute(query)
             return result.scalars()
 
+
+async def all_selection(query):
+    async with async_session() as session:
+        async with session.begin():
+
+            result = await session.execute(query)
+            return result.all()

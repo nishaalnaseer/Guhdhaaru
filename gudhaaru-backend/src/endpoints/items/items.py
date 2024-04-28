@@ -1,9 +1,10 @@
+from random import randint
 from typing import List
 
 from fastapi import APIRouter, HTTPException
 
 from src.crud.models import ItemRecord, AttributeRecord, AttributeValueRecord
-from src.crud.queries.items import select_attributes, select_attribute2
+from src.crud.queries.items import select_attributes, select_attribute2, select_item_only_by_id
 from src.crud.utils import add_objects
 from src.endpoints.items.category import router as categories
 from src.endpoints.items.item_types import router as item_types
@@ -58,19 +59,31 @@ async def create_attributes_value(
             422, "Attribute not found"
         )
 
-    type_id = _records[0].type_id
-    for _record in _records:
-        if type_id != _record.type_id:
+    _attribute_ids = {record.id for record in _records}
+
+    for value in values:
+        if value.attribute not in _attribute_ids:
             raise HTTPException(
-                status_code=422,
-                detail="Type ID must be the same for all Values"
+                422,
+                "Attribute ID in request not in attribute id of the item type"
             )
+
+    while True:
+        random_num = randint(1000, 100_000)
+
+        records = await select_item_only_by_id(random_num)
+
+        if records is None:
+            break
 
     records = [
         AttributeValueRecord(
+            item_id=random_num,
             attribute=value.attribute,
             value=value.value,
         ) for value in values
     ]
 
     await add_objects(records)
+
+

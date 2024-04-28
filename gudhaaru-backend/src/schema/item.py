@@ -1,3 +1,4 @@
+import json
 from typing import List, Tuple
 
 from pydantic import BaseModel
@@ -26,3 +27,10 @@ class ItemAttributeValue(BaseModel):
     id: int
     attribute: int
     value: str
+
+
+class Item(BaseModel):
+    id: int
+    attributes: List[
+        List[ItemAttribute | ItemAttributeValue,]
+    ]
