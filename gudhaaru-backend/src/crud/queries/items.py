@@ -91,3 +91,15 @@ async def select_item_by_id(item_id: int):
     )
 
     return await all_selection(query)
+
+
+async def select_root_types():
+    query = select(
+        TypeRecord
+    ).where(TypeRecord.parent == 0)
+    return await scalars_selection(query)
+
+
+async def select_all_categories():
+    query = select(CategoryRecord)
+    return await scalars_selection(query)
