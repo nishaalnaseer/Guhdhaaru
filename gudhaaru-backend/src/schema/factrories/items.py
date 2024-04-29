@@ -1,6 +1,7 @@
 from typing import List
 
-from src.schema.item import Category, Item, ItemType, ItemAttribute
+from src.crud.models import AttributeValueRecord, AttributeRecord
+from src.schema.item import Category, Item, ItemType, ItemAttribute, ItemAttributeValue
 
 
 class ItemFactory:
@@ -34,3 +35,28 @@ class ItemFactory:
         return [
             ItemFactory.create_attribute(record) for record in records
         ]
+
+    @staticmethod
+    def create_item(records) -> Item:
+        # AttributeValueRecord, AttributeRecord
+
+        attributes: List[List[ItemAttribute | ItemAttributeValue,]] = []
+        for record in records:
+            value: AttributeValueRecord = record[0]
+            attribute: AttributeRecord = record[1]
+
+            attributes.append(
+                [
+                    ItemAttributeValue(
+                        id=value.id,
+                        attribute=value.attribute,
+                        value=value.value,
+                    ),
+                    ItemFactory.create_attribute(attribute)
+                ]
+            )
+
+        return Item(
+            id=value.item_id,
+            attributes=attributes
+        )

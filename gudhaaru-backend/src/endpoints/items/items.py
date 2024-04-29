@@ -1,11 +1,11 @@
-from random import randint
 from typing import List
-
 from fastapi import APIRouter, HTTPException
-
-from src.crud.models import ItemRecord, AttributeRecord, AttributeValueRecord
-from src.crud.queries.items import select_attributes, select_attribute2, select_item_only_by_id
-from src.crud.utils import add_objects
+from src.crud.models import AttributeRecord, AttributeValueRecord
+from src.crud.queries.items import (
+    select_attributes, select_attribute2, select_item_by_id
+)
+from src.crud.raw_sql import get_new_item_id
+from src.crud.utils import add_objects, select_query_scalar
 from src.endpoints.items.category import router as categories
 from src.endpoints.items.item_types import router as item_types
 from src.schema.factrories.items import ItemFactory
@@ -50,16 +50,16 @@ async def create_attributes(
 async def create_attributes_value(
         values: List[ItemAttributeValue]
 ):
-    if len(values) != 0:
+    if len(values) == 0:
         raise HTTPException(422, "No attributes")
 
     _records = await select_attribute2(values[0].attribute)
-    if len(_records) != 0:
+
+    _attribute_ids = {record.id for record in _records}
+    if len(_attribute_ids) == 0:
         raise HTTPException(
             422, "Attribute not found"
         )
-
-    _attribute_ids = {record.id for record in _records}
 
     for value in values:
         if value.attribute not in _attribute_ids:
@@ -68,13 +68,8 @@ async def create_attributes_value(
                 "Attribute ID in request not in attribute id of the item type"
             )
 
-    while True:
-        random_num = randint(1000, 100_000)
-
-        records = await select_item_only_by_id(random_num)
-
-        if records is None:
-            break
+    result = await select_query_scalar(get_new_item_id)
+    random_num = int(result)
 
     records = [
         AttributeValueRecord(
@@ -86,4 +81,5 @@ async def create_attributes_value(
 
     await add_objects(records)
 
-
+    inserted = await select_item_by_id(random_num)
+    return ItemFactory.create_item(inserted)

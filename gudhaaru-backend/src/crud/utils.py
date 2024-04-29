@@ -1,3 +1,5 @@
+from sqlalchemy import text
+
 from src.crud.engine import engine, Base
 from fastapi import HTTPException
 from sqlalchemy.exc import IntegrityError, DataError
@@ -80,3 +82,13 @@ async def all_selection(query):
 
             result = await session.execute(query)
             return result.all()
+
+
+async def select_query_scalar(text_query):
+    async with async_session() as session:
+        async with session.begin():
+            try:
+                result = await session.execute(text(text_query))
+                return result.scalar()
+            except (DataError, IntegrityError) as e:
+                raise HTTPException(status_code=422, detail=e.orig.args[1])

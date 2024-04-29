@@ -64,7 +64,7 @@ async def select_attribute2(attribute_id):
     query = select(
         AttributeRecord
     ).join(
-        _aliased.id == attribute_id
+        _aliased, _aliased.id == attribute_id
     ).where(
         AttributeRecord.item_type == _aliased.item_type
     )

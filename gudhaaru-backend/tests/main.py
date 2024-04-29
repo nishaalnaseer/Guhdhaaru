@@ -196,13 +196,357 @@ def main():
             req_body=[
                 ItemAttribute(id=0, name="Lg.", type_id=6),
                 ItemAttribute(id=0, name="Threading", type_id=6),
-                ItemAttribute(id=0, name="Min.Thread Lg.", type_id=6),
                 ItemAttribute(id=0, name="Thread Spacing", type_id=6),
                 ItemAttribute(id=0, name="Dia.", type_id=6),
                 ItemAttribute(id=0, name="Ht.", type_id=6),
                 ItemAttribute(id=0, name="Drive Size", type_id=6),
                 ItemAttribute(id=0, name="Tensile Strength, psi", type_id=6),
             ],
+        ),
+        "18": Test(
+            req_url_path="/items/item/attributes-value",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=[
+                ItemAttributeValue(id=0, value='3', attribute=1),
+                ItemAttributeValue(id=0, value='Fully Threaded', attribute=2),
+                ItemAttributeValue(id=0, value='Coarse', attribute=3),
+                ItemAttributeValue(id=0, value='2.5', attribute=4),
+                ItemAttributeValue(id=0, value='1.4', attribute=5),
+                ItemAttributeValue(id=0, value='1.3', attribute=6),
+                ItemAttributeValue(id=0, value='170,000', attribute=7)
+            ],
+        ),
+        "19": Test(
+            req_url_path="/items/categories/category",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Category(
+                id=0, name="Welding, Brazing & Soldering", parent=1
+            )
+        ),
+        "20": Test(
+            req_url_path="/items/categories/category",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Category(
+                id=0, name="Filtering"
+            )
+        ),
+        "21": Test(
+            req_url_path="/items/categories/category",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Category(
+                id=0, name="Power Transmission"
+            )
+        ),
+        "22": Test(
+            req_url_path="/items/categories/category",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Category(
+                id=0, name="Sealing"
+            )
+        ),
+        "23": Test(
+            req_url_path="/items/categories/category",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Category(
+                id=0, name="Flow & Level Control"
+            )
+        ),
+        "24": Test(
+            req_url_path="/items/categories/category",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Category(
+                id=0, name="Pressure & Temperature Control"
+            )
+        ),
+        "25": Test(
+            req_url_path="/items/categories/category",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Category(
+                id=0, name="Rotary Motion", parent=8
+            )
+        ),
+        "26": Test(
+            req_url_path="/items/categories/category",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Category(
+                id=0, name="Linear Motion", parent=8
+            )
+        ),
+        "27": Test(
+            req_url_path="/items/categories/category",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Category(
+                id=0, name="Hydraulics", parent=8
+            )
+        ),
+        "28": Test(
+            req_url_path="/items/categories/category",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Category(
+                id=0, name="Pneumatics", parent=8
+            )
+        ),
+        "29": Test(
+            req_url_path="/items/categories/category",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Category(
+                id=0, name="Flow", parent=10
+            )
+        ),
+        "30": Test(
+            req_url_path="/items/categories/category",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Category(
+                id=0, name="Liquid Level", parent=10
+            )
+        ),
+        "31": Test(
+            req_url_path="/items/categories/category",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Category(
+                id=0, name="Pressure", parent=10
+            )
+        ),
+        "32": Test(
+            req_url_path="/items/categories/category",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Category(
+                id=0, name="Temperature", parent=10
+            )
+        ),
+        "33": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Actuators",
+                category=Category(
+                    id=13, name="Linear Motion", parent=8
+                )
+            ),
+        ),
+        "34": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Bearings",
+                category=Category(
+                    id=13, name="Linear Motion", parent=8
+                )
+            ),
+        ),
+        "35": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Shafts",
+                category=Category(
+                    id=13, name="Linear Motion", parent=8
+                )
+            ),
+        ),
+        "36": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Pumps",
+                category=Category(
+                    id=14, name="Hydraulics", parent=8
+                )
+            ),
+        ),
+        "37": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Valves",
+                category=Category(
+                    id=14, name="Hydraulics", parent=8
+                )
+            ),
+        ),
+        "38": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Hose",
+                category=Category(
+                    id=14, name="Hydraulics", parent=8
+                )
+            ),
+        ),
+        "39": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Hose Fittings",
+                category=Category(
+                    id=14, name="Hydraulics", parent=8
+                )
+            ),
+        ),
+        "40": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Filters",
+                category=Category(
+                    id=14, name="Hydraulics", parent=8
+                )
+            ),
+        ),
+        "41": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Oil",
+                category=Category(
+                    id=14, name="Hydraulics", parent=8
+                )
+            ),
+        ),
+        "42": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Reservoirs",
+                category=Category(
+                    id=14, name="Hydraulics", parent=8
+                )
+            ),
+        ),
+        "43": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="O-Rings",
+                category=Category(
+                    id=9, name="Sealing", parent=0
+                )
+            ),
+        ),
+        "44": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Compression Packing",
+                category=Category(
+                    id=9, name="Sealing", parent=0
+                )
+            ),
+        ),
+        "45": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Packing Tools",
+                category=Category(
+                    id=9, name="Sealing", parent=0
+                )
+            ),
+        ),
+        "46": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Gaskets",
+                category=Category(
+                    id=9, name="Sealing", parent=0
+                )
+            ),
+        ),
+        "47": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Mechanical Seals",
+                category=Category(
+                    id=9, name="Sealing", parent=0
+                )
+            ),
+        ),
+        "48": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Weather-stripping",
+                category=Category(
+                    id=9, name="Sealing", parent=0
+                )
+            ),
+        ),
+        "49": Test(
+            req_url_path="/items/item-types/item-type",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=ItemType(
+                id=0, name="Sealants",
+                category=Category(
+                    id=9, name="Sealing", parent=0
+                )
+            ),
         ),
     }
 
