@@ -12,10 +12,10 @@ router = APIRouter(prefix="/categories", tags=["Categories"])
 
 @router.post("/category", status_code=201)
 async def create_category(category: Category) -> Category:
-    if category.parent is None:
+    if category.parent_id is None:
         parent = 0
     else:
-        parent = category.parent
+        parent = category.parent_id
 
     record = CategoryRecord(
         name=category.name,
@@ -29,10 +29,10 @@ async def create_category(category: Category) -> Category:
 
 @router.patch("/category", status_code=201)
 async def update_category(category: Category) -> Category:
-    if category.parent is None:
+    if category.parent_id is None:
         parent = 0
     else:
-        parent = category.parent
+        parent = category.parent_id
 
     query = update(
         CategoryRecord

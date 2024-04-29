@@ -7,10 +7,10 @@ from pydantic import BaseModel
 class Category(BaseModel):
     id: int
     name: str
-    parent: int | None = None
-    parent_: BaseModel | None = None
-    children_tree: Dict[int, Any] = {}
-    type_tree: Dict[int, Any] = {}
+    parent_id: int | None = None
+    parent: BaseModel | None = None
+    children_tree: Dict[int, Any] | None = {}
+    type_tree: Dict[int, Any] | None = {}
 
     def add_child(self, child: Any) -> None:
         self.children_tree.update({child.id: child})
@@ -22,9 +22,10 @@ class Category(BaseModel):
 class ItemType(BaseModel):
     id: int
     name: str
-    parent: int | None = None
-    category: Category | None | int = None
-    parent_: BaseModel | None = None
+    category_id: int
+    parent_id: int | None = None
+    category: Category | None = None
+    parent: BaseModel | None = None
     children: Dict[int, BaseModel] | None = {}
 
 

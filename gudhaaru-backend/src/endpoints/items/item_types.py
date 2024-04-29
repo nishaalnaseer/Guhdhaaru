@@ -22,10 +22,10 @@ async def create_item_type(item_type: ItemType) -> ItemType:
             status_code=422, detail="Category must be an object"
         )
 
-    if item_type.parent is None:
+    if item_type.parent_id is None:
         parent = 0
     else:
-        parent = item_type.parent
+        parent = item_type.parent_id
 
     record = TypeRecord(
         name=item_type.name,
@@ -48,10 +48,10 @@ async def update_item_type(item_type: ItemType) -> ItemType:
             status_code=422, detail="Category must be an object"
         )
 
-    if item_type.parent is None:
+    if item_type.parent_id is None:
         parent = 0
     else:
-        parent = item_type.parent
+        parent = item_type.parent_id
 
     query = update(
         TypeRecord

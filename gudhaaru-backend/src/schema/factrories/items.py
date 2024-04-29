@@ -10,7 +10,7 @@ class ItemFactory:
         return Category(
             name=record.name,
             id=record.id,
-            parent=record.parent
+            parent_id=record.parent
         )
 
     @staticmethod
@@ -18,8 +18,8 @@ class ItemFactory:
         return ItemType(
             id=record.id,
             name=record.name,
-            parent=record.parent,
-            category=record.category,
+            parent_id=record.parent,
+            category_id=record.category,
         )
 
     @staticmethod
