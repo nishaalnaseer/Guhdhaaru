@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="slight schema change, tests passing">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/home_page.dart" afterDir="false" />
+    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="slight schema change, tests passing&#10;&#10;so far so good, i can show the home page without any images for types, next up images for root types">
+      <change beforePath="$PROJECT_DIR$/src/schema/factrories/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/factrories/items.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +132,7 @@
       <workItem from="1714395631505" duration="8876000" />
       <workItem from="1714412250980" duration="1595000" />
       <workItem from="1714420453027" duration="1340000" />
-      <workItem from="1714488875731" duration="589000" />
+      <workItem from="1714488875731" duration="1060000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />
@@ -224,7 +222,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714420497287</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="slight schema change, tests passing&#10;&#10;so far so good, i can show the home page without any images for types, next up images for root types">
+      <option name="closed" value="true" />
+      <created>1714489878079</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1714489878079</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,7 +248,8 @@
     <MESSAGE value="Finished ItemAttributeValue, data entry" />
     <MESSAGE value="get home page" />
     <MESSAGE value="slight schema change, tests passing" />
-    <option name="LAST_COMMIT_MESSAGE" value="slight schema change, tests passing" />
+    <MESSAGE value="slight schema change, tests passing&#10;&#10;so far so good, i can show the home page without any images for types, next up images for root types" />
+    <option name="LAST_COMMIT_MESSAGE" value="slight schema change, tests passing&#10;&#10;so far so good, i can show the home page without any images for types, next up images for root types" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -256,7 +263,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/gudhaaru_backend$run_tests.coverage" NAME="run_tests Coverage Results" MODIFIED="1714489326486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
+    <SUITE FILE_PATH="coverage/gudhaaru_backend$run_tests.coverage" NAME="run_tests Coverage Results" MODIFIED="1714489679245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
     <SUITE FILE_PATH="coverage/gudhaaru_backend$uvicorn.coverage" NAME="uvicorn Coverage Results" MODIFIED="1714413699627" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
     <SUITE FILE_PATH="coverage/gudhaaru_backend$item.coverage" NAME="item Coverage Results" MODIFIED="1714325743795" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/schema" />
   </component>

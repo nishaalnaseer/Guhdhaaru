@@ -40,6 +40,9 @@ class ItemFactory:
     def create_item(records) -> Item:
         # AttributeValueRecord, AttributeRecord
 
+        if len(records) == 0:
+            raise Exception("No records")
+
         attributes: List[List[ItemAttribute | ItemAttributeValue,]] = []
         for record in records:
             value: AttributeValueRecord = record[0]
