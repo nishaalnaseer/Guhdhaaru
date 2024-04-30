@@ -19,8 +19,8 @@ app.include_router(items)
 @app.get("/home-one")
 async def home1():
     """
-    Not needed really as the data manupulation will be done in the client but will be kept
-    here as a reference
+    Not needed really as the data manupulation will be done in
+    the client but will be kept here as a reference
     """
     type_records, category_records = await asyncio.gather(
         select_root_types(), select_all_categories()
@@ -68,3 +68,6 @@ async def home() -> HomePage:
         types=types,
         categories=categories
     )
+
+
+# talk about load times

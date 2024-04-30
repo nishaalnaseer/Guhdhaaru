@@ -30,7 +30,7 @@ class App extends StatelessWidget {
 
   Future<void> getSample() async {}
 
-  Future<Map<int, Category>> getHomePage() async {
+  Future<List<Map<int, Category>>> getHomePage() async {
     var response = await get(Uri.parse("${Settings.server}/home"));
     var content = jsonDecode(response.body);
     var categoriesContent = content["categories"] as List<dynamic>;
@@ -67,7 +67,7 @@ class App extends StatelessWidget {
       category!.typesTree[type.id] = type;
     }
 
-    return finalCategories;
+    return [categories, finalCategories];
   }
 
   @override
@@ -90,16 +90,50 @@ class App extends StatelessWidget {
                     return Text('Error: ${snapshot.error}');
                   } else {
 
-                    final Map<int, Category>? content = snapshot.data;
+                    var content = snapshot.data;
 
                     if(content == null) {
                       return const Blank();
                     }
 
-                    return HomePage(categories: content,);
+                    Map<int, Category> ordered = content[1];
+                    Map<int, Category> unOrdered = content[0];
+
+                    return HomePage(
+                      orderedCategories: ordered, categories: unOrdered,
+                    );
                   }
                 },
               )
+            );
+          case "/types/type":
+            return MaterialPageRoute(
+                builder: (context) => FutureBuilder(
+                  future: getHomePage(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      // Return a loading indicator while the data is being fetched
+                      return loading();
+                    } else if (snapshot.hasError) {
+                      // Handle error case
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+
+                      var content = snapshot.data;
+
+                      if(content == null) {
+                        return const Blank();
+                      }
+
+                      Map<int, Category> ordered = content[1];
+                      Map<int, Category> unOrdered = content[0];
+
+                      return HomePage(
+                        orderedCategories: ordered, categories: unOrdered,
+                      );
+                    }
+                  },
+                )
             );
         }
         return MaterialPageRoute(

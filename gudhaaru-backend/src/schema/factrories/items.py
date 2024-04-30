@@ -1,7 +1,9 @@
 from typing import List
 
 from src.crud.models import AttributeValueRecord, AttributeRecord
-from src.schema.item import Category, Item, ItemType, ItemAttribute, ItemAttributeValue
+from src.schema.item import (
+    Category, Item, ItemType, ItemAttribute, ItemAttributeValue
+)
 
 
 class ItemFactory:

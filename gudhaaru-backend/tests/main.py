@@ -315,7 +315,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=Category(
-                id=0, name="Temperature", parent_id=10
+                id=0, name="Temperature", parent_id=11
             )
         ),
         "33": Test(
