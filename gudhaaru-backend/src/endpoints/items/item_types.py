@@ -17,11 +17,6 @@ router = APIRouter(prefix="/item-types", tags=["ItemTypes"])
 
 @router.post("/item-type", status_code=201)
 async def create_item_type(item_type: ItemType) -> ItemType:
-    if item_type.category is None or type(item_type.category) is int:
-        raise HTTPException(
-            status_code=422, detail="Category must be an object"
-        )
-
     if item_type.parent_id is None:
         parent = 0
     else:
@@ -30,12 +25,12 @@ async def create_item_type(item_type: ItemType) -> ItemType:
     record = TypeRecord(
         name=item_type.name,
         parent=parent,
-        category=item_type.category.id  # todo get category id from db and validate
+        category=item_type.category_id  # todo get category id from db and validate
     )
 
     await add_object(record)
     inserted = await select_last_inserted_type(
-        item_type.name, parent, item_type.category.id
+        item_type.name, parent, item_type.category_id
     )
 
     return ItemFactory.create_half_item_type(inserted)
@@ -43,11 +38,6 @@ async def create_item_type(item_type: ItemType) -> ItemType:
 
 @router.patch("/item-type", status_code=201)
 async def update_item_type(item_type: ItemType) -> ItemType:
-    if item_type.category is None or type(item_type.category) is int:
-        raise HTTPException(
-            status_code=422, detail="Category must be an object"
-        )
-
     if item_type.parent_id is None:
         parent = 0
     else:
@@ -58,7 +48,7 @@ async def update_item_type(item_type: ItemType) -> ItemType:
     ).values(
         name=item_type.name,
         parent=parent,
-        category=item_type.category.id  # todo get category id from db and validate
+        category=item_type.category_id  # todo get category id from db and validate
     ).where(
         TypeRecord.id == item_type.id
     )

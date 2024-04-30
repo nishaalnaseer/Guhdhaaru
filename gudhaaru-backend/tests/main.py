@@ -48,7 +48,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=Category(
-                id=0, name="Adhesives & Tape", parent=1
+                id=0, name="Adhesives & Tape", parent_id=1
             ),
         ),
         "5": Test(
@@ -68,7 +68,7 @@ def main():
             req_type="patch",
             req_params=None,
             req_body=Category(
-                id=5, name="Fasteners", parent=1
+                id=5, name="Fasteners", parent_id=1
             ),
         ),
         "7": Test(
@@ -77,7 +77,7 @@ def main():
             req_type="patch",
             req_params=None,
             req_body=Category(
-                id=5, name="Adhesives & Tape", parent=1
+                id=5, name="Adhesives & Tape", parent_id=1
             ),
         ),
         "8": Test(
@@ -86,10 +86,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Screws and Bolts",
-                category=Category(
-                    id=5, name="Fasteners", parent=0
-                )
+                id=0, name="Screws and Bolts", category_id=5,
             ),
         ),
         "9": Test(
@@ -98,10 +95,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Threaded Rods & Studs",
-                category=Category(
-                    id=5, name="Fasteners", parent=0
-                )
+                id=0, name="Threaded Rods & Studs", category_id=5,
             ),
         ),
         "10": Test(
@@ -110,10 +104,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Adhesives",
-                category=Category(
-                    id=1, name="Adhesives & Tape", parent=0
-                )
+                id=0, name="Adhesives", category_id=4,
             ),
         ),
         "11": Test(
@@ -122,10 +113,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Tapes",
-                category=Category(
-                    id=1, name="Adhesives & Tape", parent=0
-                )
+                id=0, name="Tapes", category_id=1,
             ),
         ),
         "12": Test(
@@ -134,10 +122,7 @@ def main():
             req_type="patch",
             req_params=None,
             req_body=ItemType(
-                id=4, name="Tape",
-                category=Category(
-                    id=1, name="Adhesives & Tape", parent=0
-                )
+                id=4, name="Tape", category_id=4,
             ),
         ),
         "13": Test(
@@ -146,10 +131,7 @@ def main():
             req_type="patch",
             req_params=None,
             req_body=ItemType(
-                id=4, name="Tape",
-                category=Category(
-                    id=112312, name="Adhesives & Tape", parent=0
-                )
+                id=4, name="Tape", category_id=112312,
             ),
         ),
         "14": Test(
@@ -158,10 +140,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Socket Head Screws", parent=1,
-                category=Category(
-                    id=5, name="Screws and Bolts", parent=1
-                )
+                id=0, name="Socket Head Screws", parent_id=1, category_id=5,
             ),
         ),
         "15": Test(
@@ -170,10 +149,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="1-64", parent=5,
-                category=Category(
-                    id=5, name="Screws and Bolts", parent=1
-                )
+                id=0, name="1-64", parent_id=5, category_id=5,
             ),
         ),
         "16": Test(
@@ -182,10 +158,8 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Black - Oxide Alloy Steel", parent=6,
-                category=Category(
-                    id=5, name="Screws and Bolts", parent=1
-                )
+                id=0, name="Black - Oxide Alloy Steel", parent_id=6,
+                category_id=5,
             ),
         ),
         "17": Test(
@@ -224,7 +198,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=Category(
-                id=0, name="Welding, Brazing & Soldering", parent=1
+                id=0, name="Welding, Brazing & Soldering", parent_id=1
             )
         ),
         "20": Test(
@@ -278,7 +252,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=Category(
-                id=0, name="Rotary Motion", parent=8
+                id=0, name="Rotary Motion", parent_id=8
             )
         ),
         "26": Test(
@@ -287,7 +261,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=Category(
-                id=0, name="Linear Motion", parent=8
+                id=0, name="Linear Motion", parent_id=8
             )
         ),
         "27": Test(
@@ -296,7 +270,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=Category(
-                id=0, name="Hydraulics", parent=8
+                id=0, name="Hydraulics", parent_id=8
             )
         ),
         "28": Test(
@@ -305,7 +279,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=Category(
-                id=0, name="Pneumatics", parent=8
+                id=0, name="Pneumatics", parent_id=8
             )
         ),
         "29": Test(
@@ -314,7 +288,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=Category(
-                id=0, name="Flow", parent=10
+                id=0, name="Flow", parent_id=10
             )
         ),
         "30": Test(
@@ -323,7 +297,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=Category(
-                id=0, name="Liquid Level", parent=10
+                id=0, name="Liquid Level", parent_id=10
             )
         ),
         "31": Test(
@@ -332,7 +306,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=Category(
-                id=0, name="Pressure", parent=10
+                id=0, name="Pressure", parent_id=10
             )
         ),
         "32": Test(
@@ -341,7 +315,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=Category(
-                id=0, name="Temperature", parent=10
+                id=0, name="Temperature", parent_id=10
             )
         ),
         "33": Test(
@@ -350,10 +324,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Actuators",
-                category=Category(
-                    id=13, name="Linear Motion", parent=8
-                )
+                id=0, name="Actuators",  category_id=13,
             ),
         ),
         "34": Test(
@@ -362,10 +333,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Bearings",
-                category=Category(
-                    id=13, name="Linear Motion", parent=8
-                )
+                id=0, name="Bearings",  category_id=13,
             ),
         ),
         "35": Test(
@@ -374,10 +342,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Shafts",
-                category=Category(
-                    id=13, name="Linear Motion", parent=8
-                )
+                id=0, name="Shafts", category_id=13,
             ),
         ),
         "36": Test(
@@ -386,10 +351,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Pumps",
-                category=Category(
-                    id=14, name="Hydraulics", parent=8
-                )
+                id=0, name="Pumps", category_id=14,
             ),
         ),
         "37": Test(
@@ -398,10 +360,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Valves",
-                category=Category(
-                    id=14, name="Hydraulics", parent=8
-                )
+                id=0, name="Valves", category_id=14,
             ),
         ),
         "38": Test(
@@ -410,10 +369,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Hose",
-                category=Category(
-                    id=14, name="Hydraulics", parent=8
-                )
+                id=0, name="Hose", category_id=14,
             ),
         ),
         "39": Test(
@@ -422,10 +378,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Hose Fittings",
-                category=Category(
-                    id=14, name="Hydraulics", parent=8
-                )
+                id=0, name="Hose Fittings", category_id=14,
             ),
         ),
         "40": Test(
@@ -434,10 +387,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Filters",
-                category=Category(
-                    id=14, name="Hydraulics", parent=8
-                )
+                id=0, name="Filters", category_id=14,
             ),
         ),
         "41": Test(
@@ -446,10 +396,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Oil",
-                category=Category(
-                    id=14, name="Hydraulics", parent=8
-                )
+                id=0, name="Oil", category_id=14,
             ),
         ),
         "42": Test(
@@ -458,10 +405,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Reservoirs",
-                category=Category(
-                    id=14, name="Hydraulics", parent=8
-                )
+                id=0, name="Reservoirs", category_id=14,
             ),
         ),
         "43": Test(
@@ -470,10 +414,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="O-Rings",
-                category=Category(
-                    id=9, name="Sealing", parent=0
-                )
+                id=0, name="O-Rings", category_id=9,
             ),
         ),
         "44": Test(
@@ -482,10 +423,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Compression Packing",
-                category=Category(
-                    id=9, name="Sealing", parent=0
-                )
+                id=0, name="Compression Packing", category_id=9,
             ),
         ),
         "45": Test(
@@ -494,10 +432,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Packing Tools",
-                category=Category(
-                    id=9, name="Sealing", parent=0
-                )
+                id=0, name="Packing Tools", category_id=9,
             ),
         ),
         "46": Test(
@@ -506,10 +441,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Gaskets",
-                category=Category(
-                    id=9, name="Sealing", parent=0
-                )
+                id=0, name="Gaskets", category_id=9,
             ),
         ),
         "47": Test(
@@ -518,10 +450,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Mechanical Seals",
-                category=Category(
-                    id=9, name="Sealing", parent=0
-                )
+                id=0, name="Mechanical Seals", category_id=9,
             ),
         ),
         "48": Test(
@@ -530,10 +459,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Weather-stripping",
-                category=Category(
-                    id=9, name="Sealing", parent=0
-                )
+                id=0, name="Weather-stripping", category_id=9,
             ),
         ),
         "49": Test(
@@ -542,10 +468,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Sealants",
-                category=Category(
-                    id=9, name="Sealing", parent=0
-                )
+                id=0, name="Sealants", category_id=9,
             ),
         ),
     }
