@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="slight schema change, tests passing&#10;&#10;so far so good, i can show the home page without any images for types, next up images for root types">
-      <change beforePath="$PROJECT_DIR$/src/schema/factrories/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/factrories/items.py" afterDir="false" />
-    </list>
+    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="throws an error for a certain edgecase" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -132,7 +130,7 @@
       <workItem from="1714395631505" duration="8876000" />
       <workItem from="1714412250980" duration="1595000" />
       <workItem from="1714420453027" duration="1340000" />
-      <workItem from="1714488875731" duration="1060000" />
+      <workItem from="1714488875731" duration="1134000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />
@@ -230,7 +228,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714489878079</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="throws an error for a certain edgecase">
+      <option name="closed" value="true" />
+      <created>1714500330612</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1714500330612</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -249,7 +255,8 @@
     <MESSAGE value="get home page" />
     <MESSAGE value="slight schema change, tests passing" />
     <MESSAGE value="slight schema change, tests passing&#10;&#10;so far so good, i can show the home page without any images for types, next up images for root types" />
-    <option name="LAST_COMMIT_MESSAGE" value="slight schema change, tests passing&#10;&#10;so far so good, i can show the home page without any images for types, next up images for root types" />
+    <MESSAGE value="throws an error for a certain edgecase" />
+    <option name="LAST_COMMIT_MESSAGE" value="throws an error for a certain edgecase" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
