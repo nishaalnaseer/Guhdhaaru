@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:guhdaaru_frontend/views/utils/my_scaffold.dart';
-
 import '../structs/items.dart';
 
 class HomePage extends StatefulWidget {
   final Map<int, Category> categories;
-  const HomePage({super.key, required this.categories});
+  const HomePage({Key? key, required this.categories}) : super(key: key);
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -25,66 +25,51 @@ class _HomePageState extends State<HomePage> {
   Column getTypes({required Map<int, ItemType> types}) {
     List<Row> typeRows = [];
 
-    double windowWidth =  MediaQuery.sizeOf(context).width;
+    // Fixed the MediaQuery call
+    double windowWidth = MediaQuery.of(context).size.width;
     int columns = (windowWidth / 100).ceil();
     int rows = (types.length / columns).ceil();
     int count = 0;
     List<Widget> row = [];
-    // typeRows.add(Row(children: row,));
+    typeRows.add(Row(children: row));
 
     types.forEach((key, value) {
       row.add(
-          Container(
-            alignment: Alignment.topLeft,
-            child: IconButton(
-              onPressed: () {  },
-              icon: Text(value.name),
-            ),
-          )
+        Container(
+          alignment: Alignment.topLeft,
+          child: IconButton(
+            onPressed: () {},
+            icon: Text(value.name),
+          ),
+        ),
       );
 
-      if(count % columns == 0) {
-        typeRows.add(Row(children: row,));
+      if (count % columns+1 == 0) {
         row = [];
+        typeRows.add(Row(children: row));
       }
 
       count++;
     });
 
-    return Column(children: typeRows,);
+    return Column(children: typeRows);
   }
 
-  List<Container> getCategories(
-      {required bool rootNode, required Map<int, Category> categories}
-      ) {
-
-    List<Container> containers = [];
+  List<Widget> getCategories(
+      {required bool rootNode, required Map<int, Category> categories}) {
+    List<Widget> containers = [];
 
     categories.forEach((key, value) {
-
-      late List<Container> childrenTree;
-      if(value.childrenTree.isNotEmpty) {
-        childrenTree = getCategories(
-            rootNode: false, categories: value.childrenTree
-        );
-      } else {
-        childrenTree = [];
-      }
-
-      // List<Widget> types = [];
-      // value.typesTree.forEach((key, value) {
-      //   types.add(
-      //     ElevatedButton(
-      //         onPressed: () {},
-      //         child: Text(value.name)
-      //     )
-      //   );
-      // });
+      List<Widget> childrenTree = value.childrenTree.isNotEmpty
+          ? getCategories(
+          rootNode: false,
+          categories: value.childrenTree
+      ) : [];
 
       List<Widget> children = [
         Text(
-            value.name,
-            style: rootNode ? bigStyle : smallStyle
+          value.name,
+          style: rootNode ? bigStyle : smallStyle,
         ),
       ];
       children.addAll(childrenTree);
@@ -92,9 +77,23 @@ class _HomePageState extends State<HomePage> {
 
       var container = Container(
         padding: rootNode ? const EdgeInsets.all(30) : const EdgeInsets.all(10),
-        alignment: rootNode ? Alignment.center : Alignment.bottomLeft,
+        alignment: Alignment.topLeft, // Ensure all containers align to the left
+
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
+          color: Colors.white, // Set container background color
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5), // Soften the border
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start, // Align children to the start
           children: children,
         ),
       );
