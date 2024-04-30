@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="slight schema change, tests passing">
-      <change beforePath="$PROJECT_DIR$/src/endpoints/items/category.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/items/category.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/endpoints/items/item_types.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/items/item_types.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/schema/factrories/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/factrories/items.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/schema/item.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/item.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +131,7 @@
       <workItem from="1714390776706" duration="1093000" />
       <workItem from="1714395631505" duration="8876000" />
       <workItem from="1714412250980" duration="1595000" />
-      <workItem from="1714420453027" duration="658000" />
+      <workItem from="1714420453027" duration="1340000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />

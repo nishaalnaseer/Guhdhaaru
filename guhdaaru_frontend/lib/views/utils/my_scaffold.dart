@@ -70,7 +70,12 @@ class _MyScaffoldState extends State<MyScaffold> {
         ),
 
         title: const Text(
-          "MNDF Insurance",
+          "Guhdhaaru",
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            fontFamily: "Roboto",
+          ),
         ),
       ),
       body: widget.body
