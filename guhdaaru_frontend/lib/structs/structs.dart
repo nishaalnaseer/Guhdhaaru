@@ -15,4 +15,8 @@ class DrawerStruct {
 
 class Settings {
   static String server = "http://127.0.0.1:6969";
+  static Map<String, String> headers = {
+    "accept": "application/json",
+    "Content-Type": "application/json"
+  };
 }

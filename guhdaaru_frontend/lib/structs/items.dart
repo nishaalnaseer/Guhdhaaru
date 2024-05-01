@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class Category {
   final int id;
   final String name;
@@ -64,5 +62,4 @@ class ItemType {
       "category_id": categoryId,
     };
   }
-
 }

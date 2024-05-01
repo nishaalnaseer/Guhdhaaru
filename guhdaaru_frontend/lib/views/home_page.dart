@@ -30,11 +30,6 @@ class _HomePageState extends State<HomePage> {
     fontFamily: "Roboto",
   );
 
-  var headers = {
-    "accept": "application/json",
-    "Content-Type": "application/json"
-  };
-
   void afterAddCategoryRequest(Response response, int parent) {
     if(response.statusCode == 201) {
 
@@ -85,7 +80,7 @@ class _HomePageState extends State<HomePage> {
     post(
       Uri.parse("${Settings.server}/items/categories/category"),
       body: content,
-      headers: headers
+      headers: Settings.headers
     ).then((value) => afterAddCategoryRequest(value, parent));
   }
 
@@ -185,7 +180,7 @@ class _HomePageState extends State<HomePage> {
     post(
         Uri.parse("${Settings.server}/items/item-types/item-type"),
         body: content,
-        headers: headers
+        headers: Settings.headers
     ).then((value) => afterAddTypeRequest(value, categoryID));
   }
 
@@ -206,10 +201,8 @@ class _HomePageState extends State<HomePage> {
           alignment: Alignment.topLeft,
           child: IconButton(
             onPressed: () {
-              // Navigator.pushNamed(
-              //     context, "/details?type_id=${value.id}"
-              // );
-              context.go("/items/item?type_id=${value.id}");
+              // Navigator.pop(context);
+              context.go("/items/item-type/${value.id}/");
             },
             icon: Text(value.name),
           ),

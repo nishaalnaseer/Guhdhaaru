@@ -6,7 +6,7 @@ from sqlalchemy import update
 from src.crud.models import CategoryRecord, TypeRecord, AttributeRecord
 from src.crud.queries.items import (
     select_category_by_name, select_category_by_id, select_last_inserted_type,
-    select_type_by_id
+    select_type_by_id, select_type_data
 )
 from src.crud.utils import add_object, execute_safely, add_objects
 from src.schema.factrories.items import ItemFactory
@@ -56,3 +56,12 @@ async def update_item_type(item_type: ItemType) -> ItemType:
     updated = await select_type_by_id(item_type.id)
 
     return ItemFactory.create_half_item_type(updated)
+
+
+@router.get("/item-type")
+async def get_item_type(type_id: int):
+    records = await select_type_data(type_id)
+    print("hello")
+    return [
+        ItemFactory.create_half_item_type(record) for record in records
+    ]

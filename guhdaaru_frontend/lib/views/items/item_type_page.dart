@@ -1,18 +1,168 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:guhdaaru_frontend/views/utils/my_scaffold.dart';
+import 'package:http/http.dart';
 
 import '../../structs/items.dart';
+import '../../structs/structs.dart';
 
 class ItemTypePage extends StatefulWidget {
-  final ItemType item;
-  const ItemTypePage({super.key, required this.item});
+  final ItemType itemType;
+  const ItemTypePage({super.key, required this.itemType});
 
   @override
   State<ItemTypePage> createState() => _ItemTypePageState();
 }
 
 class _ItemTypePageState extends State<ItemTypePage> {
-  late ItemType item = widget.item;
+  late ItemType itemType = widget.itemType;
+
+  void afterAddTypeRequest(Response response) {
+    if(response.statusCode == 201) {
+
+      ItemType type = ItemType.fromJson(
+          jsonDecode(response.body)
+      );
+
+      itemType.childrenTree[type.id] = type;
+      Navigator.of(context).pop();
+
+      setState(() {
+
+      });
+
+    } else {
+      showDialog(
+        context: context,
+        barrierDismissible: false, // Prevent dismissing dialog by tapping outside
+        builder: (BuildContext context) {
+          TextEditingController controller = TextEditingController();
+
+          return AlertDialog(
+            title: Text('Error ${response.statusCode}'),
+
+            content: Text(response.body),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text('Close'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  void beforeAddTypeRequest(String content) {
+    post(
+        Uri.parse("${Settings.server}/items/item-types/item-type"),
+        body: content,
+        headers: Settings.headers
+    ).then((value) => afterAddTypeRequest(value));
+  }
+
+  void addItemType() {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Prevent dismissing dialog by tapping outside
+      builder: (BuildContext context) {
+        TextEditingController controller = TextEditingController();
+        FocusNode focusNode = FocusNode(); // Create a FocusNode
+
+        // Schedule the focus node to request focus after the build has completed
+        WidgetsBinding.instance.addPostFrameCallback(
+                (_) => focusNode.requestFocus()
+        );
+
+        return AlertDialog(
+          title: const Text('Create Type'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                TextField(
+                  controller: controller,
+                  focusNode: focusNode, // Assign the focus node to the TextField
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                var type = ItemType(
+                  id: 0, name: controller.text,
+                  categoryId: itemType.categoryId,
+                  parentId: itemType.id
+                );
+
+                var content = jsonEncode(type.toJson());
+
+                beforeAddTypeRequest(content);
+              },
+              child: const Text('Add'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void forward(ItemType child) {
+    var url = "/items/item-type/${child.id}/";
+    // context.replace("/dead-link");
+    context.pushReplacement(url);
+    // context.go(url);
+  }
+
+  // void init() async {
+  //   var response = await get(
+  //       Uri.parse(
+  //           "${Settings.server}/items/item-types/"
+  //               "item-type?type_id=${widget.typeID}"
+  //       )
+  //   );
+  //   Map<int, ItemType> childrenTree = {};
+  //
+  //   var content = jsonDecode(response.body) as List<dynamic>;
+  //
+  //   String itemIDRaw = response.request!.url.query.split("=")[1];
+  //   int itemID = int.parse(itemIDRaw);
+  //   ItemType? itemType;
+  //
+  //   for(var x in content){
+  //     ItemType type = ItemType.fromJson(x);
+  //
+  //     if(type.id == itemID) {
+  //       itemType = type;
+  //     } else {
+  //       childrenTree[type.id] = type;
+  //     }
+  //   }
+  //   itemType!.childrenTree = childrenTree;
+  //
+  //   this.itemType = itemType;
+  //   setState(() {
+  //
+  //   });
+  // }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // init();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,25 +170,53 @@ class _ItemTypePageState extends State<ItemTypePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          GridView.count(
-            crossAxisCount: 15, // Number of columns
-            crossAxisSpacing: 10.0, // Spacing between columns
-            mainAxisSpacing: 10.0, // Spacing between rows
-            padding: EdgeInsets.all(10.0), // Padding around the GridView
-            children: List.generate(10, (index) {
-              // Generate 10 items
-              return GridTile(
-                child: Container(
-                  color: Colors.blueGrey[100],
-                  child: Center(
-                    child: Text(
-                      'Item $index',
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                  ),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Center(
+              child: Text(
+                itemType.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500
                 ),
-              );
-            }),
+              ),
+            ),
+          ),
+
+          Align(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              onPressed: () {
+                // context.go("/");
+                addItemType();
+              },
+              padding: const EdgeInsets.all(10),
+              icon: const Icon(
+                Icons.add,
+              ),
+              tooltip: 'Add Item Type', // Set the hint text
+            ),
+          ),
+
+          Expanded(
+            child: SizedBox(
+              child: GridView.count(
+                crossAxisCount: 15, // Number of columns
+                crossAxisSpacing: 10.0, // Spacing between columns
+                mainAxisSpacing: 10.0, // Spacing between rows
+                padding: const EdgeInsets.all(10.0), // Padding around the GridView
+                children: itemType.childrenTree.entries.map((entry) {
+                  var child = entry.value;
+                  return GridTile(
+                    child: IconButton(
+                      onPressed: () {
+                        forward(child);
+                      },
+                      icon: Text(child.name),
+                    ),
+                  );
+                }).toList(),
+              )
+            )
           )
         ],
       ),
