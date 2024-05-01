@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="throws an error for a certain edgecase">
+      <change afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/utils/error_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/schema/factrories/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/factrories/items.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/crud/queries/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/crud/queries/items.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/endpoints/items/item_types.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/items/item_types.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/items.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/items.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/home_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/item_type_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/items/item_type_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,6 +141,8 @@
       <workItem from="1714488875731" duration="1134000" />
       <workItem from="1714503194094" duration="62000" />
       <workItem from="1714503664388" duration="3334000" />
+      <workItem from="1714566664158" duration="624000" />
+      <workItem from="1714567391517" duration="38000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />

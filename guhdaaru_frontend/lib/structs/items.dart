@@ -38,7 +38,7 @@ class ItemType {
   final int parentId;
   final int categoryId;
   Category? category;
-  final Map<int, ItemType> childrenTree = {};
+  late final Map<int, ItemType> childrenTree;
 
   ItemType({
     required this.id,

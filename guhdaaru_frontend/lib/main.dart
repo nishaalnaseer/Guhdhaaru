@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:guhdaaru_frontend/structs/items.dart';
 import 'package:guhdaaru_frontend/structs/structs.dart';
 import 'package:guhdaaru_frontend/views/home_page.dart';
+import 'package:guhdaaru_frontend/views/items/item_type_page.dart';
 import 'package:guhdaaru_frontend/views/utils/blank.dart';
+import 'package:guhdaaru_frontend/views/utils/error_page.dart';
 import 'package:guhdaaru_frontend/views/utils/loading_page.dart';
 import 'package:http/http.dart';
 import 'package:go_router/go_router.dart';
@@ -79,9 +81,37 @@ class App extends StatelessWidget {
     );
   }
 
-  // HomePage order() {
-  //   getHomePage().then((value) => );
-  // }
+  ItemTypePage createItemTypePage(Response response) {
+
+    Map<int, ItemType> childrenTree = {};
+
+    var content = jsonDecode(response.body) as List<dynamic>;
+
+    String itemIDRaw = response.request!.url.query.split("=")[1];
+    int itemID = int.parse(itemIDRaw);
+    ItemType? itemType;
+
+    for(var x in content){
+      ItemType type = ItemType.fromJson(x);
+
+      if(type.id == itemID) {
+        itemType = type;
+      } else {
+        childrenTree[type.id] = type;
+      }
+    }
+    itemType!.childrenTree = childrenTree;
+
+    return ItemTypePage(item: itemType);
+  }
+
+  Future<Response> getItemTypePage(int typeID) async {
+    return await get(
+      Uri.parse(
+        "${Settings.server}/items/item-types/item-type?type_id=$typeID"
+      )
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,21 +135,37 @@ class App extends StatelessWidget {
                   return const SizedBox();
                 },
               ),
+
               GoRoute(
-                path: '/items/item',
+                path: 'items/item',
                 builder: (BuildContext context, GoRouterState state) {
-                  String? type = state.uri.queryParameters["type_id"];
+                  String? typeRaw = state.uri.queryParameters["type_id"];
 
                   bool showError;
-                  if(type ==  null) {
+                  int typeID;
+                  if(typeRaw ==  null) {
                     showError = true;
                   } else {
-
-
-
+                    try {
+                      typeID = int.parse(typeRaw);
+                      showError = false;
+                    } on FormatException {
+                      showError = true;
+                    }
                   }
 
-                  return const SizedBox();
+                  if(showError) {
+                    return const ErrorPage(
+                      error: "Invalid item type ID",
+                      backRoute: "/"
+                    );
+                  }
+
+                  typeID = int.parse(typeRaw!);
+                  return LoadingPage(
+                    future: getItemTypePage(typeID),
+                    decodeFunction: createItemTypePage
+                  );
                 },
               ),
             ],
