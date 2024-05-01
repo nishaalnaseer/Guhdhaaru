@@ -5,7 +5,9 @@ import 'package:guhdaaru_frontend/structs/items.dart';
 import 'package:guhdaaru_frontend/structs/structs.dart';
 import 'package:guhdaaru_frontend/views/home_page.dart';
 import 'package:guhdaaru_frontend/views/utils/blank.dart';
+import 'package:guhdaaru_frontend/views/utils/loading_page.dart';
 import 'package:http/http.dart';
+import 'package:go_router/go_router.dart';
 
 void main(List<String> args) {
   runApp(const App());
@@ -30,8 +32,12 @@ class App extends StatelessWidget {
 
   Future<void> getSample() async {}
 
-  Future<List<Map<int, Category>>> getHomePage() async {
-    var response = await get(Uri.parse("${Settings.server}/home"));
+  Future<Response> getHomePageData() async {
+    return await get(Uri.parse("${Settings.server}/home"));
+  }
+
+  HomePage createHomePage(Response response) {
+
     var content = jsonDecode(response.body);
     var categoriesContent = content["categories"] as List<dynamic>;
     var typesContent = content["types"] as List<dynamic>;
@@ -67,90 +73,59 @@ class App extends StatelessWidget {
       category!.typesTree[type.id] = type;
     }
 
-    return [categories, finalCategories];
+    return HomePage(
+        orderedCategories: finalCategories,
+        categories: categories
+    );
   }
+
+  // HomePage order() {
+  //   getHomePage().then((value) => );
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Guhdhaaru',
+    return MaterialApp.router(
+      title: "Guhdhaaru",
 
-      onGenerateRoute: (settings) {
-        switch (settings.name) {
-          case "/":
-            return MaterialPageRoute(
-              builder: (context) => FutureBuilder(
-                future: getHomePage(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    // Return a loading indicator while the data is being fetched
-                    return loading();
-                  } else if (snapshot.hasError) {
-                    // Handle error case
-                    return Text('Error: ${snapshot.error}');
+      routerConfig: GoRouter(
+        routes: <RouteBase>[
+          GoRoute(
+            path: '/',
+            builder: (BuildContext context, GoRouterState state) {
+              return LoadingPage(
+                decodeFunction: createHomePage,
+                future: getHomePageData(),
+              );
+            },
+            routes: <RouteBase>[
+              GoRoute(
+                path: 'details',
+                builder: (BuildContext context, GoRouterState state) {
+                  return const SizedBox();
+                },
+              ),
+              GoRoute(
+                path: '/items/item',
+                builder: (BuildContext context, GoRouterState state) {
+                  String? type = state.uri.queryParameters["type_id"];
+
+                  bool showError;
+                  if(type ==  null) {
+                    showError = true;
                   } else {
 
-                    var content = snapshot.data;
 
-                    if(content == null) {
-                      return const Blank();
-                    }
 
-                    Map<int, Category> ordered = content[1];
-                    Map<int, Category> unOrdered = content[0];
-
-                    return HomePage(
-                      orderedCategories: ordered, categories: unOrdered,
-                    );
                   }
+
+                  return const SizedBox();
                 },
-              )
-            );
-          case "/types/type":
-            return MaterialPageRoute(
-                builder: (context) => FutureBuilder(
-                  future: getHomePage(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      // Return a loading indicator while the data is being fetched
-                      return loading();
-                    } else if (snapshot.hasError) {
-                      // Handle error case
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-
-                      var content = snapshot.data;
-
-                      if(content == null) {
-                        return const Blank();
-                      }
-
-                      Map<int, Category> ordered = content[1];
-                      Map<int, Category> unOrdered = content[0];
-
-                      return HomePage(
-                        orderedCategories: ordered, categories: unOrdered,
-                      );
-                    }
-                  },
-                )
-            );
-        }
-        return MaterialPageRoute(
-          builder: (context) => FutureBuilder(
-            future: getSample(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return loading();
-              } else if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else {
-                return const Blank();
-              }
-            },
-          )
-        );
-      },
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:guhdaaru_frontend/structs/structs.dart';
 import 'package:guhdaaru_frontend/views/utils/my_scaffold.dart';
 import 'package:http/http.dart';
@@ -205,10 +206,10 @@ class _HomePageState extends State<HomePage> {
           alignment: Alignment.topLeft,
           child: IconButton(
             onPressed: () {
-              dispose();
-              Navigator.pushNamed(
-                  context, "/types/type?type_id=${value.id}"
-              );
+              // Navigator.pushNamed(
+              //     context, "/details?type_id=${value.id}"
+              // );
+              context.go("/items/item?type_id=${value.id}");
             },
             icon: Text(value.name),
           ),
