@@ -151,7 +151,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="1-64", parent_id=5, category_id=5, leaf_node=False
+                id=0, name="1-64", parent_id=5, category_id=5, leaf_node=True
             ),
         ),
         "16": Test(

@@ -76,17 +76,6 @@ class ItemFactory:
             attr = ItemFactory.create_item_attribute([attribute, value])
             attributes[attribute.name] = attr
 
-            # attributes.append(
-            #     [
-            #         ItemAttributeValue(
-            #             id=value.id,
-            #             attribute=value.attribute,
-            #             value=value.value,
-            #         ),
-            #         ItemFactory.create_attribute(attribute)
-            #     ]
-            # )
-
         return Item(
             id=value.item_id,
             attributes=attributes
