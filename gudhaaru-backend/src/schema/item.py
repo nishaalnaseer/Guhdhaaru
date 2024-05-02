@@ -34,6 +34,7 @@ class ItemAttributeValue(BaseModel):
     id: int
     attribute: int
     value: str
+    item_id: int
 
 
 class ItemAttribute(BaseModel):

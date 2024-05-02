@@ -76,7 +76,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   void beforeAddCategoryRequest(String content, int parent) {
-
     post(
       Uri.parse("${Settings.server}/items/categories/category"),
       body: content,
@@ -201,8 +200,14 @@ class _HomePageState extends State<HomePage> {
           alignment: Alignment.topLeft,
           child: IconButton(
             onPressed: () {
-              // Navigator.pop(context);
-              context.go("/items/item-type/${value.id}/");
+              String url;
+              if(value.isLeafNode) {
+                url = "/items/item/leaf?typeID=${value.id}";
+              } else {
+                url = "/items/item-type/${value.id}/";
+              }
+
+              context.go(url);
             },
             icon: Text(value.name),
           ),
@@ -220,22 +225,16 @@ class _HomePageState extends State<HomePage> {
     return Column(children: typeRows);
   }
 
-  List<Widget> getCategories(
-      {required bool rootNode, required Map<int, Category> categories}) {
+  List<Widget> getCategories({
+    required bool rootNode,
+    required Map<int, Category> categories}
+      ) {
     List<Widget> containers = [
       Align(
         alignment: Alignment.topRight,
         child: rootNode ? IconButton(
           onPressed: () async {
-            // addCategory(parentCategoryId: 0);
-            post(
-              Uri.parse("https://nishawl.ddns.net/token"),
-              headers: {
-                'accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-              body: 'grant_type=&username=nishawl.naseer%40outlook.com&password=123&scope=&client_id=&client_secret='
-            );
+            addCategory(parentCategoryId: 0);
           },
           padding: const EdgeInsets.all(20),
           icon: const Icon(
@@ -321,7 +320,7 @@ class _HomePageState extends State<HomePage> {
       builder: (BuildContext context) {
         TextEditingController controller = TextEditingController();
         FocusNode focusNode = FocusNode(); // Create a FocusNode
-
+        bool isLeafNode = false;
         // Schedule the focus node to request focus after the build has completed
         WidgetsBinding.instance.addPostFrameCallback(
                 (_) => focusNode.requestFocus()
@@ -335,6 +334,23 @@ class _HomePageState extends State<HomePage> {
                 TextField(
                   controller: controller,
                   focusNode: focusNode, // Assign the focus node to the TextField
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                  child: CheckboxListTile(
+                    value: isLeafNode,
+                    title: const Text(
+                        "Does this Type have any items?"
+                    ),
+                    onChanged: (newValue) {
+                      // Call invertLeafNode with the new value
+                      // invertLeafNode(newValue!);
+                      isLeafNode = !isLeafNode;
+                      setState(() {
+
+                      });
+                    },
+                  ),
                 ),
               ],
             ),
@@ -350,7 +366,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 var type = ItemType(
                     id: 0, name: controller.text, categoryId: categoryID,
-                    parentId: 0
+                    parentId: 0, isLeafNode: isLeafNode
                 );
 
                 var content = jsonEncode(type.toJson());
@@ -372,7 +388,8 @@ class _HomePageState extends State<HomePage> {
         alignment: Alignment.topLeft,
         child: ListView(
           children: getCategories(
-              rootNode: true, categories: widget.orderedCategories
+              rootNode: true,
+              categories: widget.orderedCategories
           ),
         ),
       ),

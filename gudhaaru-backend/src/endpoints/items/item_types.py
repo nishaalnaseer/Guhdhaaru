@@ -66,7 +66,6 @@ async def update_item_type(item_type: ItemType) -> ItemType:
 @router.get("/item-type")
 async def get_item_type(type_id: int):
     records = await select_type_data(type_id)
-    print("hello")
     return [
         ItemFactory.create_half_item_type(record) for record
         in records

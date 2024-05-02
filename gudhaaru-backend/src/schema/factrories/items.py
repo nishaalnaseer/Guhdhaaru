@@ -17,7 +17,8 @@ class ItemFactory:
 
     @staticmethod
     def create_attribute_value(record) -> ItemAttributeValue:
-        return AttributeValueRecord(
+        return ItemAttributeValue(
+            id=record.id,
             item_id=record.item_id,
             attribute=record.attribute,
             value=record.value,

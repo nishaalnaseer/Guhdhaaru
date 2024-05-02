@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:guhdaaru_frontend/structs/items.dart';
 import 'package:guhdaaru_frontend/structs/structs.dart';
 import 'package:guhdaaru_frontend/views/home_page.dart';
+import 'package:guhdaaru_frontend/views/items/item_page.dart';
 import 'package:guhdaaru_frontend/views/items/item_type_page.dart';
 import 'package:guhdaaru_frontend/views/utils/error_page.dart';
 import 'package:guhdaaru_frontend/views/utils/loading_page.dart';
@@ -105,6 +106,23 @@ Future<Response> getItemTypePage(int typeID) async {
   );
 }
 
+Future<Response> getLeafNode(int typeID) async {
+  return await get(
+    Uri.parse(
+        "${Settings.server}/items/item-types/item-type"
+            "/leaf-node?type_id=$typeID"
+    )
+  );
+}
+
+LeafPage createLeafPage(Response response) {
+
+  var content = jsonDecode(response.body);
+  LeafNode leaf = LeafNode.fromJson(content);
+
+  return LeafPage(leaf: leaf);
+}
+
 
 void main(List<String> args) {
   runApp(const App());
@@ -160,7 +178,40 @@ class App extends StatelessWidget {
                     decodeFunction: createItemTypePage
                   );
                 },
-              )
+              ),
+
+              GoRoute(
+                path: 'items/item/leaf',
+                builder: (BuildContext context, GoRouterState state) {
+                  String? idRaw = state.uri.queryParameters["typeID"];
+
+                  bool showError;
+                  int id;
+                  if(idRaw == null) {
+                    showError = true;
+                  } else {
+                    try {
+                      id = int.parse(idRaw);
+                      showError = false;
+                    } on FormatException {
+                      showError = true;
+                    }
+                  }
+
+                  if(showError) {
+                    return const ErrorPage(
+                        error: "Invalid item ID",
+                        backRoute: "/"
+                    );
+                  }
+
+                  id = int.parse(idRaw!);
+                  return LoadingPage(
+                    future: getLeafNode(id),
+                    decodeFunction: createLeafPage
+                  );
+                },
+              ),
             ],
           ),
         ],

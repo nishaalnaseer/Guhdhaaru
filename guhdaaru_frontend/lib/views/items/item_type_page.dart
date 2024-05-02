@@ -78,6 +78,7 @@ class _ItemTypePageState extends State<ItemTypePage> {
         WidgetsBinding.instance.addPostFrameCallback(
                 (_) => focusNode.requestFocus()
         );
+        bool isLeafNode = false;
 
         return AlertDialog(
           title: const Text('Create Type'),
@@ -87,6 +88,23 @@ class _ItemTypePageState extends State<ItemTypePage> {
                 TextField(
                   controller: controller,
                   focusNode: focusNode, // Assign the focus node to the TextField
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                  child: CheckboxListTile(
+                    value: isLeafNode,
+                    title: const Text(
+                        "Does this Type have any items?"
+                    ),
+                    onChanged: (newValue) {
+                      // Call invertLeafNode with the new value
+                      // invertLeafNode(newValue!);
+                      isLeafNode = !isLeafNode;
+                      setState(() {
+
+                      });
+                    },
+                  ),
                 ),
               ],
             ),
@@ -103,7 +121,7 @@ class _ItemTypePageState extends State<ItemTypePage> {
                 var type = ItemType(
                   id: 0, name: controller.text,
                   categoryId: itemType.categoryId,
-                  parentId: itemType.id
+                  parentId: itemType.id, isLeafNode: isLeafNode
                 );
 
                 var content = jsonEncode(type.toJson());
@@ -119,49 +137,19 @@ class _ItemTypePageState extends State<ItemTypePage> {
   }
 
   void forward(ItemType child) {
-    var url = "/items/item-type/${child.id}/";
-    // context.replace("/dead-link");
-    context.pushReplacement(url);
-    // context.go(url);
-  }
+    String url;
+    if(child.isLeafNode) {
+      url = "/items/item/leaf?typeID=${child.id}";
+    } else {
+      url = "/items/item-type/${child.id}/";
+    }
 
-  // void init() async {
-  //   var response = await get(
-  //       Uri.parse(
-  //           "${Settings.server}/items/item-types/"
-  //               "item-type?type_id=${widget.typeID}"
-  //       )
-  //   );
-  //   Map<int, ItemType> childrenTree = {};
-  //
-  //   var content = jsonDecode(response.body) as List<dynamic>;
-  //
-  //   String itemIDRaw = response.request!.url.query.split("=")[1];
-  //   int itemID = int.parse(itemIDRaw);
-  //   ItemType? itemType;
-  //
-  //   for(var x in content){
-  //     ItemType type = ItemType.fromJson(x);
-  //
-  //     if(type.id == itemID) {
-  //       itemType = type;
-  //     } else {
-  //       childrenTree[type.id] = type;
-  //     }
-  //   }
-  //   itemType!.childrenTree = childrenTree;
-  //
-  //   this.itemType = itemType;
-  //   setState(() {
-  //
-  //   });
-  // }
+    context.pushReplacement(url);
+  }
 
   @override
   void initState() {
     super.initState();
-
-    // init();
   }
 
   @override
@@ -176,7 +164,7 @@ class _ItemTypePageState extends State<ItemTypePage> {
               child: Text(
                 itemType.name,
                 style: const TextStyle(
-                  fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w500
                 ),
               ),
             ),
@@ -186,7 +174,6 @@ class _ItemTypePageState extends State<ItemTypePage> {
             alignment: Alignment.topRight,
             child: IconButton(
               onPressed: () {
-                // context.go("/");
                 addItemType();
               },
               padding: const EdgeInsets.all(10),

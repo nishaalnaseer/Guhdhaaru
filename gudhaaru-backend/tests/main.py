@@ -151,7 +151,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="1-64", parent_id=5, category_id=5, leaf_node=True
+                id=0, name="1-64", parent_id=5, category_id=5, leaf_node=False
             ),
         ),
         "16": Test(
@@ -161,7 +161,7 @@ def main():
             req_params=None,
             req_body=ItemType(
                 id=0, name="Black - Oxide Alloy Steel", parent_id=6,
-                category_id=5, leaf_node=False
+                category_id=5, leaf_node=True
             ),
         ),
         "17": Test(
@@ -170,13 +170,13 @@ def main():
             req_type="post",
             req_params=None,
             req_body=[
-                ItemAttribute(id=0, name="Lg.", type_id=6),
-                ItemAttribute(id=0, name="Threading", type_id=6),
-                ItemAttribute(id=0, name="Thread Spacing", type_id=6),
-                ItemAttribute(id=0, name="Dia.", type_id=6),
-                ItemAttribute(id=0, name="Ht.", type_id=6),
-                ItemAttribute(id=0, name="Drive Size", type_id=6),
-                ItemAttribute(id=0, name="Tensile Strength, psi", type_id=6),
+                ItemAttribute(id=0, name="Lg.", type_id=7),
+                ItemAttribute(id=0, name="Threading", type_id=7),
+                ItemAttribute(id=0, name="Thread Spacing", type_id=7),
+                ItemAttribute(id=0, name="Dia.", type_id=7),
+                ItemAttribute(id=0, name="Ht.", type_id=7),
+                ItemAttribute(id=0, name="Drive Size", type_id=7),
+                ItemAttribute(id=0, name="Tensile Strength, psi", type_id=7),
             ],
         ),
         "18": Test(
