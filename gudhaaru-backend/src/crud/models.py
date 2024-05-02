@@ -59,6 +59,10 @@ class TypeRecord(Base):
         INTEGER(unsigned=True),
         ForeignKey("category.id"), nullable=False
     )
+    leaf_node = Column(
+        BIT(1),
+        nullable=False
+    )
     __table_args__ = (
         UniqueConstraint(
             'parent', "name",

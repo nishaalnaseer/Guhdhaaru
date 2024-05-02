@@ -116,3 +116,17 @@ async def select_type_data(type_id: int):
     )
 
     return await scalars_selection(query)
+
+
+async def select_leaf_node(item_type_id: int):
+    query = select(
+        AttributeValueRecord, AttributeRecord, TypeRecord
+    ).outerjoin(
+        AttributeRecord, AttributeRecord.item_type == TypeRecord.id
+    ).outerjoin(
+        AttributeValueRecord,
+        AttributeValueRecord.attribute == AttributeRecord.id
+    ).where(
+        TypeRecord.id == item_type_id
+    )
+    return await all_selection(query)

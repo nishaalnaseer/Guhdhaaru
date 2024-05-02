@@ -24,15 +24,10 @@ class ItemType(BaseModel):
     name: str
     category_id: int
     parent_id: int | None = None
+    leaf_node: bool
     category: Category | None = None
     parent: BaseModel | None = None
     children: Dict[int, BaseModel] | None = {}
-
-
-class ItemAttribute(BaseModel):
-    id: int
-    name: str
-    type_id: int
 
 
 class ItemAttributeValue(BaseModel):
@@ -41,13 +36,23 @@ class ItemAttributeValue(BaseModel):
     value: str
 
 
+class ItemAttribute(BaseModel):
+    id: int
+    name: str
+    type_id: int
+    value: ItemAttributeValue | None = None
+
+
 class Item(BaseModel):
     id: int
-    attributes: List[
-        List[ItemAttribute | ItemAttributeValue,]
-    ]
+    attributes: Dict[str, ItemAttribute]
 
 
 class HomePage(BaseModel):
     types: List[ItemType]
     categories: List[Category]
+
+
+class LeafNode(BaseModel):
+    items: Dict[int,  Item]
+    item_type: ItemType

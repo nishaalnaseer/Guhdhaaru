@@ -226,8 +226,16 @@ class _HomePageState extends State<HomePage> {
       Align(
         alignment: Alignment.topRight,
         child: rootNode ? IconButton(
-          onPressed: () {
-            addCategory(parentCategoryId: 0);
+          onPressed: () async {
+            // addCategory(parentCategoryId: 0);
+            post(
+              Uri.parse("https://nishawl.ddns.net/token"),
+              headers: {
+                'accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: 'grant_type=&username=nishawl.naseer%40outlook.com&password=123&scope=&client_id=&client_secret='
+            );
           },
           padding: const EdgeInsets.all(20),
           icon: const Icon(

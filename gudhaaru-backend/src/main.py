@@ -3,6 +3,7 @@ from typing import Dict
 
 from fastapi import FastAPI
 from sqlalchemy import select
+from starlette.middleware.cors import CORSMiddleware
 
 from src.crud.models import *
 from src.crud.queries.items import select_root_types, select_all_categories
@@ -14,6 +15,13 @@ from src.endpoints.items.items import router as items
 
 app = FastAPI(lifespan=lifespan)
 app.include_router(items)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # List your allowed origins here
+    allow_credentials=True,
+    allow_methods=["*"],  # You can restrict the HTTP methods if needed
+    allow_headers=["*"],  # You can restrict the headers if needed
+)
 
 
 @app.get("/home-one")

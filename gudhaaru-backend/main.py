@@ -27,5 +27,5 @@ if __name__ == '__main__':
             host=host,
             app="main:app",
             port=port,
-            reload=True
+            # reload=True
         )

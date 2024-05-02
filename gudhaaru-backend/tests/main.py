@@ -77,7 +77,7 @@ def main():
             req_type="patch",
             req_params=None,
             req_body=Category(
-                id=5, name="Adhesives & Tape", parent_id=1
+                id=5, name="Adhesives & Tape", parent_id=1,
             ),
         ),
         "8": Test(
@@ -86,7 +86,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Screws and Bolts", category_id=5,
+                id=0, name="Screws and Bolts", category_id=5, leaf_node=False
             ),
         ),
         "9": Test(
@@ -96,6 +96,7 @@ def main():
             req_params=None,
             req_body=ItemType(
                 id=0, name="Threaded Rods & Studs", category_id=5,
+                leaf_node=False
             ),
         ),
         "10": Test(
@@ -104,7 +105,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Adhesives", category_id=4,
+                id=0, name="Adhesives", category_id=4, leaf_node=False
             ),
         ),
         "11": Test(
@@ -113,7 +114,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Tapes", category_id=1,
+                id=0, name="Tapes", category_id=1, leaf_node=False
             ),
         ),
         "12": Test(
@@ -122,7 +123,7 @@ def main():
             req_type="patch",
             req_params=None,
             req_body=ItemType(
-                id=4, name="Tape", category_id=4,
+                id=4, name="Tape", category_id=4, leaf_node=False
             ),
         ),
         "13": Test(
@@ -131,7 +132,7 @@ def main():
             req_type="patch",
             req_params=None,
             req_body=ItemType(
-                id=4, name="Tape", category_id=112312,
+                id=4, name="Tape", category_id=112312, leaf_node=False
             ),
         ),
         "14": Test(
@@ -141,6 +142,7 @@ def main():
             req_params=None,
             req_body=ItemType(
                 id=0, name="Socket Head Screws", parent_id=1, category_id=5,
+                leaf_node=False
             ),
         ),
         "15": Test(
@@ -149,7 +151,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="1-64", parent_id=5, category_id=5,
+                id=0, name="1-64", parent_id=5, category_id=5, leaf_node=False
             ),
         ),
         "16": Test(
@@ -159,7 +161,7 @@ def main():
             req_params=None,
             req_body=ItemType(
                 id=0, name="Black - Oxide Alloy Steel", parent_id=6,
-                category_id=5,
+                category_id=5, leaf_node=False
             ),
         ),
         "17": Test(
@@ -324,7 +326,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Actuators",  category_id=13,
+                id=0, name="Actuators",  category_id=13, leaf_node=False
             ),
         ),
         "34": Test(
@@ -333,7 +335,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Bearings",  category_id=13,
+                id=0, name="Bearings",  category_id=13, leaf_node=False
             ),
         ),
         "35": Test(
@@ -342,7 +344,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Shafts", category_id=13,
+                id=0, name="Shafts", category_id=13, leaf_node=False
             ),
         ),
         "36": Test(
@@ -351,7 +353,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Pumps", category_id=14,
+                id=0, name="Pumps", category_id=14, leaf_node=False
             ),
         ),
         "37": Test(
@@ -360,7 +362,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Valves", category_id=14,
+                id=0, name="Valves", category_id=14, leaf_node=False
             ),
         ),
         "38": Test(
@@ -369,7 +371,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Hose", category_id=14,
+                id=0, name="Hose", category_id=14, leaf_node=False
             ),
         ),
         "39": Test(
@@ -378,7 +380,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Hose Fittings", category_id=14,
+                id=0, name="Hose Fittings", category_id=14, leaf_node=False
             ),
         ),
         "40": Test(
@@ -387,7 +389,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Filters", category_id=14,
+                id=0, name="Filters", category_id=14, leaf_node=False
             ),
         ),
         "41": Test(
@@ -396,7 +398,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Oil", category_id=14,
+                id=0, name="Oil", category_id=14, leaf_node=False
             ),
         ),
         "42": Test(
@@ -405,7 +407,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Reservoirs", category_id=14,
+                id=0, name="Reservoirs", category_id=14, leaf_node=False
             ),
         ),
         "43": Test(
@@ -414,7 +416,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="O-Rings", category_id=9,
+                id=0, name="O-Rings", category_id=9, leaf_node=False
             ),
         ),
         "44": Test(
@@ -423,7 +425,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Compression Packing", category_id=9,
+                id=0, name="Compression Packing", category_id=9, leaf_node=False
             ),
         ),
         "45": Test(
@@ -432,7 +434,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Packing Tools", category_id=9,
+                id=0, name="Packing Tools", category_id=9, leaf_node=False
             ),
         ),
         "46": Test(
@@ -441,7 +443,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Gaskets", category_id=9,
+                id=0, name="Gaskets", category_id=9, leaf_node=False
             ),
         ),
         "47": Test(
@@ -450,7 +452,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Mechanical Seals", category_id=9,
+                id=0, name="Mechanical Seals", category_id=9, leaf_node=False
             ),
         ),
         "48": Test(
@@ -459,7 +461,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Weather-stripping", category_id=9,
+                id=0, name="Weather-stripping", category_id=9, leaf_node=False
             ),
         ),
         "49": Test(
@@ -468,7 +470,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=0, name="Sealants", category_id=9,
+                id=0, name="Sealants", category_id=9, leaf_node=False
             ),
         ),
     }

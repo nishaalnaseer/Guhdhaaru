@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 
 from src.crud.models import AttributeValueRecord, AttributeRecord
 from src.schema.item import (
@@ -16,12 +16,35 @@ class ItemFactory:
         )
 
     @staticmethod
+    def create_attribute_value(record) -> ItemAttributeValue:
+        return AttributeValueRecord(
+            item_id=record.item_id,
+            attribute=record.attribute,
+            value=record.value,
+        )
+
+    @staticmethod
+    def create_item_attribute(records) -> ItemAttribute:
+        attribute_record: AttributeRecord = records[0]
+        attribute_value_record: AttributeValueRecord = records[1]
+
+        return ItemAttribute(
+            id=attribute_record.id,
+            name=attribute_record.name,
+            type_id=attribute_record.item_type,
+            attribute=ItemFactory.create_attribute_value(
+                attribute_value_record
+            )
+        )
+
+    @staticmethod
     def create_half_item_type(record) -> ItemType:
         return ItemType(
             id=record.id,
             name=record.name,
             parent_id=record.parent,
             category_id=record.category,
+            leaf_node=record.leaf_node
         )
 
     @staticmethod
@@ -45,21 +68,24 @@ class ItemFactory:
         if len(records) == 0:
             raise Exception("No records")
 
-        attributes: List[List[ItemAttribute | ItemAttributeValue,]] = []
+        attributes: Dict[str, ItemAttribute] = {}
         for record in records:
             value: AttributeValueRecord = record[0]
             attribute: AttributeRecord = record[1]
 
-            attributes.append(
-                [
-                    ItemAttributeValue(
-                        id=value.id,
-                        attribute=value.attribute,
-                        value=value.value,
-                    ),
-                    ItemFactory.create_attribute(attribute)
-                ]
-            )
+            attr = ItemFactory.create_item_attribute([attribute, value])
+            attributes[attribute.name] = attr
+
+            # attributes.append(
+            #     [
+            #         ItemAttributeValue(
+            #             id=value.id,
+            #             attribute=value.attribute,
+            #             value=value.value,
+            #         ),
+            #         ItemFactory.create_attribute(attribute)
+            #     ]
+            # )
 
         return Item(
             id=value.item_id,
