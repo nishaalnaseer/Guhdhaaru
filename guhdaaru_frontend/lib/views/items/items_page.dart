@@ -18,6 +18,10 @@ class _LeafPageState extends State<LeafPage> {
   List<DataRow> rows = [];
 
   List<DataColumn> getColumns() {
+    if(leaf.attributes.isEmpty) {
+      return [const DataColumn(label: Text(""))];
+    }
+
     List<int> ids = [];
     Map<int, DataColumn> columns = {}; // Notice the nullable DataColumn
 
@@ -54,6 +58,11 @@ class _LeafPageState extends State<LeafPage> {
   }
 
   void setRows() {
+    if(leaf.attributes.isEmpty) {
+      this.rows = [];
+      return;
+    }
+
     List<DataRow> rows = [];
 
     leaf.items.forEach((itemID, item) {
@@ -96,22 +105,29 @@ class _LeafPageState extends State<LeafPage> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // context
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MyScaffold(
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Center(
-                  child: Text(leaf.itemType.name)
-              ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Center(
+                child: Text(leaf.itemType.name)
             ),
-            DataTable(
-              columns: getColumns(),
-              rows: rows
-            )
-          ],
-        )
+          ),
+          DataTable(
+            columns: getColumns(),
+            rows: rows
+          )
+        ],
+      )
     );
   }
 }

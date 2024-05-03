@@ -67,73 +67,73 @@ class _ItemTypePageState extends State<ItemTypePage> {
   }
 
   void addItemType() {
+
     showDialog(
       context: context,
-      barrierDismissible: false, // Prevent dismissing dialog by tapping outside
-      builder: (BuildContext context) {
+      builder: (context) {
+
+        bool isLeafNode = false;
         TextEditingController controller = TextEditingController();
         FocusNode focusNode = FocusNode(); // Create a FocusNode
-
-        // Schedule the focus node to request focus after the build has completed
         WidgetsBinding.instance.addPostFrameCallback(
                 (_) => focusNode.requestFocus()
         );
-        bool isLeafNode = false;
 
-        return AlertDialog(
-          title: const Text('Create Type'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                TextField(
-                  controller: controller,
-                  focusNode: focusNode, // Assign the focus node to the TextField
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                  child: CheckboxListTile(
-                    value: isLeafNode,
-                    title: const Text(
-                        "Does this Type have any items?"
-                    ),
-                    onChanged: (newValue) {
-                      // Call invertLeafNode with the new value
-                      // invertLeafNode(newValue!);
-                      isLeafNode = !isLeafNode;
-                      setState(() {
-
-                      });
-                    },
+        return StatefulBuilder(builder: (context, setState) {
+          return AlertDialog(
+            title: const Text('Create Type'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  TextField(
+                    controller: controller,
+                    focusNode: focusNode, // Assign the focus node to the TextField
                   ),
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                var type = ItemType(
-                  id: 0, name: controller.text,
-                  categoryId: itemType.categoryId,
-                  parentId: itemType.id, isLeafNode: isLeafNode
-                );
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                    child: CheckboxListTile(
+                      value: isLeafNode,
+                      title: const Text(
+                          "Does this Type have any items?"
+                      ),
+                      onChanged: (newValue) {
+                        // Call invertLeafNode with the new value
+                        // invertLeafNode(newValue!);
+                        isLeafNode = !isLeafNode;
+                        setState(() {
 
-                var content = jsonEncode(type.toJson());
-
-                beforeAddTypeRequest(content);
-              },
-              child: const Text('Add'),
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ],
-        );
-      },
-    );
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  var type = ItemType(
+                      id: 0, name: controller.text,
+                      categoryId: itemType.categoryId,
+                      parentId: itemType.id, isLeafNode: isLeafNode
+                  );
+
+                  var content = jsonEncode(type.toJson());
+
+                  beforeAddTypeRequest(content);
+                },
+                child: const Text('Add'),
+              ),
+            ],
+          );
+        });
+      });
   }
 
   void forward(ItemType child) {

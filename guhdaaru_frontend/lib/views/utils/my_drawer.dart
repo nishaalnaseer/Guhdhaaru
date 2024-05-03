@@ -26,7 +26,6 @@ class _MyDrawerState extends State<MyDrawer> {
   @override
   void initState() {
     super.initState();
-    widget.struct.updateDrawer = update;
     widget.struct.drawerInitialised = true;
   }
 

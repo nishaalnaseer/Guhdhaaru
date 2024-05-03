@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class DrawerStruct {
   bool open = false;
   Function dispose;
-  late Function updateDrawer;
   bool drawerInitialised = false;
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -19,4 +18,8 @@ class Settings {
     "accept": "application/json",
     "Content-Type": "application/json"
   };
+}
+
+class BooleanHolder {
+  bool value = false;
 }
