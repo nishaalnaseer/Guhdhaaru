@@ -90,6 +90,8 @@ async def get_leaf_node(type_id: int) -> LeafNode:
 
     for record in records:
         attribute_record = record[1]
+        if attribute_record is None:
+            continue
 
         attribute = ItemFactory.create_attribute(attribute_record)
         attributes[attribute.id] = attribute
