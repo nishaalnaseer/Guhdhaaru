@@ -1,3 +1,4 @@
+from collections import defaultdict
 from typing import List, Dict
 
 from fastapi import APIRouter, HTTPException
@@ -82,30 +83,30 @@ async def get_leaf_node(type_id: int) -> LeafNode:
             "No item types found"
         )
 
-    items = {}
-    node: Dict[str,  Item] = records[0][2]
+    items = defaultdict(dict)
+    attributes = {}
+    node = records[0][2]
     item_type = ItemFactory.create_half_item_type(node)
 
     for record in records:
-        # AttributeValueRecord, AttributeRecord
-        value_record, attribute_record = record[0], record[1]
-
-        try:
-            _item = items[value_record.item_id]
-        except KeyError:
-            _item = Item(
-                id=value_record.item_id,
-                attributes={}
-            )
-            items[value_record.item_id] = _item
+        attribute_record = record[1]
 
         attribute = ItemFactory.create_attribute(attribute_record)
-        attribute.value = ItemFactory.create_attribute_value(
-            value_record
-        )
-        _item.attributes[attribute.name] = attribute
+        attributes[attribute.id] = attribute
+
+    for record in records:
+        value_record = record[0]
+
+        if value_record is None:
+            continue
+
+        value = ItemFactory.create_attribute_value(value_record)
+        items[value.item_id][value.attribute] = value
 
     return LeafNode(
-        items=items,
-        item_type=item_type
+        items={
+            key: Item(id=key, attributes=value) for key, value in items.items()
+        },
+        item_type=item_type,
+        attributes=attributes
     )

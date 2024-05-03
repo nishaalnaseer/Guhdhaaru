@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="get leaf node (node with items)">
-      <change afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/items/item_page.dart" afterDir="false" />
+    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="small bug where attribute value id wasnt being serialised in backend fixed, next up making the item page UI in the frontend. all structs and objects seem to encoding well">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/endpoints/items/item_types.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/items/item_types.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/schema/factrories/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/factrories/items.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schema/item.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/item.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/items.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/items.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/home_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/items/item_type_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/items/item_type_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/items/item_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/items/items_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,24 +35,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.item.executor&quot;: &quot;Run&quot;,
-    &quot;Python.run_tests.executor&quot;: &quot;Run&quot;,
-    &quot;Python.uvicorn.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/nishaalnaseer/Documents/GitHub/Guhdhaaru/gudhaaru-backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.item.executor": "Run",
+    "Python.run_tests.executor": "Run",
+    "Python.uvicorn.executor": "Debug",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/nishaalnaseer/Documents/GitHub/Guhdhaaru/gudhaaru-backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend\src\crud" />
@@ -155,7 +152,8 @@
       <workItem from="1714664530697" duration="515000" />
       <workItem from="1714666371020" duration="142000" />
       <workItem from="1714677196060" duration="285000" />
-      <workItem from="1714677670698" duration="484000" />
+      <workItem from="1714677670698" duration="668000" />
+      <workItem from="1714743245319" duration="3233000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />
@@ -277,7 +275,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714666482153</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="small bug where attribute value id wasnt being serialised in backend fixed, next up making the item page UI in the frontend. all structs and objects seem to encoding well">
+      <option name="closed" value="true" />
+      <created>1714678329048</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1714678329048</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,7 +304,8 @@
     <MESSAGE value="slight schema change, tests passing&#10;&#10;so far so good, i can show the home page without any images for types, next up images for root types" />
     <MESSAGE value="throws an error for a certain edgecase" />
     <MESSAGE value="get leaf node (node with items)" />
-    <option name="LAST_COMMIT_MESSAGE" value="get leaf node (node with items)" />
+    <MESSAGE value="small bug where attribute value id wasnt being serialised in backend fixed, next up making the item page UI in the frontend. all structs and objects seem to encoding well" />
+    <option name="LAST_COMMIT_MESSAGE" value="small bug where attribute value id wasnt being serialised in backend fixed, next up making the item page UI in the frontend. all structs and objects seem to encoding well" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -315,7 +322,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/endpoints/items/item_types.py</url>
-          <line>107</line>
+          <line>105</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -327,8 +334,8 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/gudhaaru_backend$run_tests.coverage" NAME="run_tests Coverage Results" MODIFIED="1714677463155" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
-    <SUITE FILE_PATH="coverage/gudhaaru_backend$uvicorn.coverage" NAME="uvicorn Coverage Results" MODIFIED="1714677457003" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
+    <SUITE FILE_PATH="coverage/gudhaaru_backend$run_tests.coverage" NAME="run_tests Coverage Results" MODIFIED="1714747173901" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
+    <SUITE FILE_PATH="coverage/gudhaaru_backend$uvicorn.coverage" NAME="uvicorn Coverage Results" MODIFIED="1714747165129" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
     <SUITE FILE_PATH="coverage/gudhaaru_backend$item.coverage" NAME="item Coverage Results" MODIFIED="1714325743795" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/schema" />
   </component>
 </project>

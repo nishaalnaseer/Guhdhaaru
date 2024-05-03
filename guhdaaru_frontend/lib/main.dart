@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:guhdaaru_frontend/structs/items.dart';
 import 'package:guhdaaru_frontend/structs/structs.dart';
 import 'package:guhdaaru_frontend/views/home_page.dart';
-import 'package:guhdaaru_frontend/views/items/item_page.dart';
+import 'package:guhdaaru_frontend/views/items/items_page.dart';
 import 'package:guhdaaru_frontend/views/items/item_type_page.dart';
 import 'package:guhdaaru_frontend/views/utils/error_page.dart';
 import 'package:guhdaaru_frontend/views/utils/loading_page.dart';

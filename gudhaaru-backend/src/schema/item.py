@@ -34,19 +34,18 @@ class ItemAttributeValue(BaseModel):
     id: int
     attribute: int
     value: str
-    item_id: int
+    item_id: int | None = None
 
 
 class ItemAttribute(BaseModel):
     id: int
     name: str
     type_id: int
-    value: ItemAttributeValue | None = None
 
 
 class Item(BaseModel):
     id: int
-    attributes: Dict[str, ItemAttribute]
+    attributes: Dict[int, ItemAttributeValue] = {}
 
 
 class HomePage(BaseModel):
@@ -57,3 +56,4 @@ class HomePage(BaseModel):
 class LeafNode(BaseModel):
     items: Dict[int,  Item]
     item_type: ItemType
+    attributes: Dict[int, ItemAttribute]

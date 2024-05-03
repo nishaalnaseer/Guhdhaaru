@@ -69,13 +69,15 @@ class ItemFactory:
         if len(records) == 0:
             raise Exception("No records")
 
-        attributes: Dict[str, ItemAttribute] = {}
+        attributes: Dict[int, ItemAttributeValue] = {}
         for record in records:
-            value: AttributeValueRecord = record[0]
+            value_record: AttributeValueRecord = record[0]
             attribute: AttributeRecord = record[1]
 
-            attr = ItemFactory.create_item_attribute([attribute, value])
-            attributes[attribute.name] = attr
+            # attr = ItemFactory.create_item_attribute([attribute, value])
+            # attributes[attribute.name] = attr
+            value = ItemFactory.create_attribute_value(value_record)
+            attributes[value.attribute] = value
 
         return Item(
             id=value.item_id,
