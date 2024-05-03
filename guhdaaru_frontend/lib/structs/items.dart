@@ -68,7 +68,6 @@ class ItemType {
   }
 }
 
-
 class ItemAttributeValue {
   final int id;
   final int attribute;
@@ -97,18 +96,16 @@ class ItemAttributeValue {
   }
 }
 
-
 class ItemAttribute {
   final int id;
   final String name;
   final int typeID;
-  final ItemAttributeValue? value;
 
   ItemAttribute({
     required this.id,
     required this.name,
     required this.typeID,
-    required this.value,
+    // required this.value,
   });
 
   factory ItemAttribute.fromJson(Map<String, dynamic> json) {
@@ -116,7 +113,6 @@ class ItemAttribute {
         id: json["id"],
         name: json["name"],
         typeID: json["type_id"],
-        value: ItemAttributeValue.fromJson(json["value"])
     );
   }
 
@@ -125,14 +121,13 @@ class ItemAttribute {
       "id": id,
       "name": name,
       "type_id": typeID,
-      "value": value?.toJson(),
     };
   }
 }
 
 class Item {
   final int id;
-  final Map<String, ItemAttribute> attributes;
+  final Map<int, ItemAttributeValue> attributes;
 
   Item({
     required this.id,
@@ -141,10 +136,12 @@ class Item {
 
   factory Item.fromJson(Map<String, dynamic> json) {
     return Item(
-        id: json["id"],
-        attributes: (json["attributes"] as Map<String, dynamic>).map(
-                (key, value) => MapEntry(key, ItemAttribute.fromJson(value))
+      id: json["id"],
+      attributes: (json["attributes"] as Map<String, dynamic>).map(
+        (key, value) => MapEntry(
+            int.parse(key), ItemAttributeValue.fromJson(value)
         )
+      ),
     );
   }
 }
@@ -152,20 +149,27 @@ class Item {
 class LeafNode{
   final Map<int, Item> items;
   final ItemType itemType;
+  final Map<int, ItemAttribute> attributes;
 
   LeafNode({
     required this.items,
-    required this.itemType
+    required this.itemType,
+    required this.attributes,
   });
 
   factory LeafNode.fromJson(Map<String, dynamic> json) {
     return LeafNode(
-        items: (json["items"] as Map<String, dynamic>).map(
-                (key, value) => MapEntry(
-                    int.parse(key), Item.fromJson(value)
-                )
-        ),
-        itemType: ItemType.fromJson(json["item_type"])
+      items: (json["items"] as Map<String, dynamic>).map(
+        (key, value) => MapEntry(
+          int.parse(key), Item.fromJson(value)
+        )
+      ),
+      itemType: ItemType.fromJson(json["item_type"]),
+      attributes: (json["attributes"] as Map<String, dynamic>).map(
+        (key, value) => MapEntry(
+          int.parse(key), ItemAttribute.fromJson(value)
+        )
+      )
     );
   }
 }

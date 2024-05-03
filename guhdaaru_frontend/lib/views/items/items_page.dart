@@ -14,6 +14,19 @@ class LeafPage extends StatefulWidget {
 
 class _LeafPageState extends State<LeafPage> {
   late LeafNode leaf = widget.leaf;
+  Map<int, int> attributePlaces = {};
+
+  List<DataColumn> getColumns() {
+    List<DataColumn> columns = [];
+    List<int> ids = [];
+
+    leaf.attributes.forEach((key, value) {
+      ids.add(value.id);
+    });
+    ids.sort();
+
+    return columns;
+  }
 
   @override
   Widget build(BuildContext context) {
