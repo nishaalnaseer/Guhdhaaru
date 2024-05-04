@@ -25,7 +25,7 @@ class CategoryRecord(Base):
     )
     parent = Column(
         INTEGER(unsigned=True),
-        # ForeignKey("category.id"),
+        ForeignKey("category.id", ondelete="CASCADE"),
         nullable=False
     )
 
@@ -52,7 +52,7 @@ class TypeRecord(Base):
     )
     parent = Column(
         INTEGER(unsigned=True),
-        # ForeignKey("type.id"),
+        ForeignKey("type.id", ondelete="CASCADE"),
         nullable=False
     )
     category = Column(

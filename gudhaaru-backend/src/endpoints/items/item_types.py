@@ -20,7 +20,7 @@ router = APIRouter(prefix="/item-types", tags=["ItemTypes"])
 @router.post("/item-type", status_code=201)
 async def create_item_type(item_type: ItemType) -> ItemType:
     if item_type.parent_id is None:
-        parent = 0
+        parent = 1
     else:
         parent = item_type.parent_id
 
@@ -43,7 +43,7 @@ async def create_item_type(item_type: ItemType) -> ItemType:
 @router.patch("/item-type", status_code=201)
 async def update_item_type(item_type: ItemType) -> ItemType:
     if item_type.parent_id is None:
-        parent = 0
+        parent = 1
     else:
         parent = item_type.parent_id
 
@@ -60,6 +60,9 @@ async def update_item_type(item_type: ItemType) -> ItemType:
     )
     await execute_safely(query)
     updated = await select_type_by_id(item_type.id)
+
+    if updated is None:
+        raise HTTPException(404, "Item Type not found")
 
     return ItemFactory.create_half_item_type(updated)
 

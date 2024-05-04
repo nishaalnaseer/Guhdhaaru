@@ -1,13 +1,13 @@
 import json
 from typing import List, Tuple, Dict, Any
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Category(BaseModel):
     id: int
     name: str
-    parent_id: int | None = None
+    parent_id: int | None = Field(ge=1)
     parent: BaseModel | None = None
     children_tree: Dict[int, Any] | None = {}
     type_tree: Dict[int, Any] | None = {}
@@ -23,7 +23,7 @@ class ItemType(BaseModel):
     id: int
     name: str
     category_id: int
-    parent_id: int | None = None
+    parent_id: int | None = Field(ge=1)
     leaf_node: bool
     category: Category | None = None
     parent: BaseModel | None = None

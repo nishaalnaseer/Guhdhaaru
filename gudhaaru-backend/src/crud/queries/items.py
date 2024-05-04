@@ -1,4 +1,4 @@
-from sqlalchemy import select, and_, or_
+from sqlalchemy import select, and_, or_, asc
 from sqlalchemy.orm import aliased
 
 from src.crud.engine import async_session
@@ -96,12 +96,16 @@ async def select_item_by_id(item_id: int):
 async def select_root_types():
     query = select(
         TypeRecord
-    ).where(TypeRecord.parent == 0)
+    ).where(
+        TypeRecord.parent == 0
+    ).order_by(asc(TypeRecord.id))
     return await scalars_selection(query)
 
 
 async def select_all_categories():
-    query = select(CategoryRecord)
+    query = select(
+        CategoryRecord
+    ).order_by(asc(CategoryRecord.id))
     return await scalars_selection(query)
 
 

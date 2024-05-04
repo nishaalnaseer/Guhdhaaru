@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from sqlalchemy import update
 
 from src.crud.models import CategoryRecord
@@ -13,7 +13,7 @@ router = APIRouter(prefix="/categories", tags=["Categories"])
 @router.post("/category", status_code=201)
 async def create_category(category: Category) -> Category:
     if category.parent_id is None:
-        parent = 0
+        parent = 1
     else:
         parent = category.parent_id
 
@@ -30,7 +30,7 @@ async def create_category(category: Category) -> Category:
 @router.patch("/category", status_code=201)
 async def update_category(category: Category) -> Category:
     if category.parent_id is None:
-        parent = 0
+        parent = 1
     else:
         parent = category.parent_id
 
@@ -43,4 +43,8 @@ async def update_category(category: Category) -> Category:
     await execute_safely(query)
 
     _record = await select_category_by_id(category.id)
+
+    if _record is None:
+        raise HTTPException(404, "Category not found")
+
     return ItemFactory.create_category(_record)

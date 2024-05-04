@@ -1,7 +1,7 @@
 import aiomysql
 from src.crud.engine import db, host, port, user, password
 from src.crud.models import *
-from src.crud.utils import initialise_db
+from src.crud.utils import initialise_db, add_objects, add_object
 
 
 async def create_new_db():
@@ -23,3 +23,12 @@ async def create_new_db():
         await pool.wait_closed()
 
     await initialise_db()
+
+    root_cat = CategoryRecord(
+        id=1, name="FakeRoot", parent=1
+    )
+    root_type = TypeRecord(
+        id=1, name="FakeRoot", parent=1, category=1, leaf_node=0
+    )
+    await add_object(root_cat)
+    await add_object(root_type)
