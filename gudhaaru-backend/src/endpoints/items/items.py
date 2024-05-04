@@ -16,6 +16,10 @@ router.include_router(categories)
 router.include_router(item_types)
 
 
+# todo delete endpoints for items, item attribute, attribute values, categories
+# todo patch endpoints for item attributes, attribute values
+
+
 @router.post("/item/attributes", status_code=201)
 async def create_attributes(
         attributes: List[ItemAttribute]

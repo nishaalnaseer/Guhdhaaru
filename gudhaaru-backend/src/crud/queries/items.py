@@ -97,7 +97,7 @@ async def select_root_types():
     query = select(
         TypeRecord
     ).where(
-        TypeRecord.parent == 0
+        TypeRecord.parent == 1
     ).order_by(asc(TypeRecord.id))
     return await scalars_selection(query)
 

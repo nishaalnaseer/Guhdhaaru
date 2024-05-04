@@ -1,18 +1,16 @@
 from collections import defaultdict
-from typing import List, Dict
 
 from fastapi import APIRouter, HTTPException
 from sqlalchemy import update
 
-from src.crud.models import CategoryRecord, TypeRecord, AttributeRecord
+from src.crud.models import TypeRecord
 from src.crud.queries.items import (
-    select_category_by_name, select_category_by_id,
     select_last_inserted_type,
     select_type_by_id, select_type_data, select_leaf_node
 )
-from src.crud.utils import add_object, execute_safely, add_objects
+from src.crud.utils import add_object, execute_safely
 from src.schema.factrories.items import ItemFactory
-from src.schema.item import ItemType, ItemAttribute, Item, LeafNode
+from src.schema.item import ItemType, Item, LeafNode
 
 router = APIRouter(prefix="/item-types", tags=["ItemTypes"])
 
@@ -82,8 +80,8 @@ async def get_leaf_node(type_id: int) -> LeafNode:
 
     if len(records) == 0:
         raise HTTPException(
-            422,
-            "No item types found"
+            404,
+            "No item type found"
         )
 
     items = defaultdict(dict)

@@ -68,7 +68,7 @@ def main():
             req_type="patch",
             req_params=None,
             req_body=Category(
-                id=5, name="Fasteners", parent_id=2
+                id=6, name="Fasteners", parent_id=2
             ),
         ),
         "7": Test(
@@ -77,7 +77,7 @@ def main():
             req_type="patch",
             req_params=None,
             req_body=Category(
-                id=5, name="Adhesives & Tape", parent_id=2,
+                id=6, name="Adhesives & Tape", parent_id=2,
             ),
         ),
         "8": Test(
@@ -124,7 +124,7 @@ def main():
             req_type="patch",
             req_params=None,
             req_body=ItemType(
-                id=4, name="Tape", category_id=5, leaf_node=False, parent_id=1,
+                id=5, name="Tape", category_id=5, leaf_node=False, parent_id=1,
             ),
         ),
         "13": Test(
@@ -133,7 +133,7 @@ def main():
             req_type="patch",
             req_params=None,
             req_body=ItemType(
-                id=4, name="Tape", category_id=112312, leaf_node=False, parent_id=1,
+                id=5, name="Tape", category_id=112312, leaf_node=False, parent_id=1,
             ),
         ),
         "14": Test(
@@ -171,13 +171,15 @@ def main():
             req_type="post",
             req_params=None,
             req_body=[
-                ItemAttribute(id=1, name="Lg.", type_id=8),
-                ItemAttribute(id=1, name="Threading", type_id=8),
-                ItemAttribute(id=1, name="Thread Spacing", type_id=8),
-                ItemAttribute(id=1, name="Dia.", type_id=8),
-                ItemAttribute(id=1, name="Ht.", type_id=8),
-                ItemAttribute(id=1, name="Drive Size", type_id=8),
-                ItemAttribute(id=1, name="Tensile Strength, psi", type_id=8),
+                # todo if [POST] /items/item/attributes item type is not a leaf node
+                #  raise 422
+                ItemAttribute(id=1, name="Lg.", type_id=7),
+                ItemAttribute(id=1, name="Threading", type_id=7),
+                ItemAttribute(id=1, name="Thread Spacing", type_id=7),
+                ItemAttribute(id=1, name="Dia.", type_id=7),
+                ItemAttribute(id=1, name="Ht.", type_id=7),
+                ItemAttribute(id=1, name="Drive Size", type_id=7),
+                ItemAttribute(id=1, name="Tensile Strength, psi", type_id=7),
             ],
         ),
         "18": Test(
