@@ -3,8 +3,8 @@ class Category {
   final String name;
   final int parentId;
   Category? parent;
-  final Map<int, Category> childrenTree = {};
-  final Map<int, ItemType> typesTree = {};
+  Map<int, Category> childrenTree = {};
+  Map<int, ItemType> typesTree = {};
 
   Category({
     required this.id,

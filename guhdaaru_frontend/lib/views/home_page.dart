@@ -85,54 +85,68 @@ class _HomePageState extends State<HomePage> {
 
   void addCategory({required int parentCategoryId}) {
     showDialog(
-      context: context,
-      barrierDismissible: false, // Prevent dismissing dialog by tapping outside
-      builder: (BuildContext context) {
-        TextEditingController controller = TextEditingController();
-        FocusNode focusNode = FocusNode(); // Create a FocusNode
+        context: context,
+        builder: (context) {
 
-        // Schedule the focus node to request focus after the build has completed
-        WidgetsBinding.instance.addPostFrameCallback(
-                (_) => focusNode.requestFocus()
-        );
+          bool isLeafNode = false;
+          TextEditingController controller = TextEditingController();
+          FocusNode focusNode = FocusNode(); // Create a FocusNode
+          WidgetsBinding.instance.addPostFrameCallback(
+                  (_) => focusNode.requestFocus()
+          );
 
-        return AlertDialog(
-          title: const Text('Create Category'),
-
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                  TextField(
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+              title: const Text('Create Type'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    TextField(
                       controller: controller,
-                      focusNode: focusNode
-                  ),
-                ],
+                      focusNode: focusNode, // Assign the focus node to the TextField
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                      child: CheckboxListTile(
+                        value: isLeafNode,
+                        title: const Text(
+                            "Does this Type have any items?"
+                        ),
+                        onChanged: (newValue) {
+                          isLeafNode = !isLeafNode;
+                          setState(() {
+
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
 
-                var cat = Category(
-                    id: 0, name: controller.text, parentId: parentCategoryId
-                );
+                    var cat = Category(
+                        id: 0, name: controller.text, parentId: parentCategoryId
+                    );
 
-                var content = jsonEncode(cat.toJson());
+                    var content = jsonEncode(cat.toJson());
 
-                beforeAddCategoryRequest(content, parentCategoryId);// Close the dialog
-              },
-              child: const Text('Add'),
-            ),
-          ],
-        );
-      },
-    );
+                    beforeAddCategoryRequest(content, parentCategoryId);// Close the dialog
+                  },
+                  child: const Text('Add'),
+                ),
+              ],
+            );
+          });
+        });
   }
 
   void afterAddTypeRequest(Response response, int categoryID) {
@@ -229,6 +243,10 @@ class _HomePageState extends State<HomePage> {
     required bool rootNode,
     required Map<int, Category> categories}
       ) {
+    if(categories.isEmpty) {
+      return [];
+    }
+
     List<Widget> containers = [
       Align(
         alignment: Alignment.topRight,
@@ -246,11 +264,10 @@ class _HomePageState extends State<HomePage> {
     ];
 
     categories.forEach((key, value) {
-      List<Widget> childrenTree = value.childrenTree.isNotEmpty
-          ? getCategories(
+      List<Widget> childrenTree = getCategories(
           rootNode: false,
           categories: value.childrenTree
-      ) : [];
+      );
 
       List<Widget> children = [
         Row(

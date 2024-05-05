@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:guhdaaru_frontend/structs/items.dart';
@@ -10,20 +11,6 @@ import 'package:guhdaaru_frontend/views/utils/error_page.dart';
 import 'package:guhdaaru_frontend/views/utils/loading_page.dart';
 import 'package:http/http.dart';
 import 'package:go_router/go_router.dart';
-
-Widget loading() {
-  Widget box = const Center(
-    child: SizedBox(
-      height: 400,
-      width: 400,
-      child: CircularProgressIndicator(
-        color: Colors.white,
-        strokeWidth: 10,
-      ),
-    ),
-  );
-  return box;
-}
 
 Future<void> getSample() async {}
 
@@ -43,7 +30,11 @@ Widget createHomePage(Response response) {
   for(var category_ in categoriesContent) {
     var category = Category.fromJson(category_);
 
-    if(category.parentId == 0) {
+    if(category.id == 1) {
+      continue;
+    }
+
+    if(category.parentId == 1) {
       finalCategories[category.id] = category;
     }
     categories[category.id] = category;
@@ -51,22 +42,38 @@ Widget createHomePage(Response response) {
 
   categories.forEach((key, value) {
     int parentId = value.parentId;
-    if(parentId != 0) {
+    if(parentId != 1) {
       if(finalCategories.containsKey(parentId)) {
         var parent = finalCategories[parentId];
         parent!.childrenTree[key] = value;
       } else {
-        var parent = categories[parentId];
-        parent!.childrenTree[key] = value;
+        value.childrenTree[key] = value;
       }
     }
   });
 
   for(var type_ in typesContent) {
     var type = ItemType.fromJson(type_);
+
+    if(type.id == 1) {
+      continue;
+    }
+
     var category = categories[type.categoryId];
     category!.typesTree[type.id] = type;
   }
+
+  categories.forEach((key, value) {
+    // Sort childrenTree in ascending order
+    value.childrenTree = LinkedHashMap.fromEntries(
+      value.childrenTree.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
+    );
+
+    // Sort typesTree in ascending order
+    value.typesTree = LinkedHashMap.fromEntries(
+      value.typesTree.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
+    );
+  });
 
   return HomePage(
       orderedCategories: finalCategories,

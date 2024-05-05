@@ -18,6 +18,11 @@ class Settings {
     "accept": "application/json",
     "Content-Type": "application/json"
   };
+
+  void setToken(String token) {
+    headers["Authorization"] = token;
+  }
+
 }
 
 class BooleanHolder {
