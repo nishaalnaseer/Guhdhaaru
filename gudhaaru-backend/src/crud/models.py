@@ -25,7 +25,7 @@ class CategoryRecord(Base):
     )
     parent = Column(
         INTEGER(unsigned=True),
-        ForeignKey("category.id", ondelete="CASCADE"),
+        ForeignKey("category.id", ondelete="CASCADE", onupdate="CASCADE"),
         nullable=False
     )
 
@@ -52,12 +52,13 @@ class TypeRecord(Base):
     )
     parent = Column(
         INTEGER(unsigned=True),
-        ForeignKey("type.id", ondelete="CASCADE"),
+        ForeignKey("type.id", ondelete="CASCADE", onupdate="CASCADE"),
         nullable=False
     )
     category = Column(
         INTEGER(unsigned=True),
-        ForeignKey("category.id"), nullable=False
+        ForeignKey("category.id", ondelete="CASCADE", onupdate="CASCADE"),
+        nullable=False
     )
     leaf_node = Column(
         BIT(1),
@@ -82,7 +83,7 @@ class ItemRecord(Base):
     )
     item_type = Column(
         INTEGER(unsigned=True),
-        ForeignKey("type.id"),
+        ForeignKey("type.id", ondelete="CASCADE", onupdate="CASCADE"),
         nullable=False
     )
     name = Column(
@@ -112,7 +113,7 @@ class AttributeRecord(Base):
     )
     item_type = Column(
         INTEGER(unsigned=True),
-        ForeignKey("type.id"),
+        ForeignKey("type.id", ondelete="CASCADE", onupdate="CASCADE"),
         nullable=False
     )
     __table_args__ = (
@@ -134,7 +135,7 @@ class AttributeValueRecord(Base):
     )
     attribute = Column(
         INTEGER(unsigned=True),
-        ForeignKey("attribute.id"),
+        ForeignKey("attribute.id", ondelete="CASCADE", onupdate="CASCADE"),
         nullable=False
     )
     value = Column(

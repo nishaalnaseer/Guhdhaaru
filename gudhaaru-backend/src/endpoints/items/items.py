@@ -1,11 +1,13 @@
 from typing import List
 from fastapi import APIRouter, HTTPException
+from sqlalchemy import update, delete
+
 from src.crud.models import AttributeRecord, AttributeValueRecord
 from src.crud.queries.items import (
-    select_attributes, select_attribute2, select_item_by_id
+    select_attributes, select_attribute2, select_item_by_id, select_attribute, select_attribute_value
 )
 from src.crud.raw_sql import get_new_item_id
-from src.crud.utils import add_objects, select_query_scalar
+from src.crud.utils import add_objects, select_query_scalar, execute_safely
 from src.endpoints.items.category import router as categories
 from src.endpoints.items.item_types import router as item_types
 from src.schema.factrories.items import ItemFactory
@@ -14,10 +16,6 @@ from src.schema.item import ItemAttribute, ItemAttributeValue
 router = APIRouter(prefix="/items", tags=["Items"])
 router.include_router(categories)
 router.include_router(item_types)
-
-
-# todo delete endpoints for items, item attribute, attribute values, categories
-# todo patch endpoints for item attributes, attribute values
 
 
 @router.post("/item/attributes", status_code=201)
@@ -87,3 +85,63 @@ async def create_attributes_value(
 
     inserted = await select_item_by_id(random_num)
     return ItemFactory.create_item(inserted)
+
+
+@router.patch("/item/attribute")
+async def update_attribute(attribute: ItemAttribute) -> ItemAttribute:
+    query = update(
+        AttributeRecord
+    ).values(
+        name=attribute.name,
+        item_type=attribute.type_id
+    ).where(
+        AttributeRecord.id == attribute.id
+    )
+    await execute_safely(query)
+
+    record = await select_attribute(attribute.id)
+
+    if record is None:
+        raise HTTPException(
+            404, "Attribute not found"
+        )
+
+    return ItemFactory.create_attribute(record)
+
+
+@router.patch("/item/attribute-value", status_code=201)
+async def update_attribute_value(value: ItemAttributeValue) -> ItemAttributeValue:
+    query = update(
+        AttributeValueRecord
+    ).values(
+        attribute=value.attribute,
+        value=value.value
+    ).where(
+        AttributeValueRecord.id == value.id
+    )
+    await execute_safely(query)
+
+    record = await select_attribute_value(value.id)
+
+    if record is None:
+        raise HTTPException(
+            404, "Attribute not found"
+        )
+    return ItemFactory.create_attribute_value(record)
+
+
+@router.delete("/item/attribute", status_code=204)
+async def delete_attribute(attribute_id: int) -> None:
+    query = delete(
+        AttributeRecord
+    ).where(AttributeRecord.id == attribute_id)
+    await execute_safely(query)
+
+
+@router.delete("/item/attribute-value", status_code=204)
+async def delete_attribute_value(value_id: int) -> None:
+    query = delete(
+        AttributeValueRecord
+    ).where(AttributeValueRecord.id == value_id)
+    await execute_safely(query)
+

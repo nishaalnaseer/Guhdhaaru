@@ -134,3 +134,23 @@ async def select_leaf_node(item_type_id: int):
         TypeRecord.id == item_type_id
     )
     return await all_selection(query)
+
+
+async def select_attribute(attr: int):
+    query = select(
+        AttributeRecord
+    ).where(
+        AttributeRecord.id == attr
+    )
+
+    return await scalar_selection(query)
+
+
+async def select_attribute_value(value: int):
+    query = select(
+        AttributeValueRecord
+    ).where(
+        AttributeValueRecord.id == value
+    )
+
+    return await scalar_selection(query)

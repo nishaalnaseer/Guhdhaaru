@@ -1,7 +1,7 @@
 from collections import defaultdict
 
 from fastapi import APIRouter, HTTPException
-from sqlalchemy import update
+from sqlalchemy import update, delete
 
 from src.crud.models import TypeRecord
 from src.crud.queries.items import (
@@ -113,3 +113,11 @@ async def get_leaf_node(type_id: int) -> LeafNode:
         item_type=item_type,
         attributes=attributes
     )
+
+
+@router.delete("/item-types/item-type", status_code=204)
+async def delete_item_type(item_type: int):
+    query = delete(
+        TypeRecord
+    ).where(TypeRecord.id == item_type)
+    await execute_safely(query)

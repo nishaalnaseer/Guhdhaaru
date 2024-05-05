@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from sqlalchemy import update
+from sqlalchemy import update, delete
 
 from src.crud.models import CategoryRecord
 from src.crud.queries.items import select_category_by_name, select_category_by_id
@@ -48,3 +48,11 @@ async def update_category(category: Category) -> Category:
         raise HTTPException(404, "Category not found")
 
     return ItemFactory.create_category(_record)
+
+
+@router.delete("/category", status_code=204)
+async def delete_category(catergory_id: int) -> None:
+    query = delete(
+        CategoryRecord
+    ).where(CategoryRecord.id == catergory_id)
+    await execute_safely(query)

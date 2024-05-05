@@ -173,13 +173,13 @@ def main():
             req_body=[
                 # todo if [POST] /items/item/attributes item type is not a leaf node
                 #  raise 422
-                ItemAttribute(id=1, name="Lg.", type_id=7),
-                ItemAttribute(id=1, name="Threading", type_id=7),
-                ItemAttribute(id=1, name="Thread Spacing", type_id=7),
-                ItemAttribute(id=1, name="Dia.", type_id=7),
-                ItemAttribute(id=1, name="Ht.", type_id=7),
-                ItemAttribute(id=1, name="Drive Size", type_id=7),
-                ItemAttribute(id=1, name="Tensile Strength, psi", type_id=7),
+                ItemAttribute(id=1, name="Lg.", type_id=8),
+                ItemAttribute(id=1, name="Threading", type_id=8),
+                ItemAttribute(id=1, name="Thread Spacing", type_id=8),
+                ItemAttribute(id=1, name="Dia.", type_id=8),
+                ItemAttribute(id=1, name="Ht.", type_id=8),
+                ItemAttribute(id=1, name="Drive Size", type_id=8),
+                ItemAttribute(id=1, name="Tensile Strength, psi", type_id=8),
             ],
         ),
         "18": Test(
