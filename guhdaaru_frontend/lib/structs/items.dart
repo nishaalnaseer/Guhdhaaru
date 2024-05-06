@@ -72,18 +72,21 @@ class ItemAttributeValue {
   final int id;
   final int attribute;
   final String value;
+  final int itemID;
 
   ItemAttributeValue({
     required this.id,
     required this.attribute,
     required this.value,
+    required this.itemID,
   });
 
   factory ItemAttributeValue.fromJson(Map<String, dynamic>json) {
     return ItemAttributeValue(
       id: json["id"],
       attribute: json["attribute"],
-      value: json["value"]
+      value: json["value"],
+      itemID: json["item_id"]
     );
   }
 
@@ -92,6 +95,7 @@ class ItemAttributeValue {
       "id": id,
       "attribute": attribute,
       "value": value,
+      "item_id": itemID
     };
   }
 }
@@ -148,7 +152,7 @@ class Item {
 
 class LeafNode{
   final Map<int, Item> items;
-  final ItemType itemType;
+  ItemType itemType;
   final Map<int, ItemAttribute> attributes;
 
   LeafNode({

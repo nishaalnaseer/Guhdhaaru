@@ -21,11 +21,14 @@ class _LeafPageState extends State<LeafPage> {
   late LeafNode leaf = widget.leaf;
   Map<int, int> attributePlaces = {};  // (index, attributeID)
   List<DataRow> rows = [];
+  List<DataColumn> cols = [const DataColumn(label: Text(""))];
   Map<int, TextEditingController> controllers = {};
 
-  List<DataColumn> getColumns() {
+  void setColumns() {
+    attributePlaces = {};
+    List<DataColumn> cols = [];
     if(leaf.attributes.isEmpty) {
-      return [const DataColumn(label: Text(""))];
+      return;
     }
 
     List<int> ids = [];
@@ -52,7 +55,12 @@ class _LeafPageState extends State<LeafPage> {
     finalColumns.add(const DataColumn(label: Text("Item ID")));
     finalColumns.add(const DataColumn(label: Text("")));
     finalColumns.add(const DataColumn(label: Text("")));
-    return finalColumns;
+    cols = finalColumns;
+    this.cols = cols;
+
+    setState(() {
+
+    });
   }
 
   void viewListings(int itemID) {
@@ -63,83 +71,191 @@ class _LeafPageState extends State<LeafPage> {
 
   }
 
-  void addItemToType(Map<String, dynamic> content) {
+  void editTypeRequest(ItemType type) async {
+    var response = await patch(
+      Uri.parse("${Settings.server}/items/item-types/item-type"),
+      body: jsonEncode(type.toJson()),
+      headers: Settings.headers
+    );
+
+    if(response.statusCode == 201) {
+      leaf.itemType = ItemType.fromJson(jsonDecode(response.body));
+      setState(() {
+
+      });
+    } else {
+    }
 
   }
 
-  void editType(){
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        var controller = TextEditingController();
-        var newAttrController = TextEditingController();
-        controller.text = leaf.itemType.name;
+  void addAttribute(ItemAttribute attribute) async {
+    var response = await patch(
+      Uri.parse("${Settings.server}/items/item/add-attribute"),
+      headers: Settings.headers,
+      body: jsonEncode(attribute.toJson())
+    );
 
-        List<Widget> children = [
-          SizedBox(
-            width: 600,
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 500,
-                  child: TextField(
-                    controller: controller,
-                  ),
+    if(response.statusCode == 201) {
+      var content = jsonDecode(response.body);
+
+      var newAttr = ItemAttribute.fromJson(content);
+      leaf.attributes[newAttr.id] = newAttr;
+
+      setColumns();
+      setState(() {
+
+      });
+
+    }
+  }
+
+  void addAttributeValue(ItemAttributeValue value) async {
+    var response = await patch(
+        Uri.parse("${Settings.server}/items/item/add-attribute-value"),
+        headers: Settings.headers,
+        body: jsonEncode(value.toJson())
+    );
+
+    if(response.statusCode == 201) {
+      var content = jsonDecode(response.body);
+
+      var newValue = ItemAttributeValue.fromJson(content);
+      var item = leaf.items[newValue.itemID];
+
+      if(item == null) {
+        throw Exception("Target item of ItemAttributeValue is null");
+      }
+
+      item.attributes[newValue.id] = newValue;
+
+      setRows();
+      setState(() {
+
+      });
+    }
+  }
+
+  Future<void> deleteAttribute(int attributeID) async {
+    var response = await delete(
+      Uri.parse(
+        "${Settings.server}/items/item/attribute?attribute_id=$attributeID"
+      ),
+      headers:  Settings.headers
+    );
+    // todo display error message if status code not 204
+    if(response.statusCode == 204) {
+      leaf.attributes.remove(attributeID);
+      List<int> toRemove = [];
+      for (var value in leaf.items.values) {
+        value.attributes.forEach((key, value) {
+          if(value.attribute == attributeID) {
+            toRemove.add(key);
+          }
+        });
+
+        for (var element in toRemove) {
+          value.attributes.remove(element);
+        }
+
+      }
+
+      setColumns();
+      setState(() {
+
+      });
+    }
+  }
+
+  void editType(){
+
+    List<Widget> children = [];
+    var controller = TextEditingController();
+    var newAttrController = TextEditingController();
+    controller.text = leaf.itemType.name;
+
+    void setChildren() {
+      // todo fix when called from delete function doesnt work
+      children = [];
+      children = [
+        SizedBox(
+          width: 600,
+          child: Row(
+            children: [
+              SizedBox(
+                width: 500,
+                child: TextField(
+                  controller: controller,
                 ),
-                ElevatedButton(
+              ),
+              ElevatedButton(
                   onPressed: () {
+                    String newName = controller.text.trim();
+                    if(newName.isEmpty) {
+                      return;
+                    }
+
+                    var type = ItemType(
+                        id: leaf.itemType.id,
+                        name: newName,
+                        parentId: leaf.itemType.parentId,
+                        categoryId: leaf.itemType.categoryId,
+                        isLeafNode: leaf.itemType.isLeafNode
+                    );
+                    editTypeRequest(type);
 
                   },
                   child: const Text("Submit")
-                )
-              ],
-            ),
-          )
-        ];
+              )
+            ],
+          ),
+        )
+      ];
 
-        List<Widget> attributes = [];
-        leaf.attributes.forEach((key, value) {
-          var attrController = TextEditingController();
-          attrController.text = value.name;
-          attributes.add(
+      List<Widget> attributes = [];
+      leaf.attributes.forEach((key, value) {
+        var attrController = TextEditingController();
+        attrController.text = value.name;
+        attributes.add(
             Row(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(5),
                   child: SizedBox(
-                      width: 600,
-                      child: SizedBox(
-                        width: 500,
-                        child: TextField(
-                          controller: attrController,
-                        ),
+                    width: 600,
+                    child: SizedBox(
+                      width: 500,
+                      child: TextField(
+                        controller: attrController,
                       ),
+                    ),
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-
-                  },
-                  child: const Text("Submit")
+                    onPressed: () {
+                    },
+                    child: const Text("Submit")
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-                  child: ElevatedButton(
-                    onPressed: () {
+                    padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          await deleteAttribute(value.id);
+                          setChildren();
+                          setState(() {
 
-                    },
-                    child: const Text("Delete")
-                  )
+                          });
+                        },
+                        child: const Text("Delete")
+                    )
                 )
               ],
             )
-          );
-        });
+        );
+      });
 
-        children.addAll(attributes);
+      children.addAll(attributes);
 
-        children.add(
+      children.add(
           SizedBox(
             width: 600,
             child: Row(
@@ -151,17 +267,37 @@ class _LeafPageState extends State<LeafPage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    newAttrController.clear();
-                  },
-                  child: const Text("Submit")
+                    onPressed: () {
+                      String name = newAttrController.text.trim();
+
+                      if(name.isEmpty) {
+                        return;
+                      }
+
+                      var attribute = ItemAttribute(
+                          id: 0,
+                          name: name,
+                          typeID: leaf.itemType.id
+                      );
+                      addAttribute(attribute);
+
+                      newAttrController.clear();
+                    },
+                    child: const Text("Submit")
                 )
               ],
             ),
           )
-        );
+      );
+    }
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
 
         return StatefulBuilder(builder: (context, setState) {
+          setChildren();
           return AlertDialog(
             title: const Text('Edit Item Type'),
             content: SingleChildScrollView(
@@ -206,19 +342,30 @@ class _LeafPageState extends State<LeafPage> {
       });
 
       cells.add(DataCell(Text("$itemID")));
+
       cells.add(
         DataCell(
-          ElevatedButton(
-            onPressed: () { viewListings(itemID); },
-            child: const Text("View Listings"),
+          IconButton(
+            onPressed: () {
+
+            },
+            icon: const Icon(
+                Icons.list
+            ),
+            tooltip: "View Listings",
           )
         )
       );
       cells.add(
         DataCell(
-          ElevatedButton(
-            onPressed: () { editItem(itemID); },
-            child: const Text("Edit Item"),
+          IconButton(
+            onPressed: () {
+              editItem(itemID);
+            },
+            icon: const Icon(
+              Icons.edit
+            ),
+            tooltip: "Edit Item",
           )
         )
       );
@@ -288,7 +435,8 @@ class _LeafPageState extends State<LeafPage> {
                       
                       if( value.isNotEmpty ){
                         var attributeValue = ItemAttributeValue(
-                            id: 1, attribute: attributeID, value: value
+                            id: 1, attribute: attributeID, value: value,
+                            itemID: 0
                         );
                         values.add(attributeValue.toJson());
                       }
@@ -299,7 +447,7 @@ class _LeafPageState extends State<LeafPage> {
                       Uri.parse("${Settings.server}$path"),
                       headers: Settings.headers,
                       body: jsonEncode(values)
-                    ).then((response) => popIfGood(response));
+                    ).then((response) => afterAddingItem(response));
                   },
                   child: const Center(
                     child: Text('Submit'),
@@ -320,24 +468,35 @@ class _LeafPageState extends State<LeafPage> {
       });
   }
 
-  void popIfGood(Response response) {
-    if (response.statusCode >= 200 ) {
+  void afterAddingItem(Response response) {
+    // FIXME
+    if (response.statusCode == 201 ) {
       var content = jsonDecode(response.body);
 
-      var values = (content as List<dynamic>).map(
-        (json) => ItemAttributeValue.fromJson(json)
+      var values = (content["attributes"] as Map<String, dynamic>).map(
+        (key, value) => MapEntry(key, ItemAttributeValue.fromJson(value))
       );
 
+      values.forEach((key, value) {
+        var item = leaf.items[value.itemID];
+        item ??= Item(id: value.itemID, attributes: {});
+        item.attributes[value.id] = value;
+      });
+
       Navigator.of(context).pop();
+      setColumns();
+      setState(() {
+
+      });
     } else if (response.statusCode >= 400) {
       var content = jsonDecode(response.body);
-      print(content);
     }
   }
 
   @override
   void initState() {
     super.initState();
+    setColumns();
   }
 
   @override
@@ -392,13 +551,20 @@ class _LeafPageState extends State<LeafPage> {
               ),
             ],
           ),
-          DataTable(
-            columns: getColumns(),
-            rows: rows
+          Container(
+            height: MediaQuery.of(context).size.height-100,
+            padding: const EdgeInsets.all(10),
+            child: ListView(
+              children: [
+                DataTable(
+                  columns: cols,
+                  rows: rows,
+                )
+              ],
+            ),
           )
         ],
       )
     );
   }
 }
-
