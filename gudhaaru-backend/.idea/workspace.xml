@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="previous schema change caused bugs, fixed bugs">
+    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="delete endpoints for items, item attribute, attribute values, categories&#10;patch endpoints for item attributes, attribute values">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/items.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/items.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/structs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/structs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/home_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/items/items_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/items/items_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/utils/my_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/utils/my_drawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/crud/queries/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/crud/queries/items.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/endpoints/items/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/items/items.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +35,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Python.item.executor": "Run",
-    "Python.run_tests.executor": "Run",
+    "Python.run_tests.executor": "Debug",
     "Python.uvicorn.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -64,7 +60,7 @@
       <recent name="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.run_tests">
+  <component name="RunManager" selected="Python.uvicorn">
     <configuration name="run_tests" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="gudhaaru-backend" />
       <option name="ENV_FILES" value="" />
@@ -157,7 +153,8 @@
       <workItem from="1714743245319" duration="4798000" />
       <workItem from="1714761045943" duration="9606000" />
       <workItem from="1714828934078" duration="3002000" />
-      <workItem from="1714834652848" duration="4393000" />
+      <workItem from="1714834652848" duration="11088000" />
+      <workItem from="1714986024136" duration="5032000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />
@@ -319,7 +316,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714832543415</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="delete endpoints for items, item attribute, attribute values, categories&#10;patch endpoints for item attributes, attribute values">
+      <option name="closed" value="true" />
+      <created>1714933490911</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1714933490911</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -345,7 +350,8 @@
     <MESSAGE value="bug fixed where if item type doesnt have an attribute and all items of that type are being feteched from server server throws a 500" />
     <MESSAGE value="small change to schema as now the type and category table will have cascade as the foriegn key is finally applied" />
     <MESSAGE value="previous schema change caused bugs, fixed bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="previous schema change caused bugs, fixed bugs" />
+    <MESSAGE value="delete endpoints for items, item attribute, attribute values, categories&#10;patch endpoints for item attributes, attribute values" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete endpoints for items, item attribute, attribute values, categories&#10;patch endpoints for item attributes, attribute values" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -356,31 +362,6 @@
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/endpoints/items/item_types.py</url>
-          <line>108</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/schema/factrories/items.py</url>
-          <line>73</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/endpoints/items/item_types.py</url>
-          <line>99</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/endpoints/items/item_types.py</url>
-          <line>86</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/endpoints/items/item_types.py</url>
-          <line>80</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/main.py</url>
           <line>74</line>
           <option name="timeStamp" value="18" />
@@ -389,8 +370,8 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/gudhaaru_backend$run_tests.coverage" NAME="run_tests Coverage Results" MODIFIED="1714899634082" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
-    <SUITE FILE_PATH="coverage/gudhaaru_backend$uvicorn.coverage" NAME="uvicorn Coverage Results" MODIFIED="1714831506533" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
+    <SUITE FILE_PATH="coverage/gudhaaru_backend$run_tests.coverage" NAME="run_tests Coverage Results" MODIFIED="1714933115031" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
+    <SUITE FILE_PATH="coverage/gudhaaru_backend$uvicorn.coverage" NAME="uvicorn Coverage Results" MODIFIED="1715014865121" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
     <SUITE FILE_PATH="coverage/gudhaaru_backend$item.coverage" NAME="item Coverage Results" MODIFIED="1714325743795" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/schema" />
   </component>
 </project>

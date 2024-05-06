@@ -4,10 +4,11 @@ from sqlalchemy import update, delete
 
 from src.crud.models import AttributeRecord, AttributeValueRecord
 from src.crud.queries.items import (
-    select_attributes, select_attribute2, select_item_by_id, select_attribute, select_attribute_value
+    select_attributes, select_attribute2, select_item_by_id, select_attribute,
+    select_attribute_value, select_last_inserted_attr, select_last_inserted_value
 )
 from src.crud.raw_sql import get_new_item_id
-from src.crud.utils import add_objects, select_query_scalar, execute_safely
+from src.crud.utils import add_objects, select_query_scalar, execute_safely, add_object
 from src.endpoints.items.category import router as categories
 from src.endpoints.items.item_types import router as item_types
 from src.schema.factrories.items import ItemFactory
@@ -87,7 +88,7 @@ async def create_attributes_value(
     return ItemFactory.create_item(inserted)
 
 
-@router.patch("/item/attribute")
+@router.patch("/item/attribute", status_code=201)
 async def update_attribute(attribute: ItemAttribute) -> ItemAttribute:
     query = update(
         AttributeRecord
@@ -145,3 +146,38 @@ async def delete_attribute_value(value_id: int) -> None:
     ).where(AttributeValueRecord.id == value_id)
     await execute_safely(query)
 
+
+@router.delete("/item", status_code=204)
+async def delete_item(item_id: int) -> None:
+    query = delete(
+        AttributeValueRecord
+    ).where(AttributeValueRecord.item_id == item_id)
+    await execute_safely(query)
+
+
+@router.patch("/item/add-attribute", status_code=201)
+async def add_attribute(attribute: ItemAttribute) -> ItemAttribute:
+    record = AttributeRecord(
+        name=attribute.name,
+        item_type=attribute.type_id
+    )
+    await add_object(record)
+
+    record = await select_last_inserted_attr(attribute.name, attribute.type_id)
+    return ItemFactory.create_attribute(record)
+
+
+@router.patch("/item/add-attribute-value", status_code=201)
+async def add_attribute_value(value: ItemAttributeValue) -> ItemAttributeValue:
+    record = AttributeValueRecord(
+        attribute=value.attribute,
+        value=value.value,
+        item_id=value.item_id
+    )
+    await add_object(record)
+
+    record = await select_last_inserted_value(
+        attribute=value.attribute,
+        item_id=value.item_id
+    )
+    return ItemFactory.create_attribute_value(record)

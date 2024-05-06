@@ -154,3 +154,27 @@ async def select_attribute_value(value: int):
     )
 
     return await scalar_selection(query)
+
+
+async def select_last_inserted_attr(name: str, type_id: int):
+    query = select(
+        AttributeRecord
+    ).where(
+        and_(
+            AttributeRecord.name == name,
+            AttributeRecord.item_type == type_id
+        )
+    )
+    return await scalar_selection(query)
+
+
+async def select_last_inserted_value(attribute: int, item_id: int):
+    query = select(
+        AttributeValueRecord
+    ).where(
+        and_(
+            AttributeValueRecord.item_id == item_id,
+            AttributeValueRecord.attribute == attribute
+        )
+    )
+    return await scalar_selection(query)
