@@ -24,7 +24,3 @@ class Settings {
   }
 
 }
-
-class BooleanHolder {
-  bool value = false;
-}

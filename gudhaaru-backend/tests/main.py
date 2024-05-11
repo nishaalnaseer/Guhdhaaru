@@ -485,6 +485,21 @@ def main():
                 parent_id=1,
             ),
         ),
+        "50": Test(
+            req_url_path="/items/item/attributes-value",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=[
+                ItemAttributeValue(id=1, value='4', attribute=1),
+                ItemAttributeValue(id=1, value='Fully Threaded', attribute=2),
+                ItemAttributeValue(id=1, value='Coarse', attribute=3),
+                ItemAttributeValue(id=1, value='2.5', attribute=4),
+                ItemAttributeValue(id=1, value='1.4', attribute=5),
+                ItemAttributeValue(id=1, value='1.3', attribute=6),
+                ItemAttributeValue(id=1, value='170,000', attribute=7)
+            ],
+        ),
     }
 
     final = items_tests

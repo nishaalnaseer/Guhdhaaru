@@ -63,12 +63,167 @@ class _LeafPageState extends State<LeafPage> {
     });
   }
 
+  void _setState() {
+    setState(() {
+
+    });
+  }
+
   void viewListings(int itemID) {
 
   }
 
-  void editItem(int itemID) {
+  void editItem(Item item) {
+    List<Widget> children = [];
+    var controller = TextEditingController();
+    var newAttrController = TextEditingController();
+    controller.text = leaf.itemType.name;
 
+    void setChildren() {
+      // todo fix setstate when called from delete function doesnt work
+      children = [];
+      children = [
+        Text("Item ID: ${item.id}")
+      ];
+
+      List<Widget> attributes = [];
+      leaf.attributes.forEach((key, attribute) {
+        var attrController = TextEditingController();
+
+        ItemAttributeValue? itemValue = item.attributes[attribute.id];
+        ElevatedButton button;
+        if(itemValue != null) {
+          attrController.text = itemValue.value;
+            button = ElevatedButton(
+                onPressed: () async {
+                  String text = attrController.text.trim();
+
+                  if(text.isEmpty || text == itemValue.value) {
+                    return;
+                  }
+                  var itemID = itemValue.itemID;
+
+                  var value = ItemAttributeValue(
+                      id: itemValue.id,
+                      attribute: itemValue.attribute,
+                      value: attrController.text,
+                      itemID: itemID
+                  );
+
+                  var response = await patch(
+                    Uri.parse("${Settings.server}/items/item/attribute-value"),
+                    headers: Settings.headers,
+                    body: jsonEncode(value.toJson())
+                  );
+
+                  if(response.statusCode >= 400) {
+                    attrController.text = itemValue.value;
+                    return;
+                  }
+
+                  var content = jsonDecode(response.body);
+                  var newValue = ItemAttributeValue.fromJson(content);
+                  leaf.items[itemID]!.attributes[newValue.id] = newValue;
+                  setColumns();
+                  _setState();
+                },
+                child: const Text("Edit")
+            );
+        } else {
+          button = ElevatedButton(
+              onPressed: () async {
+
+                String text = attrController.text.trim();
+
+                if(text.isEmpty) {
+                  return;
+                }
+
+                var value = ItemAttributeValue(
+                  id: 1,
+                  attribute: attribute.id,
+                  value: text,
+                  itemID: item.id
+                );
+                var response = await patch(
+                  Uri.parse(
+                    "${Settings.server}/items/item/add-attribute-value"
+                  ),
+                  headers: Settings.headers,
+                  body: jsonEncode(value.toJson())
+                );
+
+                var content = jsonDecode(response.body);
+                var newValue = ItemAttributeValue.fromJson(content);
+                leaf.items[item.id]!.attributes[newValue.id] = newValue;
+                setColumns();
+                _setState();
+              },
+              child: const Text("Submit")
+          );
+        }
+
+        attributes.add(
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: SizedBox(
+                    width: 600,
+                    child: SizedBox(
+                      width: 500,
+                      child: TextField(
+                        controller: attrController,
+                        decoration: InputDecoration(
+                          labelText: attribute.name,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                button,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                  child: ElevatedButton(
+                    onPressed: () async {
+
+                    },
+                    child: const Text("Delete")
+                  )
+                )
+              ],
+            )
+        );
+      });
+
+      children.addAll(attributes);
+    }
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+
+        return StatefulBuilder(builder: (context, setState) {
+          setChildren();
+          return AlertDialog(
+            title: const Center(child: Text('Edit Item')),
+            content: SingleChildScrollView(
+              child: Column(
+                children: children,
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text('Close'),
+              ),
+            ],
+          );
+        });
+      });
   }
 
   void editTypeRequest(ItemType type) async {
@@ -174,7 +329,7 @@ class _LeafPageState extends State<LeafPage> {
     controller.text = leaf.itemType.name;
 
     void setChildren() {
-      // todo fix when called from delete function doesnt work
+      // todo fix setstate when called from delete function doesnt work
       children = [];
       children = [
         SizedBox(
@@ -360,7 +515,7 @@ class _LeafPageState extends State<LeafPage> {
         DataCell(
           IconButton(
             onPressed: () {
-              editItem(itemID);
+              editItem(item);
             },
             icon: const Icon(
               Icons.edit
@@ -399,11 +554,8 @@ class _LeafPageState extends State<LeafPage> {
                   padding: const EdgeInsets.all(5),
                   child: SizedBox(
                     width: 300,
-                    child: SizedBox(
-                      width: 300,
-                      child: TextField(
-                        controller: controller,
-                      ),
+                    child: TextField(
+                      controller: controller,
                     ),
                   ),
                 )
