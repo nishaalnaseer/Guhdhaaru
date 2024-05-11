@@ -182,7 +182,7 @@ class UserRecord(Base):
 
 
 class VendorRecord(Base):
-    __tablename = "vendor"
+    __tablename__ = "vendor"
     id = Column(
         INTEGER(unsigned=True),
         primary_key=True,
@@ -196,11 +196,15 @@ class VendorRecord(Base):
     )
     email = Column(
         String(50, collation=_COLLATION),
+        nullable=False
+    )
+    location = Column(
+        String(50, collation=_COLLATION),
         nullable=False,
     )
 
 
-class VendorUsersRecord(Base):
+class VendorUserRecord(Base):
     __tablename__ = "vendor_users"
     id = Column(
         INTEGER(unsigned=True),
@@ -219,7 +223,11 @@ class VendorUsersRecord(Base):
         ForeignKey("user.id"),
         nullable=False,
     )
-    # unique constraint of user and vendor id
+    __table_args__ = (
+        UniqueConstraint(
+            'vendor_id', 'user_id', name='_user-vendor'
+        ),
+    )
 
 
 class EscrowRecord(Base):
@@ -231,7 +239,7 @@ class EscrowRecord(Base):
         nullable=False,
         unique=True,
     )
-    vendor = Column(
+    vendor_id = Column(
         INTEGER(unsigned=True),
         ForeignKey("vendor.id"),
         nullable=False
@@ -240,4 +248,9 @@ class EscrowRecord(Base):
         INTEGER(unsigned=True),
         ForeignKey("item.id"),
         nullable=False
+    )
+    __table_args__ = (
+        UniqueConstraint(
+            'vendor_id', 'item', name='_vendor-vendor'
+        ),
     )

@@ -3,13 +3,7 @@ from pydantic import BaseModel, EmailStr, Field
 
 class User(BaseModel):
     id: int
+    name: str
     email: EmailStr
-    password: str = Field(..., exclude=True)
-
-
-class Admin(User):
-    pass
-
-
-class Vendor(User):
-    location: str
+    password: str | None = Field(exclude=True, default=None)
+    is_admin: bool

@@ -1,4 +1,5 @@
 from src.schema.item import *
+from src.schema.vendor import Vendor
 from src.utils.db_initialzation import main as db_init
 from tests._test import Test
 from tests.client import Client
@@ -502,7 +503,23 @@ def main():
         ),
     }
 
+    vendors = {
+        "51": Test(
+            req_url_path="/vendors/vendor",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Vendor(
+                id=0,
+                name="Somewhere",
+                email="nishawl.naseer@outlook.com",
+                location="Where",
+            ),
+        ),
+    }
+
     final = items_tests
+    final.update(vendors)
 
     for i_id, item in final.items():
         item.test_id = i_id

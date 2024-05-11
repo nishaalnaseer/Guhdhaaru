@@ -12,9 +12,12 @@ from src.schema.item import Category, HomePage
 from src.utils.utils import lifespan
 from src.schema.users import *
 from src.endpoints.items.items import router as items
+from src.endpoints.vendors.vendor import router as vendors
 
 app = FastAPI(lifespan=lifespan)
 app.include_router(items)
+app.include_router(vendors)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # List your allowed origins here
