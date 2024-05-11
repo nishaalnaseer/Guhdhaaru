@@ -154,23 +154,90 @@ class AttributeValueRecord(Base):
     )
 
 
-# class EscrowRecord(Base):
-#     __tablename__ = "escrow"
-#     id = Column(
-#         INTEGER(unsigned=True),
-#         primary_key=True,
-#         autoincrement=True,
-#         nullable=False,
-#         unique=True,
-#     )
-#     # vendor = Column(
-#     #     INTEGER(unsigned=True),
-#     #     ForeignKey("vendor.id"),
-#     #     nullable=False
-#     # )
-#     vendor =
-#     item = Column(
-#         INTEGER(unsigned=True),
-#         ForeignKey("item.id"),
-#         nullable=False
-#     )
+class UserRecord(Base):
+    __tablename__ = "user"
+    id = Column(
+        INTEGER(unsigned=True),
+        primary_key=True,
+        autoincrement=True,
+        nullable=False,
+        unique=True,
+    )
+    name = Column(
+        String(50, collation=_COLLATION),
+        nullable=False, unique=True
+    )
+    email = Column(
+        String(50, collation=_COLLATION),
+        nullable=False,
+    )
+    password = Column(
+        String(60, collation=_COLLATION),
+        nullable=False,
+    )
+    is_admin = Column(
+        BIT(),
+        nullable=False,
+    )
+
+
+class VendorRecord(Base):
+    __tablename = "vendor"
+    id = Column(
+        INTEGER(unsigned=True),
+        primary_key=True,
+        autoincrement=True,
+        nullable=False,
+        unique=True,
+    )
+    name = Column(
+        String(50, collation=_COLLATION),
+        nullable=False, unique=True
+    )
+    email = Column(
+        String(50, collation=_COLLATION),
+        nullable=False,
+    )
+
+
+class VendorUsersRecord(Base):
+    __tablename__ = "vendor_users"
+    id = Column(
+        INTEGER(unsigned=True),
+        primary_key=True,
+        autoincrement=True,
+        nullable=False,
+        unique=True,
+    )
+    vendor_id = Column(
+        INTEGER(unsigned=True),
+        ForeignKey("vendor.id"),
+        nullable=False,
+    )
+    user_id = Column(
+        INTEGER(unsigned=True),
+        ForeignKey("user.id"),
+        nullable=False,
+    )
+    # unique constraint of user and vendor id
+
+
+class EscrowRecord(Base):
+    __tablename__ = "escrow"
+    id = Column(
+        INTEGER(unsigned=True),
+        primary_key=True,
+        autoincrement=True,
+        nullable=False,
+        unique=True,
+    )
+    vendor = Column(
+        INTEGER(unsigned=True),
+        ForeignKey("vendor.id"),
+        nullable=False
+    )
+    item = Column(
+        INTEGER(unsigned=True),
+        ForeignKey("item.id"),
+        nullable=False
+    )
