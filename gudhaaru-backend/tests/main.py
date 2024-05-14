@@ -1,5 +1,5 @@
 from src.schema.item import *
-from src.schema.vendor import Vendor
+from src.schema.vendor import Vendor, Escrow
 from src.utils.db_initialzation import main as db_init
 from tests._test import Test
 from tests.client import Client
@@ -503,7 +503,31 @@ def main():
         ),
     }
 
-    vendors = {
+    final = items_tests
+
+    for i_id, _test in final.items():
+        _test.test_id = i_id
+        client.req(_test)
+
+    content = Test(
+        test_id=-1,
+        req_url_path="/items/item-types/item-type/leaf-node",
+        res_status_code=200,
+        req_type="get",
+        req_params={
+            "type_id": 8
+        },
+        req_body=None
+    )
+    response = client.req(content)
+
+    if response is None:
+        return
+
+    leaf = LeafNode(**json.loads(response))
+    item: Item = list(leaf.items.values())[0]
+
+    _next = {
         "51": Test(
             req_url_path="/vendors/vendor",
             res_status_code=201,
@@ -516,11 +540,65 @@ def main():
                 location="Where",
             ),
         ),
+        "52": Test(
+            req_url_path="/vendors/vendor",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Vendor(
+                id=0,
+                name="Somewhere1",
+                email="nishawl.naseer1@outlook.com",
+                location="Where",
+            ),
+        ),
+        "53": Test(
+            req_url_path="/vendors/vendor",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Vendor(
+                id=0,
+                name="Somewhere2",
+                email="nishawl.naseer2@outlook.com",
+                location="Where",
+            ),
+        ),
+        "54": Test(
+            req_url_path="/vendors/escrows/escrow",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Escrow(
+                id=0,
+                item_id=item.id,
+                vendor=1
+            ),
+        ),
+        "55": Test(
+            req_url_path="/vendors/escrows/escrow",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Escrow(
+                id=0,
+                item_id=item.id,
+                vendor=3
+            ),
+        ),
+        "56": Test(
+            req_url_path="/vendors/escrows/escrow",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Escrow(
+                id=0,
+                item_id=item.id,
+                vendor=2
+            ),
+        ),
     }
 
-    final = items_tests
-    final.update(vendors)
-
-    for i_id, item in final.items():
-        item.test_id = i_id
-        client.req(item)
+    for i_id, _test in _next.items():
+        _test.test_id = i_id
+        client.req(_test)

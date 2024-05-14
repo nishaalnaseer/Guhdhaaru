@@ -1,7 +1,7 @@
-from sqlalchemy import select
+from sqlalchemy import select, and_
 
-from src.crud.models import VendorRecord
-from src.crud.utils import scalar_selection
+from src.crud.models import VendorRecord, EscrowRecord, AttributeValueRecord
+from src.crud.utils import scalar_selection, scalars_selection, all_selection, fetch_one
 
 
 async def select_vendor(name: str):
@@ -11,3 +11,26 @@ async def select_vendor(name: str):
         VendorRecord.name == name
     )
     return await scalar_selection(query)
+
+
+async def select_escrows(item_id: int):
+    query = select(
+        EscrowRecord, VendorRecord
+    ).join(
+        VendorRecord, VendorRecord.id == EscrowRecord.vendor_id
+    ).where(EscrowRecord.item == item_id)
+    return await all_selection(query)
+
+
+async def select_escrow_by_item_id(item_id: int, vendor_id: int):
+    query = select(
+        EscrowRecord, VendorRecord
+    ).join(
+        VendorRecord, VendorRecord.id == vendor_id
+    ).where(
+        and_(
+            EscrowRecord.vendor_id == vendor_id,
+            EscrowRecord.item == item_id
+        )
+    )
+    return await fetch_one(query)

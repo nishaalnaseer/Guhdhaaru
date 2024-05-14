@@ -5,8 +5,11 @@ from src.crud.queries.vendor import select_vendor
 from src.crud.utils import add_object
 from src.schema.factrories.vendor import VendorFactory
 from src.schema.vendor import Vendor
+from src.endpoints.vendors.escrows import router as escrows
+
 
 router = APIRouter(prefix="/vendors")
+router.include_router(escrows)
 
 
 @router.post("/vendor", status_code=201)

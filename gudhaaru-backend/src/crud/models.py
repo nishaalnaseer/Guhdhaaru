@@ -72,30 +72,30 @@ class TypeRecord(Base):
     )
 
 
-class ItemRecord(Base):
-    __tablename__ = "item"
-    id = Column(
-        INTEGER(unsigned=True),
-        primary_key=True,
-        autoincrement=True,
-        nullable=False,
-        unique=True,
-    )
-    item_type = Column(
-        INTEGER(unsigned=True),
-        ForeignKey("type.id", ondelete="CASCADE", onupdate="CASCADE"),
-        nullable=False
-    )
-    name = Column(
-        String(50, collation=_COLLATION),
-        nullable=False,
-    )
-    __table_args__ = (
-        UniqueConstraint(
-            'item_type', "name",
-            name='_type-name'
-        ),
-    )
+# class ItemRecord(Base):
+#     __tablename__ = "item"
+#     id = Column(
+#         INTEGER(unsigned=True),
+#         primary_key=True,
+#         autoincrement=True,
+#         nullable=False,
+#         unique=True,
+#     )
+#     item_type = Column(
+#         INTEGER(unsigned=True),
+#         ForeignKey("type.id", ondelete="CASCADE", onupdate="CASCADE"),
+#         nullable=False
+#     )
+#     name = Column(
+#         String(50, collation=_COLLATION),
+#         nullable=False,
+#     )
+#     __table_args__ = (
+#         UniqueConstraint(
+#             'item_type', "name",
+#             name='_type-name'
+#         ),
+#     )
 
 
 class AttributeRecord(Base):
@@ -246,7 +246,7 @@ class EscrowRecord(Base):
     )
     item = Column(
         INTEGER(unsigned=True),
-        ForeignKey("item.id"),
+        # ForeignKey("item.id"),
         nullable=False
     )
     __table_args__ = (

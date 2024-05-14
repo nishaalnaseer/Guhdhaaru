@@ -1,7 +1,7 @@
 from typing import List
 from pydantic import BaseModel, EmailStr
 
-from src.schema.item import Item
+from src.schema.item import Item, ItemAttributeValue, ItemAttribute
 from src.schema.users import User
 
 
@@ -15,5 +15,11 @@ class Vendor(BaseModel):
 
 class Escrow(BaseModel):
     id: int
-    item: Item
-    vendor: Vendor
+    item_id: int
+    vendor: int | Vendor
+
+    def get_vendor_id(self) -> int:
+        if type(self.vendor) is int:
+            return self.vendor
+        else:
+            return self.vendor.id

@@ -84,6 +84,14 @@ async def all_selection(query):
             return result.all()
 
 
+async def fetch_one(query):
+    async with async_session() as session:
+        async with session.begin():
+
+            result = await session.execute(query)
+            return result.fetchone()
+
+
 async def select_query_scalar(text_query):
     async with async_session() as session:
         async with session.begin():

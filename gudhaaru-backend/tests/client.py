@@ -45,7 +45,7 @@ class Client:
             "Authorization": token
         }
 
-    def req(self, _test: Test):
+    def req(self, _test: Test) -> str | None:
         if _test.req_body is not None:
 
             if type(_test.req_body) is list:
@@ -57,7 +57,7 @@ class Client:
         else:
             _body = None
 
-        if _test.req_type == "post":
+        if _test.req_type.lower() == "post":
             response = requests.post(
                 url=f"{self._server}{_test.req_url_path}",
                 json=_body, params=_test.req_params,
@@ -67,6 +67,12 @@ class Client:
             response = requests.patch(
                 url=f"{self._server}{_test.req_url_path}",
                 json=_body, params=_test.req_params,
+                headers=self._headers
+            )
+        elif _test.req_type == "get":
+            response = requests.get(
+                url=f"{self._server}{_test.req_url_path}",
+                params=_test.req_params,
                 headers=self._headers
             )
         else:
@@ -88,3 +94,4 @@ class Client:
             self._logger.info(
                 f"Test ID: {_test.test_id} succeeded"
             )
+            return response.content.decode()
