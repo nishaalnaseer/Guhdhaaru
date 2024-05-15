@@ -1,6 +1,6 @@
 from typing import List
 
-from src.schema.vendor import Escrow, Vendor
+from src.schema.vendor import Listing, Vendor
 
 
 class VendorFactory:
@@ -14,18 +14,18 @@ class VendorFactory:
         )
 
     @staticmethod
-    def create_escrow(record) -> Escrow:
+    def create_escrow(record) -> Listing:
         escrow_record = record[0]
         vendor_record = record[1]
 
-        return Escrow(
+        return Listing(
             id=escrow_record.id,
             item_id=escrow_record.item,
             vendor=VendorFactory.create_vendor(vendor_record),
         )
 
     @staticmethod
-    def create_escrows(records) -> List[Escrow]:
+    def create_listings(records) -> List[Listing]:
         return [
             VendorFactory.create_escrow(record) for record in records
         ]

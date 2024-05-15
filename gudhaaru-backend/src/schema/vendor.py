@@ -13,7 +13,7 @@ class Vendor(BaseModel):
     users: List[User] | None = None
 
 
-class Escrow(BaseModel):
+class Listing(BaseModel):
     id: int
     item_id: int
     vendor: int | Vendor

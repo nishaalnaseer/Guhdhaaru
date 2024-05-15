@@ -230,7 +230,7 @@ class VendorUserRecord(Base):
     )
 
 
-class EscrowRecord(Base):
+class ListingsRecord(Base):
     __tablename__ = "escrow"
     id = Column(
         INTEGER(unsigned=True),

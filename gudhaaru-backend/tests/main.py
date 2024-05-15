@@ -1,5 +1,5 @@
 from src.schema.item import *
-from src.schema.vendor import Vendor, Escrow
+from src.schema.vendor import Vendor, Listing
 from src.utils.db_initialzation import main as db_init
 from tests._test import Test
 from tests.client import Client
@@ -565,33 +565,33 @@ def main():
             ),
         ),
         "54": Test(
-            req_url_path="/vendors/escrows/escrow",
+            req_url_path="/vendors/listings/listing",
             res_status_code=201,
             req_type="post",
             req_params=None,
-            req_body=Escrow(
+            req_body=Listing(
                 id=0,
                 item_id=item.id,
                 vendor=1
             ),
         ),
         "55": Test(
-            req_url_path="/vendors/escrows/escrow",
+            req_url_path="/vendors/listings/listing",
             res_status_code=201,
             req_type="post",
             req_params=None,
-            req_body=Escrow(
+            req_body=Listing(
                 id=0,
                 item_id=item.id,
                 vendor=3
             ),
         ),
         "56": Test(
-            req_url_path="/vendors/escrows/escrow",
+            req_url_path="/vendors/listings/listing",
             res_status_code=201,
             req_type="post",
             req_params=None,
-            req_body=Escrow(
+            req_body=Listing(
                 id=0,
                 item_id=item.id,
                 vendor=2
