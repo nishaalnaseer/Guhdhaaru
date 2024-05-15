@@ -59,4 +59,6 @@ class LeafNode(BaseModel):
     attributes: Dict[int, ItemAttribute]
 
 
-
+class SingleItem(BaseModel):
+    attributes: Dict[int, ItemAttribute] = {}
+    values: Dict[int, ItemAttributeValue] = {}

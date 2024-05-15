@@ -5,14 +5,15 @@ from sqlalchemy import update, delete
 from src.crud.models import AttributeRecord, AttributeValueRecord
 from src.crud.queries.items import (
     select_attributes, select_attribute2, select_item_by_id, select_attribute,
-    select_attribute_value, select_last_inserted_attr, select_last_inserted_value
+    select_attribute_value, select_last_inserted_attr, select_last_inserted_value,
+    select_item
 )
 from src.crud.raw_sql import get_new_item_id
 from src.crud.utils import add_objects, select_query_scalar, execute_safely, add_object
 from src.endpoints.items.category import router as categories
 from src.endpoints.items.item_types import router as item_types
 from src.schema.factrories.items import ItemFactory
-from src.schema.item import ItemAttribute, ItemAttributeValue
+from src.schema.item import ItemAttribute, ItemAttributeValue, SingleItem
 
 router = APIRouter(prefix="/items", tags=["Items"])
 router.include_router(categories)
@@ -181,3 +182,25 @@ async def add_attribute_value(value: ItemAttributeValue) -> ItemAttributeValue:
         item_id=value.item_id
     )
     return ItemFactory.create_attribute_value(record)
+
+
+@router.get("/item")
+async def get_item(item_id: int) -> SingleItem:
+    records = await select_item(item_id)
+    item = SingleItem()
+
+    if records is None or len(records) == 0:
+        raise HTTPException(status_code=404, detail="Item Not Found")
+
+    for record in records:
+        value = record[0]
+        attribute = record[1]
+
+        item.values[value.attribute] = ItemFactory.create_attribute_value(
+            value
+        )
+        item.attributes[attribute.id] = ItemFactory.create_attribute(
+            attribute
+        )
+
+    return item

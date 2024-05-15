@@ -187,3 +187,15 @@ async def select_attribute_values(item_id: int):
         AttributeValueRecord.item_id == item_id
     )
     return await scalars_selection(query)
+
+
+async def select_item(item_id: int):
+    query = select(
+        AttributeValueRecord, AttributeRecord
+    ).join(
+        AttributeRecord,
+        AttributeRecord.id == AttributeValueRecord.attribute
+    ).where(
+        AttributeValueRecord.item_id == item_id
+    )
+    return await all_selection(query)

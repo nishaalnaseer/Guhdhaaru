@@ -219,6 +219,39 @@ class App extends StatelessWidget {
                   );
                 },
               ),
+
+              GoRoute(
+                path: 'items/item',
+                builder: (BuildContext context, GoRouterState state) {
+                  String? itemID = state.uri.queryParameters["itemID"];
+
+                  bool showError;
+                  int id;
+                  if(itemID == null) {
+                    showError = true;
+                  } else {
+                    try {
+                      id = int.parse(itemID);
+                      showError = false;
+                    } on FormatException {
+                      showError = true;
+                    }
+                  }
+
+                  if(showError) {
+                    return const ErrorPage(
+                        error: "Invalid item ID",
+                        backRoute: "/"
+                    );
+                  }
+
+                  id = int.parse(itemID!);
+                  return LoadingPage(
+                    future: getLeafNode(id),
+                    decodeFunction: createLeafPage
+                  );
+                },
+              ),
             ],
           ),
         ],

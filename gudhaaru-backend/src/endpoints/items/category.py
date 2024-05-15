@@ -51,8 +51,14 @@ async def update_category(category: Category) -> Category:
 
 
 @router.delete("/category", status_code=204)
-async def delete_category(catergory_id: int) -> None:
+async def delete_category(category_id: int) -> None:
+    if category_id == 1:
+        raise HTTPException(
+            403,
+            "Forbidden to delete a root node"
+        )
+
     query = delete(
         CategoryRecord
-    ).where(CategoryRecord.id == catergory_id)
+    ).where(CategoryRecord.id == category_id)
     await execute_safely(query)

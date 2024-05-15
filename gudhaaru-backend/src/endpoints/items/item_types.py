@@ -117,6 +117,12 @@ async def get_leaf_node(type_id: int) -> LeafNode:
 
 @router.delete("/item-types/item-type", status_code=204)
 async def delete_item_type(item_type: int):
+    if item_type == 1:
+        raise HTTPException(
+            403,
+            "Forbidden to delete a root node"
+        )
+
     query = delete(
         TypeRecord
     ).where(TypeRecord.id == item_type)
