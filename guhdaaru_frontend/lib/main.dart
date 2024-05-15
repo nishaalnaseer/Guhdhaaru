@@ -4,11 +4,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:guhdaaru_frontend/structs/items.dart';
 import 'package:guhdaaru_frontend/structs/structs.dart';
+import 'package:guhdaaru_frontend/structs/vendor.dart';
 import 'package:guhdaaru_frontend/views/home_page.dart';
 import 'package:guhdaaru_frontend/views/items/items_page.dart';
 import 'package:guhdaaru_frontend/views/items/item_type_page.dart';
 import 'package:guhdaaru_frontend/views/utils/error_page.dart';
 import 'package:guhdaaru_frontend/views/utils/loading_page.dart';
+import 'package:guhdaaru_frontend/views/vendors/listings.dart';
 import 'package:http/http.dart';
 import 'package:go_router/go_router.dart';
 
@@ -130,6 +132,42 @@ LeafPage createLeafPage(Response response) {
   return LeafPage(leaf: leaf);
 }
 
+Future<ListingsPageStruct> getListingsPagesStruct(int itemID) async {
+
+  List<Response> responses = await Future.wait([
+    get(
+        Uri.parse("${Settings.server}/items/item?item_id=$itemID"),
+        headers: Settings.headers
+    ),
+    get(
+      Uri.parse("${Settings.server}/vendors/listings/listings?item_id=$itemID"),
+      headers: Settings.headers
+    )
+  ]);
+  var itemResponse = responses[0];
+  var listingsResponse = responses[1];
+
+  if(itemResponse.statusCode > 399 || listingsResponse.statusCode > 399) {
+    // todo implement proper error handling here
+    throw Exception("unimplemented todo");
+  }
+
+  var item = SingleItem.fromJson(jsonDecode(itemResponse.body));
+
+  var listings = (
+      jsonDecode(listingsResponse.body) as List<dynamic>
+  ).map((value) => Listing.fromJson(value)).toList(growable: false);
+
+  return ListingsPageStruct(item: item, listings: listings);
+
+}
+
+ListingsPage createListingsPage(ListingsPageStruct struct) {
+  return ListingsPage(
+    struct: struct,
+  );
+}
+
 
 void main(List<String> args) {
   runApp(const App());
@@ -221,7 +259,7 @@ class App extends StatelessWidget {
               ),
 
               GoRoute(
-                path: 'items/item',
+                path: 'item/listings',
                 builder: (BuildContext context, GoRouterState state) {
                   String? itemID = state.uri.queryParameters["itemID"];
 
@@ -247,8 +285,8 @@ class App extends StatelessWidget {
 
                   id = int.parse(itemID!);
                   return LoadingPage(
-                    future: getLeafNode(id),
-                    decodeFunction: createLeafPage
+                      future: getListingsPagesStruct(id),
+                      decodeFunction: createListingsPage
                   );
                 },
               ),

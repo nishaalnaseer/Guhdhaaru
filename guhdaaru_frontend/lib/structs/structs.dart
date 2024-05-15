@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:guhdaaru_frontend/structs/vendor.dart';
+
+import 'items.dart';
 
 class DrawerStruct {
   bool open = false;
@@ -22,5 +25,14 @@ class Settings {
   void setToken(String token) {
     headers["Authorization"] = token;
   }
+}
 
+class ListingsPageStruct{
+  final SingleItem item;
+  final List<Listing> listings;
+
+  ListingsPageStruct({
+    required this.item,
+    required this.listings,
+  });
 }

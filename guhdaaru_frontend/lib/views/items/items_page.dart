@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:guhdaaru_frontend/structs/structs.dart';
 import 'package:guhdaaru_frontend/views/utils/my_scaffold.dart';
 import 'package:http/http.dart';
@@ -502,7 +503,7 @@ class _LeafPageState extends State<LeafPage> {
         DataCell(
           IconButton(
             onPressed: () {
-
+              context.go("/item/listings?itemID=$itemID");
             },
             icon: const Icon(
                 Icons.list

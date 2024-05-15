@@ -4,15 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="escrows for vendors, tests working">
-      <change afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/escrows.dart" afterDir="false" />
+    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="restriction on deleteing root category and type nodes&#10;&#10;get single Item endpoint">
+      <change afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/vendor.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/listings.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/crud/queries/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/crud/queries/items.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/endpoints/items/category.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/items/category.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/endpoints/items/item_types.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/items/item_types.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/endpoints/items/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/items/items.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/schema/item.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/item.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/crud/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/crud/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/crud/queries/vendor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/crud/queries/vendor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/endpoints/vendors/escrows.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/vendors/listings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/endpoints/vendors/vendor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/vendors/vendor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schema/factrories/vendor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/factrories/vendor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schema/vendor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/vendor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/items.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/items.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/structs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/structs.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/items/items_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/items/items_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/utils/loading_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/utils/loading_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/utils/my_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/utils/my_drawer.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +181,8 @@
       <workItem from="1715678447248" duration="146000" />
       <workItem from="1715678617313" duration="55000" />
       <workItem from="1715703491480" duration="4204000" />
-      <workItem from="1715776245954" duration="2851000" />
+      <workItem from="1715776245954" duration="3001000" />
+      <workItem from="1715793859993" duration="1092000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />
@@ -375,7 +384,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715705574585</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="restriction on deleteing root category and type nodes&#10;&#10;get single Item endpoint">
+      <option name="closed" value="true" />
+      <created>1715779447366</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1715779447366</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -406,7 +423,8 @@
     <MESSAGE value="entities" />
     <MESSAGE value="created vendor post endpoint" />
     <MESSAGE value="escrows for vendors, tests working" />
-    <option name="LAST_COMMIT_MESSAGE" value="escrows for vendors, tests working" />
+    <MESSAGE value="restriction on deleteing root category and type nodes&#10;&#10;get single Item endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="restriction on deleteing root category and type nodes&#10;&#10;get single Item endpoint" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

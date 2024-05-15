@@ -131,6 +131,9 @@ class ItemAttribute {
 
 class Item {
   final int id;
+
+  /// Key of this map used here is the id of the attribute or to be precise
+  /// [ItemAttributeValue.attribute]
   final Map<int, ItemAttributeValue> attributes;
 
   Item({
@@ -143,7 +146,8 @@ class Item {
       id: json["id"],
       attributes: (json["attributes"] as Map<String, dynamic>).map(
         (key, value) => MapEntry(
-            int.parse(key), ItemAttributeValue.fromJson(value)
+            value["attribute"],
+            ItemAttributeValue.fromJson(value)
         )
       ),
     );
@@ -172,6 +176,36 @@ class LeafNode{
       attributes: (json["attributes"] as Map<String, dynamic>).map(
         (key, value) => MapEntry(
           int.parse(key), ItemAttribute.fromJson(value)
+        )
+      )
+    );
+  }
+}
+
+class SingleItem{
+  Map<int, ItemAttribute> attributes;
+
+  /// Key of this map used here is the id of the attribute or to be precise
+  /// [ItemAttributeValue.attribute]
+  Map<int, ItemAttributeValue> values;
+
+  SingleItem({
+    required this.attributes,
+    required this.values,
+  });
+
+  factory SingleItem.fromJson(Map<String, dynamic> json) {
+    return SingleItem(
+      attributes: (json["attributes"] as Map<String, dynamic>).map(
+        (key, value) => MapEntry(
+          int.parse(key),
+          ItemAttribute.fromJson(value)
+        )
+      ),
+      values: (json["values"] as Map<String, dynamic>).map(
+        (key, value) => MapEntry(
+          value["attribute"],
+          ItemAttributeValue.fromJson(value)
         )
       )
     );
