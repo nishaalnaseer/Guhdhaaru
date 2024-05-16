@@ -149,8 +149,9 @@ Future<Response> getListingsPage(int itemID) async {
 }
 
 ListingsPage createListingsPage(Response response) {
+  var struct = ListingsPageStruct.fromJson(jsonDecode(response.body));
   return ListingsPage(
-    struct: ListingsPageStruct.fromJson(jsonDecode(response.body)),
+    struct: struct,
   );
 }
 

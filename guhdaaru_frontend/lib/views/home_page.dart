@@ -415,7 +415,7 @@ class _HomePageState extends State<HomePage> {
               categories: widget.orderedCategories
           ),
         ),
-      ),
+      ), currentRoute: '/',
     );
   }
 }

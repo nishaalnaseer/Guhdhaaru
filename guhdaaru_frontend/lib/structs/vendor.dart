@@ -24,36 +24,33 @@ class Vendor{
 class Listing{
   int id;
   int itemId;
-  int? vendorID;
-  Vendor? vendor;
+  Vendor vendor;
 
   Listing({
     required this.id,
     required this.itemId,
-    Vendor? vendor,
-    int? vendorID
+    required this.vendor,
   });
 
   factory Listing.fromJson(Map<String, dynamic> json) {
-    dynamic vendorRaw = json["vendor"];
-    Type type = vendorRaw.runtimeType;
-
-    int? vendorID;
-    Vendor? vendor;
-    if(type == int) {
-      vendorID = vendorRaw;
-      vendor = null;
-    } {
-      vendorID = null;
-      vendor = Vendor.fromJson(vendorRaw);
-    }
+    // dynamic vendorRaw = json["vendor"];
+    // Type type = vendorRaw.runtimeType;
+    //
+    // int? vendorID;
+    // Vendor? vendor;
+    // if(type == int) {
+    //   vendorID = vendorRaw;
+    //   vendor = null;
+    // } {
+    //   vendorID = null;
+    //   vendor = Vendor.fromJson(vendorRaw);
+    //   assert(vendor != null, 'vendor must not be null');
+    // }
 
     return Listing(
         id: json["id"],
         itemId: json["item_id"],
-        vendorID: vendorID,
-        vendor: vendor,
+        vendor: Vendor.fromJson(json["vendor"]),
     );
   }
-
 }

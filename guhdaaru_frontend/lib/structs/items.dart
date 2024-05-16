@@ -188,13 +188,24 @@ class SingleItem{
   /// Key of this map used here is the id of the attribute or to be precise
   /// [ItemAttributeValue.attribute]
   Map<int, ItemAttributeValue> values;
+  int itemID;
 
   SingleItem({
     required this.attributes,
     required this.values,
+    required this.itemID,
   });
 
   factory SingleItem.fromJson(Map<String, dynamic> json) {
+    Map<int, ItemAttributeValue> values = (
+      json["values"] as Map<String, dynamic>
+    ).map(
+      (key, value) => MapEntry(value["attribute"],
+                      ItemAttributeValue.fromJson(value)
+      )
+    );
+    int itemID = values.values.toList().first.itemID;
+
     return SingleItem(
       attributes: (json["attributes"] as Map<String, dynamic>).map(
         (key, value) => MapEntry(
@@ -202,12 +213,7 @@ class SingleItem{
           ItemAttribute.fromJson(value)
         )
       ),
-      values: (json["values"] as Map<String, dynamic>).map(
-        (key, value) => MapEntry(
-          value["attribute"],
-          ItemAttributeValue.fromJson(value)
-        )
-      )
+      values: values, itemID: itemID
     );
   }
 }

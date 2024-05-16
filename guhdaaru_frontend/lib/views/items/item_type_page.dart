@@ -206,7 +206,7 @@ class _ItemTypePageState extends State<ItemTypePage> {
             )
           )
         ],
-      ),
+      ), currentRoute: '/items/item-type',
     );
   }
 }

@@ -13,7 +13,15 @@ class MyDrawer extends StatefulWidget {
 class _MyDrawerState extends State<MyDrawer> {
 
   void nextWindows(BuildContext context, String route) {
-    context.go(route);
+    var uri = Uri.parse(
+      "${Settings.server}$route"
+    );
+
+    if(uri.path == widget.struct.currentRoute) {
+      return;
+    }
+
+    context.pushReplacement(route);
   }
 
   void update() {

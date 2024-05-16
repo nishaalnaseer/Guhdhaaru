@@ -717,7 +717,7 @@ class _LeafPageState extends State<LeafPage> {
             ),
           )
         ],
-      )
+      ), currentRoute: '/items/item/leaf',
     );
   }
 }

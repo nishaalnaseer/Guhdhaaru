@@ -8,11 +8,13 @@ class DrawerStruct {
   bool open = false;
   Function dispose;
   bool drawerInitialised = false;
+  String currentRoute;
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   DrawerStruct({
-    required this.dispose
+    required this.dispose,
+    required this.currentRoute,
   });
 }
 

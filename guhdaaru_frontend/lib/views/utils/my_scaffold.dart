@@ -5,10 +5,11 @@ import 'my_drawer.dart';
 
 class MyScaffold extends StatefulWidget {
   final Widget body;
-  // final Function disposeBody;
+  final String currentRoute;
   const MyScaffold({
     super.key,
-    required this.body, // required this.disposeBody, //required this.bodyKey
+    required this.body,
+    required this.currentRoute,
   });
 
   @override
@@ -22,7 +23,7 @@ class _MyScaffoldState extends State<MyScaffold> {
   void initState() {
     super.initState();
     drawerStruct = DrawerStruct(
-      dispose: dispose_
+      dispose: dispose, currentRoute: widget.currentRoute
     );
 
     setState(() {
@@ -30,10 +31,11 @@ class _MyScaffoldState extends State<MyScaffold> {
     });
   }
 
-  void dispose_() {
-    Navigator.pop(context);
-    Navigator.pop(context);
-  }
+  // void dispose_() {
+  //   Navigator.pop(context);
+  //   Navigator.pop(context);
+  // }
+
 
   @override
   Widget build(BuildContext context) {
