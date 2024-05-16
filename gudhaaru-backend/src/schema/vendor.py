@@ -1,7 +1,7 @@
-from typing import List
+from typing import List, Dict
 from pydantic import BaseModel, EmailStr
 
-from src.schema.item import Item, ItemAttributeValue, ItemAttribute
+from src.schema.item import Item, ItemAttributeValue, ItemAttribute, SingleItem
 from src.schema.users import User
 
 
@@ -23,3 +23,9 @@ class Listing(BaseModel):
             return self.vendor
         else:
             return self.vendor.id
+
+
+class ListingsPage(BaseModel):
+    listings: List[Listing]
+    item: SingleItem
+

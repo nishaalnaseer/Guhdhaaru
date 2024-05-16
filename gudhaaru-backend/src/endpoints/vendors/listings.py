@@ -1,5 +1,5 @@
+from typing import List
 from fastapi import APIRouter
-
 from src.crud.models import ListingsRecord
 from src.crud.queries.vendor import select_listings_by_item_id, select_listings
 from src.crud.utils import add_object
@@ -23,6 +23,6 @@ async def create_listing(escrow: Listing):
 
 
 @router.get("/listings")
-async def get_listings(item_id: int):
+async def get_listings(item_id: int) -> List[Listing]:
     records = await select_listings(item_id)
     return VendorFactory.create_listings(records)

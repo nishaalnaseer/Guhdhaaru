@@ -7,11 +7,13 @@ from starlette.middleware.cors import CORSMiddleware
 
 from src.crud.models import *
 from src.crud.queries.items import select_root_types, select_all_categories
+from src.endpoints.vendors.listings import get_listings
 from src.schema.factrories.items import ItemFactory
 from src.schema.item import Category, HomePage
+from src.schema.vendor import ListingsPage
 from src.utils.utils import lifespan
 from src.schema.users import *
-from src.endpoints.items.items import router as items
+from src.endpoints.items.items import router as items, get_item
 from src.endpoints.vendors.vendor import router as vendors
 
 app = FastAPI(lifespan=lifespan)
@@ -81,4 +83,10 @@ async def home() -> HomePage:
     )
 
 
-# talk about load times
+@app.get("/listings_page")
+async def get_listings_page(item_id: int) -> ListingsPage:
+    item, listings = await asyncio.gather(get_item(item_id), get_listings(item_id))
+    return ListingsPage(item=item, listings=listings)
+
+
+# TODO talk about load times
