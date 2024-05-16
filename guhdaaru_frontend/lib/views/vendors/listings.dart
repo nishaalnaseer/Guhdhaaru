@@ -16,7 +16,7 @@ class _ListingsPageState extends State<ListingsPage> {
   Widget build(BuildContext context) {
     return MyScaffold(
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
               child: Padding(

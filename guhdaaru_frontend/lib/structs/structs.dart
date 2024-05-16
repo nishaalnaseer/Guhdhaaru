@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guhdaaru_frontend/structs/vendor.dart';
+import 'package:guhdaaru_frontend/views/vendors/listings.dart';
 
 import 'items.dart';
 
@@ -35,4 +36,13 @@ class ListingsPageStruct{
     required this.item,
     required this.listings,
   });
+
+  factory ListingsPageStruct.fromJson(Map<String, dynamic> json) {
+    return ListingsPageStruct(
+        item: SingleItem.fromJson(json["item"]),
+        listings: (json["listings"] as List<dynamic>).map(
+                (value) => Listing.fromJson(value)
+        ).toList(growable: false)
+    );
+  }
 }

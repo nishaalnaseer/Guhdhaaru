@@ -132,39 +132,25 @@ LeafPage createLeafPage(Response response) {
   return LeafPage(leaf: leaf);
 }
 
-Future<ListingsPageStruct> getListingsPagesStruct(int itemID) async {
+Future<Response> getListingsPage(int itemID) async {
+  var response = await get(
+    Uri.parse("${Settings.server}/listings_page?item_id=$itemID"),
+    headers: Settings.headers
+  );
 
-  List<Response> responses = await Future.wait([
-    get(
-        Uri.parse("${Settings.server}/items/item?item_id=$itemID"),
-        headers: Settings.headers
-    ),
-    get(
-      Uri.parse("${Settings.server}/vendors/listings/listings?item_id=$itemID"),
-      headers: Settings.headers
-    )
-  ]);
-  var itemResponse = responses[0];
-  var listingsResponse = responses[1];
-
-  if(itemResponse.statusCode > 399 || listingsResponse.statusCode > 399) {
-    // todo implement proper error handling here
-    throw Exception("unimplemented todo");
+  if(response.statusCode > 399) {
+    throw Exception(
+      "Server returned ${response.statusCode} \ncontent: ${
+        jsonDecode(response.body)
+      }");
   }
 
-  var item = SingleItem.fromJson(jsonDecode(itemResponse.body));
-
-  var listings = (
-      jsonDecode(listingsResponse.body) as List<dynamic>
-  ).map((value) => Listing.fromJson(value)).toList(growable: false);
-
-  return ListingsPageStruct(item: item, listings: listings);
-
+  return response;
 }
 
-ListingsPage createListingsPage(ListingsPageStruct struct) {
+ListingsPage createListingsPage(Response response) {
   return ListingsPage(
-    struct: struct,
+    struct: ListingsPageStruct.fromJson(jsonDecode(response.body)),
   );
 }
 
@@ -285,7 +271,7 @@ class App extends StatelessWidget {
 
                   id = int.parse(itemID!);
                   return LoadingPage(
-                      future: getListingsPagesStruct(id),
+                      future: getListingsPage(id),
                       decodeFunction: createListingsPage
                   );
                 },

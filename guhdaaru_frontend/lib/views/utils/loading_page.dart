@@ -4,7 +4,7 @@ import "package:go_router/go_router.dart";
 
 
 class LoadingPage extends StatelessWidget {
-  final Future<Object> future;
+  final Future<Response> future;
   final Function decodeFunction;
   const LoadingPage({
     super.key, required this.future, required this.decodeFunction
@@ -12,14 +12,21 @@ class LoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Object>(
+    return FutureBuilder<Response>(
       future: future,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return decodeFunction(snapshot.data);
         } else if (snapshot.hasError) {
           print(snapshot.stackTrace);
-          return const Text('Error fetching data');
+          return Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Center(
+                child: Text(snapshot.error.toString()),
+              ),
+            ),
+          );
         }
         return const CircularProgressIndicator();
       },
