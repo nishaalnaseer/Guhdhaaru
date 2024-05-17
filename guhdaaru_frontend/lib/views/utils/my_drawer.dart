@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:guhdaaru_frontend/structs/structs.dart';
@@ -21,7 +23,8 @@ class _MyDrawerState extends State<MyDrawer> {
       return;
     }
 
-    context.pushReplacement(route);
+    // context.replace(route);
+    context.go(route);
   }
 
   void update() {

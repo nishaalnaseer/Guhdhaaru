@@ -144,7 +144,8 @@ class _ItemTypePageState extends State<ItemTypePage> {
       url = "/items/item-type/${child.id}/";
     }
 
-    context.pushReplacement(url);
+    context.pop();
+    context.go(url);
   }
 
   @override

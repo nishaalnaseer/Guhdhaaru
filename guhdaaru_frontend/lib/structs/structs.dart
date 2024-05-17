@@ -19,7 +19,7 @@ class DrawerStruct {
 }
 
 class Settings {
-  static String server = "http://127.0.0.1:6969";
+  static String server = "http://103.3.61.145:6969";
   static Map<String, String> headers = {
     "accept": "application/json",
     "Content-Type": "application/json"
@@ -40,11 +40,14 @@ class ListingsPageStruct{
   });
 
   factory ListingsPageStruct.fromJson(Map<String, dynamic> json) {
+    var listings = (json["listings"] as List<dynamic>).map(
+            (value) => Listing.fromJson(value)
+    ).toList(growable: false);
+    listings.sort((a, b) => a.id.compareTo(b.id));
+
     return ListingsPageStruct(
         item: SingleItem.fromJson(json["item"]),
-        listings: (json["listings"] as List<dynamic>).map(
-                (value) => Listing.fromJson(value)
-        ).toList(growable: false)
+        listings: listings.reversed.toList(growable: false)
     );
   }
 }

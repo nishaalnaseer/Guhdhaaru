@@ -27,7 +27,7 @@ class _ListingsPageState extends State<ListingsPage> {
 
       columns.add(
         DataColumn(
-            label: Text(value.name)
+          label: Text(value.name)
         )
       );
     });
@@ -98,18 +98,17 @@ class _ListingsPageState extends State<ListingsPage> {
                     DataTable(
                       columns: const [
                         DataColumn(
-                            label: Expanded(
-                                child: Center(
-                                    child: Text("Shop Name")
-                                )
+                          label: Expanded(
+                            child: Center(
+                              child: Text("Shop Name")
                             )
+                          )
                         ),
                         DataColumn(
-                            label: Expanded(
-                                child: Center(
-                                    child: Text("Location")
-                                )
+                          label: Expanded(child: Center(
+                            child: Text("Location")
                             )
+                          )
                         )
                       ],
 
@@ -117,22 +116,18 @@ class _ListingsPageState extends State<ListingsPage> {
                               (listing) => DataRow(
                               cells: [
                                 DataCell(
-                                    Expanded(
-                                      child: Center(
-                                        child: Text(
-                                            listing.vendor.name
-                                        ),
-                                      ),
-                                    )
+                                  Center(
+                                    child: Text(
+                                        listing.vendor.name
+                                    ),
+                                  ),
                                 ),
                                 DataCell(
-                                    Expanded(
-                                      child: Center(
-                                        child: Text(
-                                            listing.vendor.location
-                                        ),
-                                      ),
-                                    )
+                                  Center(
+                                    child: Text(
+                                      listing.vendor.location
+                                    ),
+                                  )
                                 ),
                               ]
                           )
