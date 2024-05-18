@@ -166,11 +166,21 @@ class LeafNode{
   });
 
   factory LeafNode.fromJson(Map<String, dynamic> json) {
+    var items = (json["items"] as Map<String, dynamic>).values.map(
+            (e) => Item.fromJson(e)
+    ).toList();
+    //         (key, value) => MapEntry(
+    //         int.parse(key), Item.fromJson(value)
+    //     )
+    // );
+    // items.
+    items.sort((a, b) => a.id.compareTo(b.id));
+
     return LeafNode(
-      items: (json["items"] as Map<String, dynamic>).map(
-        (key, value) => MapEntry(
-          int.parse(key), Item.fromJson(value)
-        )
+      items: Map.fromIterable(
+        items,
+        key: (item) => item.id,
+        value: (item) => item,
       ),
       itemType: ItemType.fromJson(json["item_type"]),
       attributes: (json["attributes"] as Map<String, dynamic>).map(
