@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:guhdaaru_frontend/structs/vendor.dart';
-import 'package:guhdaaru_frontend/views/vendors/listings.dart';
 
 import 'items.dart';
 
@@ -47,7 +46,7 @@ class ListingsPageStruct{
 
     return ListingsPageStruct(
         item: SingleItem.fromJson(json["item"]),
-        listings: listings.reversed.toList(growable: false)
+        listings: listings
     );
   }
 }

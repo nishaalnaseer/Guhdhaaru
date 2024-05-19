@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import "package:go_router/go_router.dart";
 
+import 'my_scaffold.dart';
+
 
 class LoadingPage extends StatelessWidget {
   final Future<Response> future;
@@ -19,13 +21,13 @@ class LoadingPage extends StatelessWidget {
           return decodeFunction(snapshot.data);
         } else if (snapshot.hasError) {
           print(snapshot.stackTrace);
-          return Scaffold(
+          return MyScaffold(
             body: Padding(
               padding: const EdgeInsets.all(10),
               child: Center(
                 child: Text(snapshot.error.toString()),
               ),
-            ),
+            ), currentRoute: '/error',
           );
         }
         return const CircularProgressIndicator();

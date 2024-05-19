@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'my_scaffold.dart';
+
 class ErrorPage extends StatelessWidget {
   final String error;
   final String backRoute;
@@ -10,22 +12,25 @@ class ErrorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: Text(error),
-        ),
-        ElevatedButton(
-            onPressed: () {
-              context.go(backRoute);
-            },
-            child: const Text(
-                "Go Back"
-            )
-        )
-      ],
+    return MyScaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Text(error),
+          ),
+          ElevatedButton(
+              onPressed: () {
+                context.go(backRoute);
+              },
+              child: const Text(
+                  "Go Back"
+              )
+          )
+        ],
+      ),
+      currentRoute: "/error",
     );
   }
 }
