@@ -205,7 +205,7 @@ class VendorRecord(Base):
 
 
 class VendorUserRecord(Base):
-    __tablename__ = "vendor_users"
+    __tablename__ = "vendor_user"
     id = Column(
         INTEGER(unsigned=True),
         primary_key=True,
@@ -253,4 +253,43 @@ class ListingsRecord(Base):
         UniqueConstraint(
             'vendor_id', 'item', name='_vendor-vendor'
         ),
+    )
+
+
+class PermissionsRecord(Base):
+    __tablename__ = "permission"
+    id = Column(
+        INTEGER(unsigned=True),
+        primary_key=True,
+        autoincrement=True,
+        nullable=False,
+        unique=True,
+    )
+    name = Column(
+        String(20),
+        nullable=False,
+        unique=True
+    )
+
+
+class UserVendorPermissions(Base):
+    id = Column(
+        INTEGER(unsigned=True),
+        primary_key=True,
+        autoincrement=True,
+        nullable=False,
+        unique=True,
+    )
+    user_id = Column(
+        INTEGER(unsigned=True),
+        ForeignKey("vendor_user.id")
+    )
+    permission_id = Column(
+        INTEGER(unsigned=True),
+        ForeignKey("permission.id")
+    )
+    __table_args__ = (
+        UniqueConstraint(
+            "user_id", "permission_id"
+        )
     )

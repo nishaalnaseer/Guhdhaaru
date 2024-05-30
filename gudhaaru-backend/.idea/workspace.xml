@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="slight addition to the schema where requests needed for the listings page is now a single request">
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/listings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/listings.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/utils/loading_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/utils/loading_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,6 +169,7 @@
       <workItem from="1715776245954" duration="3001000" />
       <workItem from="1715793859993" duration="2431000" />
       <workItem from="1715881495978" duration="1930000" />
+      <workItem from="1716101371808" duration="19000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />
