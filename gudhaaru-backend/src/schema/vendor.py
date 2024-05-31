@@ -29,3 +29,8 @@ class ListingsPage(BaseModel):
     listings: List[Listing]
     item: SingleItem
 
+
+class Permission(BaseModel):
+    id: int
+    name: str
+
