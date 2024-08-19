@@ -1,11 +1,9 @@
 from sqlalchemy import (
-    Column, String, DateTime, func, ForeignKey, UniqueConstraint,
-    CheckConstraint
+    Column, String, ForeignKey, UniqueConstraint, PrimaryKeyConstraint
 )
 from sqlalchemy.dialects.mysql.types import BIT, INTEGER
 
 from src.crud.engine import Base
-
 
 _COLLATION = "utf8mb4_general_ci"
 
@@ -70,32 +68,6 @@ class TypeRecord(Base):
             name='_category-name-parent'
         ),
     )
-
-
-# class ItemRecord(Base):
-#     __tablename__ = "item"
-#     id = Column(
-#         INTEGER(unsigned=True),
-#         primary_key=True,
-#         autoincrement=True,
-#         nullable=False,
-#         unique=True,
-#     )
-#     item_type = Column(
-#         INTEGER(unsigned=True),
-#         ForeignKey("type.id", ondelete="CASCADE", onupdate="CASCADE"),
-#         nullable=False
-#     )
-#     name = Column(
-#         String(50, collation=_COLLATION),
-#         nullable=False,
-#     )
-#     __table_args__ = (
-#         UniqueConstraint(
-#             'item_type', "name",
-#             name='_type-name'
-#         ),
-#     )
 
 
 class AttributeRecord(Base):
@@ -202,6 +174,12 @@ class VendorRecord(Base):
         String(50, collation=_COLLATION),
         nullable=False,
     )
+    admin = Column(
+        INTEGER(unsigned=True),
+        ForeignKey("user.id"),
+        nullable=False,
+        unique=True,
+    )
 
 
 class VendorUserRecord(Base):
@@ -231,7 +209,7 @@ class VendorUserRecord(Base):
 
 
 class ListingsRecord(Base):
-    __tablename__ = "escrow"
+    __tablename__ = "listing"
     id = Column(
         INTEGER(unsigned=True),
         primary_key=True,
@@ -273,13 +251,7 @@ class PermissionsRecord(Base):
 
 
 class UserVendorPermissions(Base):
-    id = Column(
-        INTEGER(unsigned=True),
-        primary_key=True,
-        autoincrement=True,
-        nullable=False,
-        unique=True,
-    )
+    __tablename__ = "vendor_user_permissions"
     user_id = Column(
         INTEGER(unsigned=True),
         ForeignKey("vendor_user.id")
@@ -289,7 +261,5 @@ class UserVendorPermissions(Base):
         ForeignKey("permission.id")
     )
     __table_args__ = (
-        UniqueConstraint(
-            "user_id", "permission_id"
-        )
+        PrimaryKeyConstraint("user_id", "permission_id"),
     )

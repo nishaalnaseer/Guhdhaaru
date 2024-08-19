@@ -1,6 +1,5 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
-
 from src.crud.drop import create_new_db
 from src.crud.engine import close_db
 
