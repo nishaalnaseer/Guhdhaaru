@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="Dockerfile">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-    </list>
+    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="updated Dockerfile" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -175,7 +172,7 @@
       <workItem from="1717266671850" duration="6394000" />
       <workItem from="1717423506887" duration="19000" />
       <workItem from="1718899278660" duration="77000" />
-      <workItem from="1724078902180" duration="2545000" />
+      <workItem from="1724078902180" duration="4530000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />
@@ -417,14 +414,21 @@
       <option name="project" value="LOCAL" />
       <updated>1724079036568</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="updated Dockerfile">
+      <option name="closed" value="true" />
+      <created>1724093109555</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1724093109555</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="finished patch and post of category, tested" />
     <MESSAGE value="item type post and patch endpoints, tested" />
     <MESSAGE value="half of attribute post requ is working" />
     <MESSAGE value="ItemAttributeValue work in progress" />
@@ -449,7 +453,8 @@
     <MESSAGE value="slight addition to the schema where requests needed for the listings page is now a single request" />
     <MESSAGE value="permsisions table with pydantic model" />
     <MESSAGE value="Dockerfile" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dockerfile" />
+    <MESSAGE value="updated Dockerfile" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated Dockerfile" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
