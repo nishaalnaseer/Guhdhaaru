@@ -1,13 +1,11 @@
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from os import getenv
+from src.utils.settings import (
+    DATABASE, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_PORT
+)
 
-db = getenv("DATABASE")
-host = getenv("DATABASE_HOST")
-port = int(getenv("DATABASE_PORT"))
-user = getenv("DATABASE_USERNAME")
-password = getenv("DATABASE_PASSWORD")
-url = f"mysql+aiomysql://{user}:{password}@{host}:{port}/{db}"
+url = (f"mysql+aiomysql://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@"
+       f"{DATABASE_HOST}:{DATABASE_PORT}/{DATABASE}")
 engine = create_async_engine(url,)
 async_session = async_sessionmaker(
     bind=engine,

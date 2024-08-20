@@ -174,7 +174,7 @@ class VendorRecord(Base):
         String(50, collation=_COLLATION),
         nullable=False,
     )
-    admin = Column(
+    super_user = Column(
         INTEGER(unsigned=True),
         ForeignKey("user.id"),
         nullable=False,
@@ -234,7 +234,7 @@ class ListingsRecord(Base):
     )
 
 
-class PermissionsRecord(Base):
+class PermissionRecord(Base):
     __tablename__ = "permission"
     id = Column(
         INTEGER(unsigned=True),
@@ -250,8 +250,8 @@ class PermissionsRecord(Base):
     )
 
 
-class UserVendorPermissions(Base):
-    __tablename__ = "vendor_user_permissions"
+class UserVendorPermission(Base):
+    __tablename__ = "user_vendor_permission"
     user_id = Column(
         INTEGER(unsigned=True),
         ForeignKey("vendor_user.id")

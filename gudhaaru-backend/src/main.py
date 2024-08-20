@@ -1,92 +1,74 @@
-import asyncio
-from typing import Dict
+from datetime import timedelta
+from typing import Annotated
 
-from fastapi import FastAPI
-from sqlalchemy import select
+from fastapi import FastAPI, Depends, HTTPException
+from fastapi.security import OAuth2PasswordRequestForm
+from starlette import status
 from starlette.middleware.cors import CORSMiddleware
-
-from src.crud.models import *
-from src.crud.queries.items import select_root_types, select_all_categories
-from src.endpoints.vendors.listings import get_listings
-from src.schema.factrories.items import ItemFactory
-from src.schema.item import Category, HomePage
-from src.schema.vendor import ListingsPage
+import os
+from src.schema.security import Token
 from src.utils.utils import lifespan
-from src.schema.users import *
-from src.endpoints.items.items import router as items, get_item
-from src.endpoints.vendors.vendor import router as vendors
 
 app = FastAPI(lifespan=lifespan)
-app.include_router(items)
-app.include_router(vendors)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # List your allowed origins here
+    allow_origins=["*.nishawl.dev", "nishawl.dev"],  # List your allowed origins here
     allow_credentials=True,
     allow_methods=["*"],  # You can restrict the HTTP methods if needed
     allow_headers=["*"],  # You can restrict the headers if needed
 )
 
 
-@app.get("/home-one")
-async def home1():
+_expires = timedelta(minutes=int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")))
+
+
+@app.post(
+    "/token", response_model=Token, tags=["Users"],
+    status_code=201
+)
+async def login_for_access_token(
+        form_data: Annotated[
+            OAuth2PasswordRequestForm, Depends()
+        ]
+):
     """
-    Not needed really as the data manupulation will be done in
-    the client but will be kept here as a reference
+    Create a token up to specification of Oauth2 Scope Authentication
+    db tables are checked to see if the user should have those modules
     """
-    type_records, category_records = await asyncio.gather(
-        select_root_types(), select_all_categories()
+    user_data = await authenticate_user(
+        form_data.username, form_data.password
     )
 
-    categories: Dict[int, Category] = {
-        record.id: ItemFactory.create_category(record)
-        for record in category_records
+    if not user_data:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    user = UserFactory.create_full_user(user_data)
+    if user.status != "ENABLED":
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    scopes = user.permissions
+
+    access_token_expires = _expires
+    access_token = create_access_token(
+        data={
+            "sub": user.email,
+            "scopes": list(scopes),
+            "full_name": user.name,
+            "is_club_rep": _is_club_rep,
+            "roles": [x.name for x in user.roles]
+        },
+        expires_delta=access_token_expires
+    )
+    return {
+        "access_token": access_token,
+        "token_type": "bearer"
     }
-    final: Dict[int, Category] = {}
-    for id_, category in categories.items():
-        parent_id = category.parent_id
-
-        if parent_id == 0:
-            final.update({id_: category})
-            continue
-
-        parent = categories[category.parent_id]
-        parent.add_child(category)
-
-    for type_record in type_records:
-        # no recursions here because all item_type nodes here are root nodes
-        item_type = ItemFactory.create_half_item_type(type_record)
-        category_id: int = item_type.category_id
-        category = categories[category_id]
-        category.add_type(item_type)
-
-    return final
-
-
-@app.get("/home")
-async def home() -> HomePage:
-    type_records, category_records = await asyncio.gather(
-        select_root_types(), select_all_categories()
-    )
-
-    categories = [
-        ItemFactory.create_category(record) for record in category_records
-    ]
-    types = [
-        ItemFactory.create_half_item_type(record) for record in type_records
-    ]
-
-    return HomePage(
-        types=types,
-        categories=categories
-    )
-
-
-@app.get("/listings_page")
-async def get_listings_page(item_id: int) -> ListingsPage:
-    item, listings = await asyncio.gather(get_item(item_id), get_listings(item_id))
-    return ListingsPage(item=item, listings=listings)
-
-
-# TODO talk about load times
