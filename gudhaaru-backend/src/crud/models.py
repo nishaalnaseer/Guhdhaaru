@@ -151,6 +151,7 @@ class UserRecord(Base):
         BIT(),
         nullable=False,
     )
+    enabled = Column(BIT(), nullable=False, default=1)
 
 
 class VendorRecord(Base):

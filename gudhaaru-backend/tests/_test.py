@@ -10,7 +10,7 @@ class Test:
             req_type: str,
             req_params: dict | None = None,
             req_body: BaseModel | None | List[BaseModel] = None,
-            test_id: int | None = None,
+            test_id: int | None = None, version="/v0"
             ):
         self.test_id = test_id
         self.req_url_path = req_url_path
@@ -18,3 +18,4 @@ class Test:
         self.req_type = req_type
         self.req_params = req_params
         self.req_body = req_body
+        self.version = version

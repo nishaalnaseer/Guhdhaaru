@@ -1,16 +1,20 @@
-from datetime import timedelta
 from typing import Annotated
 
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.params import Security
 from fastapi.security import OAuth2PasswordRequestForm
 from starlette import status
 from starlette.middleware.cors import CORSMiddleware
-import os
+
 from src.schema.security import Token
+from src.schema.users import User
+from src.security.security import (
+    authenticate_user, create_access_token, get_current_active_user
+)
 from src.utils.utils import lifespan
+from src.endpoints.main import router as v0_router
 
 app = FastAPI(lifespan=lifespan)
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*.nishawl.dev", "nishawl.dev"],  # List your allowed origins here
@@ -18,9 +22,7 @@ app.add_middleware(
     allow_methods=["*"],  # You can restrict the HTTP methods if needed
     allow_headers=["*"],  # You can restrict the headers if needed
 )
-
-
-_expires = timedelta(minutes=int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")))
+app.include_router(v0_router)
 
 
 @app.post(
@@ -36,39 +38,37 @@ async def login_for_access_token(
     Create a token up to specification of Oauth2 Scope Authentication
     db tables are checked to see if the user should have those modules
     """
-    user_data = await authenticate_user(
+    user = await authenticate_user(
         form_data.username, form_data.password
     )
 
-    if not user_data:
+    if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    user = UserFactory.create_full_user(user_data)
-    if user.status != "ENABLED":
+    if not user.enabled:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Disabled user",
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    scopes = user.permissions
-
-    access_token_expires = _expires
-    access_token = create_access_token(
-        data={
-            "sub": user.email,
-            "scopes": list(scopes),
-            "full_name": user.name,
-            "is_club_rep": _is_club_rep,
-            "roles": [x.name for x in user.roles]
-        },
-        expires_delta=access_token_expires
-    )
+    access_token = create_access_token(user)
     return {
         "access_token": access_token,
         "token_type": "bearer"
     }
+
+
+@app.get(
+    "/users/me", response_model=User, tags=["Users"],
+)
+async def read_users_me(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ]
+):
+    return current_user

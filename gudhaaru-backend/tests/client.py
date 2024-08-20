@@ -56,22 +56,22 @@ class Client:
                 _body = _test.req_body.model_dump()
         else:
             _body = None
-
+        url = f"{self._server}{_test.version}{_test.req_url_path}"
         if _test.req_type.lower() == "post":
             response = requests.post(
-                url=f"{self._server}{_test.req_url_path}",
+                url=url,
                 json=_body, params=_test.req_params,
                 headers=self._headers
             )
         elif _test.req_type == "patch":
             response = requests.patch(
-                url=f"{self._server}{_test.req_url_path}",
+                url=url,
                 json=_body, params=_test.req_params,
                 headers=self._headers
             )
         elif _test.req_type == "get":
             response = requests.get(
-                url=f"{self._server}{_test.req_url_path}",
+                url=url,
                 params=_test.req_params,
                 headers=self._headers
             )

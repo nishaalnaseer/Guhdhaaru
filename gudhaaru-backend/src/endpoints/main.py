@@ -12,20 +12,12 @@ from src.schema.factrories.items import ItemFactory
 from src.schema.item import Category, HomePage
 from src.schema.vendor import ListingsPage
 
-app = APIRouter(prefix="/v0")
-app.include_router(items)
-app.include_router(vendors)
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*.nishawl.dev", "nishawl.dev"],  # List your allowed origins here
-    allow_credentials=True,
-    allow_methods=["*"],  # You can restrict the HTTP methods if needed
-    allow_headers=["*"],  # You can restrict the headers if needed
-)
+router = APIRouter(prefix="/v0")
+router.include_router(items)
+router.include_router(vendors)
 
 
-@app.get("/home-one")
+@router.get("/home-one")
 async def home1():
     """
     Not needed really as the data manipulation will be done in
@@ -60,7 +52,7 @@ async def home1():
     return final
 
 
-@app.get("/home")
+@router.get("/home")
 async def home() -> HomePage:
     type_records, category_records = await asyncio.gather(
         select_root_types(), select_all_categories()
@@ -79,7 +71,7 @@ async def home() -> HomePage:
     )
 
 
-@app.get("/listings_page")
+@router.get("/listings_page")
 async def get_listings_page(item_id: int) -> ListingsPage:
     item, listings = await asyncio.gather(get_item(item_id), get_listings(item_id))
     return ListingsPage(item=item, listings=listings)

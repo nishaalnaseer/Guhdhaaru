@@ -17,15 +17,15 @@ def get_permissions(perms: int) -> List[PermissionRecord]:
     ]
 
 
-async def create_new_db():
+async def init():
     drop_query = "DROP DATABASE IF EXISTS %s;" % DATABASE
     create_query = "CREATE DATABASE %s" % DATABASE
 
     async with aiomysql.create_pool(
-        host=DATABASE_HOST,
-        port=DATABASE_PORT,
-        user=DATABASE_USERNAME,
-        password=DATABASE_PASSWORD
+            host=DATABASE_HOST,
+            port=DATABASE_PORT,
+            user=DATABASE_USERNAME,
+            password=DATABASE_PASSWORD
     ) as pool:
         async with pool.acquire() as connection:
             async with connection.cursor() as cursor:
@@ -37,27 +37,34 @@ async def create_new_db():
 
     await initialise_db()
 
-    admin = UserRecord(
-        name=ADMIN1_NAME,
-        email=ADMIN1_EMAIL,
-        password=get_password_hash(ADMIN1_PASSWORD),
-        is_admin=1,
-    )
-    await add_object(admin)
-
-    vendor_data = [
+    data = [
         PermissionRecord(id=1, name="add:user"),
         PermissionRecord(id=2, name="remove:user"),
         PermissionRecord(id=3, name="add:listing"),
         PermissionRecord(id=4, name="remove:listing"),
         PermissionRecord(id=5, name="update:details"),
     ]
-    perms = len(vendor_data)
+    perms = len(data)
+    data.append(
+        UserRecord(
+            name=ADMIN1_NAME,
+            email=ADMIN1_EMAIL,
+            password=get_password_hash(ADMIN1_PASSWORD),
+            is_admin=1,
+        ),
+    )
+    await add_objects(data)
 
-    vendor_data.extend([
+    return perms
+
+
+async def create_new_db():
+    perms = await init()
+
+    vendor_data = [
         VendorRecord(
             id=1,
-            name="GreatHardware",
+            name="Great Hardware",
             super_user=1,
             email=ADMIN1_EMAIL,
             location="Maldives"
@@ -66,7 +73,7 @@ async def create_new_db():
             vendor_id=1,
             user_id=1
         )
-    ])
+    ]
     await add_objects(vendor_data)
 
     root_cat = CategoryRecord(

@@ -7,13 +7,16 @@ from fastapi.security import OAuth2PasswordBearer, SecurityScopes
 from jwt import InvalidTokenError
 from passlib.context import CryptContext
 from starlette import status
+
+from src.crud.queries.users import auth_user
+from src.schema.factrories.user import UserFactory
 from src.schema.users import User
 from src.schema.security import TokenData
 # from src.schema.factories.user_factory import UserFactory
 # from src.security.one_time_passwords import OTP
 import os
 
-from src.utils.settings import OAUTH2_SECRET
+from src.utils.settings import OAUTH2_SECRET, ACCESS_TOKEN_EXPIRE_MINUTES
 
 # variables :
 # OAUTH2_SECRET - get with ```openssl rand -hex 32```
@@ -31,6 +34,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl="token",
 )
+_expiry = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
 # otp = OTP(os.environ.get("OTP_SECRET"))
 
 
@@ -51,44 +55,70 @@ def get_password_hash(password):
 def validate_token(
         token: str,
         exception: HTTPException,
-) -> TokenData:
+) -> str:
     try:
         payload = jwt.decode(token, OAUTH2_SECRET, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
-        password: str = payload.get("password")
 
         if username is None:
             raise exception
-        token_data = TokenData(
-            username=username,
-            password=password,
-        )
     except InvalidTokenError:
         raise exception
 
-    return token_data
+    return username
 
 
 async def authenticate_user(
         username: str, password: str
-) -> dict | bool:
+) -> User | bool:
     user = await auth_user(username)
     if not user:
         return False
-    if not verify_password(password, user["user"].password):
+    if not verify_password(password, user.password):
         return False
     return user
 
 
-def create_access_token(
-        data: dict, expires_delta: timedelta | None = None
-):
-    to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.now() + expires_delta
-    else:
-        expire = datetime.now() + timedelta(days=150)
-    to_encode.update({"exp": expire})
-    print(expire.timestamp())
+def create_access_token(user: User):
+    exp = int((datetime.now()+timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)).timestamp())
+    to_encode = TokenData(
+        sub=user.email,
+        name=user.name,
+        exp=exp
+    ).model_dump()
     encoded_jwt = jwt.encode(to_encode, OAUTH2_SECRET, algorithm=ALGORITHM)
     return encoded_jwt
+
+
+async def get_current_user(
+        token: Annotated[str, Depends(oauth2_scheme)],
+) -> User:
+    username = validate_token(
+        token,
+        HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    )
+
+    user = await auth_user(username=username)
+
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    return user
+
+
+async def get_current_active_user(
+    current_user: Annotated[
+        User, Security(get_current_user, scopes=[])
+    ]
+):
+    if not current_user.enabled:
+        raise HTTPException(status_code=400, detail="Inactive user")
+    return current_user

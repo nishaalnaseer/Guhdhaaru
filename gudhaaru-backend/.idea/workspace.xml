@@ -4,25 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="db init">
-      <change afterPath="$PROJECT_DIR$/src/crud/queries/users.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/endpoints/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/schema/security.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/schema/validation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/security/security.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/settings.py" afterDir="false" />
+    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="db init data, security ongoing">
+      <change afterPath="$PROJECT_DIR$/src/schema/factrories/user.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/crud/drop.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/crud/drop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/crud/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/crud/engine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/crud/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/crud/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/endpoints/items/category.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/v0/items/category.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/endpoints/items/item_types.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/v0/items/item_types.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/endpoints/items/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/v0/items/items.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/endpoints/vendors/listings.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/v0/vendors/listings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/endpoints/vendors/vendor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/crud/queries/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/crud/queries/users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/endpoints/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/endpoints/v0/items/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/v0/items/items.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schema/security.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/security.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/schema/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/security/security.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/security/security.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/client.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,24 +43,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.item.executor&quot;: &quot;Run&quot;,
-    &quot;Python.run_tests.executor&quot;: &quot;Run&quot;,
-    &quot;Python.uvicorn.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/nishaalnaseer/Documents/GitHub/Guhdhaaru/gudhaaru-backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.item.executor": "Run",
+    "Python.run_tests.executor": "Run",
+    "Python.uvicorn.executor": "Debug",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/nishaalnaseer/Documents/GitHub/Guhdhaaru/gudhaaru-backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend\src\crud" />
@@ -79,7 +75,7 @@
       <recent name="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.run_tests">
+  <component name="RunManager" selected="Python.uvicorn">
     <configuration name="run_tests" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="gudhaaru-backend" />
       <option name="ENV_FILES" value="" />
@@ -195,7 +191,7 @@
       <workItem from="1718899278660" duration="77000" />
       <workItem from="1724078902180" duration="4530000" />
       <workItem from="1724165796140" duration="2388000" />
-      <workItem from="1724186378612" duration="6358000" />
+      <workItem from="1724186378612" duration="10969000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />
@@ -453,14 +449,21 @@
       <option name="project" value="LOCAL" />
       <updated>1724167567556</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="db init data, security ongoing">
+      <option name="closed" value="true" />
+      <created>1724192839290</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1724192839290</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="half of attribute post requ is working" />
     <MESSAGE value="ItemAttributeValue work in progress" />
     <MESSAGE value="Finished ItemAttributeValue, data entry" />
     <MESSAGE value="get home page" />
@@ -485,7 +488,8 @@
     <MESSAGE value="Dockerfile" />
     <MESSAGE value="updated Dockerfile" />
     <MESSAGE value="db init" />
-    <option name="LAST_COMMIT_MESSAGE" value="db init" />
+    <MESSAGE value="db init data, security ongoing" />
+    <option name="LAST_COMMIT_MESSAGE" value="db init data, security ongoing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -510,12 +514,17 @@
           <line>16</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/crud/queries/users.py</url>
+          <line>27</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/gudhaaru_backend$run_tests.coverage" NAME="run_tests Coverage Results" MODIFIED="1717269326746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
-    <SUITE FILE_PATH="coverage/gudhaaru_backend$uvicorn.coverage" NAME="uvicorn Coverage Results" MODIFIED="1717269142250" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
+    <SUITE FILE_PATH="coverage/gudhaaru_backend$uvicorn.coverage" NAME="uvicorn Coverage Results" MODIFIED="1724197387802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
     <SUITE FILE_PATH="coverage/gudhaaru_backend$item.coverage" NAME="item Coverage Results" MODIFIED="1714325743795" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/schema" />
   </component>
 </project>

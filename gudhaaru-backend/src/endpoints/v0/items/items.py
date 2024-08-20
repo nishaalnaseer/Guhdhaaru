@@ -10,8 +10,8 @@ from src.crud.queries.items import (
 )
 from src.crud.raw_sql import get_new_item_id
 from src.crud.utils import add_objects, select_query_scalar, execute_safely, add_object
-from src.endpoints.items.category import router as categories
-from src.endpoints.items.item_types import router as item_types
+from src.endpoints.v0.items.category import router as categories
+from src.endpoints.v0.items.item_types import router as item_types
 from src.schema.factrories.items import ItemFactory
 from src.schema.item import ItemAttribute, ItemAttributeValue, SingleItem
 
