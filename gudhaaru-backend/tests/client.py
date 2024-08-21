@@ -35,6 +35,10 @@ class Client:
             content=data,
             headers=headers
         )
+
+        if response.status_code != 201:
+            raise Exception("Error while login in")
+
         content = json.loads(response.content)
 
         _token = content["access_token"]

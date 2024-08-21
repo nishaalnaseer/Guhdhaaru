@@ -1,5 +1,4 @@
 import os
-import logging
 from dotenv import load_dotenv
 from src.utils.my_logger import get_logger
 
