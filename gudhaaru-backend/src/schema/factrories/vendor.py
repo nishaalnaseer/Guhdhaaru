@@ -10,7 +10,8 @@ class VendorFactory:
             id=record.id,
             name=record.name,
             email=record.email,
-            location=record.location
+            location=record.location,
+            status=record.status
         )
 
     @staticmethod

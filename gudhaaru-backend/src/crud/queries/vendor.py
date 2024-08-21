@@ -13,6 +13,15 @@ async def select_vendor(name: str):
     return await scalar_selection(query)
 
 
+async def select_vendor_by_id(vendor: int):
+    query = select(
+        VendorRecord
+    ).where(
+        VendorRecord.id == vendor
+    )
+    return await scalar_selection(query)
+
+
 async def select_listings(item_id: int):
     query = select(
         ListingsRecord, VendorRecord

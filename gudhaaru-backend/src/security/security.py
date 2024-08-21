@@ -80,7 +80,9 @@ async def authenticate_user(
 
 
 def create_access_token(user: User):
-    exp = int((datetime.now()+timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)).timestamp())
+    exp = int((
+        datetime.now()+timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    ).timestamp())
     to_encode = TokenData(
         sub=user.email,
         name=user.name,
@@ -116,7 +118,7 @@ async def get_current_user(
 
 async def get_current_active_user(
     current_user: Annotated[
-        User, Security(get_current_user, scopes=[])
+        User, Security(get_current_user)
     ]
 ):
     if not current_user.enabled:

@@ -1,6 +1,7 @@
 from collections import defaultdict
+from typing import Annotated
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Security
 from sqlalchemy import update, delete
 
 from src.crud.models import TypeRecord
@@ -11,12 +12,21 @@ from src.crud.queries.items import (
 from src.crud.utils import add_object, execute_safely
 from src.schema.factrories.items import ItemFactory
 from src.schema.item import ItemType, Item, LeafNode
+from src.schema.users import User
+from src.security.security import get_current_active_user
+from src.utils.utils import check_admin
 
 router = APIRouter(prefix="/item-types", tags=["ItemTypes"])
 
 
 @router.post("/item-type", status_code=201)
-async def create_item_type(item_type: ItemType) -> ItemType:
+async def create_item_type(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+        item_type: ItemType
+) -> ItemType:
+    check_admin(current_user)
     if item_type.parent_id is None:
         parent = 1
     else:
@@ -39,7 +49,13 @@ async def create_item_type(item_type: ItemType) -> ItemType:
 
 
 @router.patch("/item-type", status_code=201)
-async def update_item_type(item_type: ItemType) -> ItemType:
+async def update_item_type(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+        item_type: ItemType
+) -> ItemType:
+    check_admin(current_user)
     if item_type.parent_id is None:
         parent = 1
     else:
@@ -116,7 +132,13 @@ async def get_leaf_node(type_id: int) -> LeafNode:
 
 
 @router.delete("/item-types/item-type", status_code=204)
-async def delete_item_type(item_type: int):
+async def delete_item_type(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+        item_type: int
+):
+    check_admin(current_user)
     if item_type == 1:
         raise HTTPException(
             403,

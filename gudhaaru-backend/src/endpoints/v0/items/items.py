@@ -1,5 +1,5 @@
-from typing import List
-from fastapi import APIRouter, HTTPException
+from typing import List, Annotated
+from fastapi import APIRouter, HTTPException, Security
 from sqlalchemy import update, delete
 
 from src.crud.models import AttributeRecord, AttributeValueRecord
@@ -14,6 +14,9 @@ from src.endpoints.v0.items.category import router as categories
 from src.endpoints.v0.items.item_types import router as item_types
 from src.schema.factrories.items import ItemFactory
 from src.schema.item import ItemAttribute, ItemAttributeValue, SingleItem
+from src.schema.users import User
+from src.security.security import get_current_active_user
+from src.utils.utils import check_admin
 
 router = APIRouter(prefix="/items", tags=["Items"])
 router.include_router(categories)
@@ -22,8 +25,13 @@ router.include_router(item_types)
 
 @router.post("/item/attributes", status_code=201)
 async def create_attributes(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
         attributes: List[ItemAttribute]
 ) -> List[ItemAttribute]:
+    check_admin(current_user)
+
     if len(attributes) != 0:
         pass
     else:
@@ -52,8 +60,13 @@ async def create_attributes(
 
 @router.post("/item/attributes-value", status_code=201)
 async def create_attributes_value(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
         values: List[ItemAttributeValue]
 ):
+    check_admin(current_user)
+
     if len(values) == 0:
         raise HTTPException(422, "No attributes")
 
@@ -90,7 +103,14 @@ async def create_attributes_value(
 
 
 @router.patch("/item/attribute", status_code=201)
-async def update_attribute(attribute: ItemAttribute) -> ItemAttribute:
+async def update_attribute(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+        attribute: ItemAttribute
+) -> ItemAttribute:
+    check_admin(current_user)
+
     query = update(
         AttributeRecord
     ).values(
@@ -112,7 +132,14 @@ async def update_attribute(attribute: ItemAttribute) -> ItemAttribute:
 
 
 @router.patch("/item/attribute-value", status_code=201)
-async def update_attribute_value(value: ItemAttributeValue) -> ItemAttributeValue:
+async def update_attribute_value(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+        value: ItemAttributeValue
+) -> ItemAttributeValue:
+    check_admin(current_user)
+
     query = update(
         AttributeValueRecord
     ).values(
@@ -133,7 +160,14 @@ async def update_attribute_value(value: ItemAttributeValue) -> ItemAttributeValu
 
 
 @router.delete("/item/attribute", status_code=204)
-async def delete_attribute(attribute_id: int) -> None:
+async def delete_attribute(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+        attribute_id: int
+) -> None:
+    check_admin(current_user)
+
     query = delete(
         AttributeRecord
     ).where(AttributeRecord.id == attribute_id)
@@ -141,7 +175,14 @@ async def delete_attribute(attribute_id: int) -> None:
 
 
 @router.delete("/item/attribute-value", status_code=204)
-async def delete_attribute_value(value_id: int) -> None:
+async def delete_attribute_value(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+        value_id: int
+) -> None:
+    check_admin(current_user)
+
     query = delete(
         AttributeValueRecord
     ).where(AttributeValueRecord.id == value_id)
@@ -149,7 +190,14 @@ async def delete_attribute_value(value_id: int) -> None:
 
 
 @router.delete("/item", status_code=204)
-async def delete_item(item_id: int) -> None:
+async def delete_item(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+        item_id: int
+) -> None:
+    check_admin(current_user)
+
     query = delete(
         AttributeValueRecord
     ).where(AttributeValueRecord.item_id == item_id)
@@ -157,7 +205,14 @@ async def delete_item(item_id: int) -> None:
 
 
 @router.patch("/item/add-attribute", status_code=201)
-async def add_attribute(attribute: ItemAttribute) -> ItemAttribute:
+async def add_attribute(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+        attribute: ItemAttribute
+) -> ItemAttribute:
+    check_admin(current_user)
+
     record = AttributeRecord(
         name=attribute.name,
         item_type=attribute.type_id
@@ -169,7 +224,14 @@ async def add_attribute(attribute: ItemAttribute) -> ItemAttribute:
 
 
 @router.patch("/item/add-attribute-value", status_code=201)
-async def add_attribute_value(value: ItemAttributeValue) -> ItemAttributeValue:
+async def add_attribute_value(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+        value: ItemAttributeValue
+) -> ItemAttributeValue:
+    check_admin(current_user)
+
     record = AttributeValueRecord(
         attribute=value.attribute,
         value=value.value,

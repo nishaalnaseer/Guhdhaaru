@@ -1,4 +1,7 @@
+from typing import Annotated
+
 from fastapi import APIRouter, HTTPException
+from fastapi.params import Security
 from sqlalchemy import update, delete
 
 from src.crud.models import CategoryRecord
@@ -6,12 +9,21 @@ from src.crud.queries.items import select_category_by_name, select_category_by_i
 from src.crud.utils import add_object, execute_safely
 from src.schema.factrories.items import ItemFactory
 from src.schema.item import Category
+from src.schema.users import User
+from src.security.security import get_current_active_user
+from src.utils.utils import check_admin
 
 router = APIRouter(prefix="/categories", tags=["Categories"])
 
 
 @router.post("/category", status_code=201)
-async def create_category(category: Category) -> Category:
+async def create_category(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+        category: Category
+) -> Category:
+    check_admin(current_user)
     if category.parent_id is None:
         parent = 1
     else:
@@ -28,7 +40,13 @@ async def create_category(category: Category) -> Category:
 
 
 @router.patch("/category", status_code=201)
-async def update_category(category: Category) -> Category:
+async def update_category(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+        category: Category
+) -> Category:
+    check_admin(current_user)
     if category.parent_id is None:
         parent = 1
     else:
@@ -51,7 +69,13 @@ async def update_category(category: Category) -> Category:
 
 
 @router.delete("/category", status_code=204)
-async def delete_category(category_id: int) -> None:
+async def delete_category(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+        category_id: int
+) -> None:
+    check_admin(current_user)
     if category_id == 1:
         raise HTTPException(
             403,

@@ -11,6 +11,7 @@ class Vendor(BaseModel):
     email: EmailStr
     location: str
     users: List[User] | None = None
+    status: str
 
 
 class Listing(BaseModel):

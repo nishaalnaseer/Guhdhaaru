@@ -1,7 +1,7 @@
 import os
 import json
-import requests
-
+from httpx import Client as SyncClient
+from src.utils.settings import *
 from tests._logger import get_logger
 from tests._test import Test
 
@@ -11,6 +11,7 @@ class Client:
         self._headers: dict | None = None
         host = os.getenv("host")
         port = os.getenv("port")
+        self._client = SyncClient()
 
         if host == "0.0.0.0":
             _host = "127.0.0.1"
@@ -19,19 +20,21 @@ class Client:
 
         self._server = f"http://{_host}:{port}"
         self._logger = get_logger(f"Logging {__name__}")
+        self.login()
 
     def login(self):
-        username = "nishawl.naseer@outlook.com"
-        password = "123"
-        data = f'grant_type=&username={username}&password={password}&scope=&client_id=&client_secret='
+        username = ADMIN1_EMAIL
+        password = ADMIN1_PASSWORD
+        data = (f'grant_type=&username={username}&password={password}'
+                f'&scope=&client_id=&client_secret=')
         headers = {
             'accept': 'application/json',
             'Content-Type': 'application/x-www-form-urlencoded'
         }
 
-        response = requests.post(
-            f"{self._server}/token",
-            data=data,
+        response = self._client.post(
+            url=f"{self._server}/token",
+            content=data,
             headers=headers
         )
         content = json.loads(response.content)
@@ -58,19 +61,19 @@ class Client:
             _body = None
         url = f"{self._server}{_test.version}{_test.req_url_path}"
         if _test.req_type.lower() == "post":
-            response = requests.post(
+            response = self._client.post(
                 url=url,
                 json=_body, params=_test.req_params,
                 headers=self._headers
             )
         elif _test.req_type == "patch":
-            response = requests.patch(
+            response = self._client.patch(
                 url=url,
                 json=_body, params=_test.req_params,
                 headers=self._headers
             )
         elif _test.req_type == "get":
-            response = requests.get(
+            response = self._client.get(
                 url=url,
                 params=_test.req_params,
                 headers=self._headers

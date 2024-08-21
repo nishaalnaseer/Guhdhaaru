@@ -538,6 +538,7 @@ def main():
                 name="Somewhere",
                 email="nishawl.naseer@outlook.com",
                 location="Where",
+                status="ENABLED"
             ),
         ),
         "52": Test(
@@ -550,6 +551,7 @@ def main():
                 name="Somewhere1",
                 email="nishawl.naseer1@outlook.com",
                 location="Where",
+                status="ENABLED"
             ),
         ),
         "53": Test(
@@ -562,6 +564,7 @@ def main():
                 name="Somewhere2",
                 email="nishawl.naseer2@outlook.com",
                 location="Where",
+                status="ENABLED"
             ),
         ),
         "54": Test(
@@ -572,7 +575,8 @@ def main():
             req_body=Listing(
                 id=0,
                 item_id=item.id,
-                vendor=1
+                vendor=1,
+                status="ENABLED"
             ),
         ),
         "55": Test(

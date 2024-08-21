@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    Column, String, ForeignKey, UniqueConstraint, PrimaryKeyConstraint
+    Column, String, ForeignKey, UniqueConstraint, PrimaryKeyConstraint, Enum
 )
 from sqlalchemy.dialects.mysql.types import BIT, INTEGER
 
@@ -179,7 +179,17 @@ class VendorRecord(Base):
         INTEGER(unsigned=True),
         ForeignKey("user.id"),
         nullable=False,
-        unique=True,
+    )
+    status = Column(
+        Enum(
+            "ENABLED",
+            "DISABLED",
+            "REQUESTED",
+            "DENIED",
+            name="status",
+            collation=_COLLATION
+        ),
+        nullable=False, default="REQUESTED"
     )
 
 

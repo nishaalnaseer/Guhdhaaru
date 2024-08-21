@@ -2,12 +2,12 @@ import asyncio
 from typing import Dict
 
 from fastapi import APIRouter
-from starlette.middleware.cors import CORSMiddleware
 
 from src.crud.queries.items import select_root_types, select_all_categories
 from src.endpoints.v0.items.items import router as items, get_item
 from src.endpoints.v0.vendors.listings import get_listings
 from src.endpoints.v0.vendors.vendor import router as vendors
+from src.endpoints.v0.users.user import router as users
 from src.schema.factrories.items import ItemFactory
 from src.schema.item import Category, HomePage
 from src.schema.vendor import ListingsPage
@@ -15,6 +15,7 @@ from src.schema.vendor import ListingsPage
 router = APIRouter(prefix="/v0")
 router.include_router(items)
 router.include_router(vendors)
+router.include_router(users)
 
 
 @router.get("/home-one")

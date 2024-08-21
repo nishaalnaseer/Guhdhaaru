@@ -2,7 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import aliased
 
 from src.crud.models import UserRecord, UserVendorPermission, PermissionRecord, VendorRecord, VendorUserRecord
-from src.crud.utils import all_selection
+from src.crud.utils import all_selection, scalar_selection
 from src.schema.factrories.user import UserFactory
 from src.schema.users import User
 
@@ -41,3 +41,8 @@ async def auth_user(username: str) -> User | bool:
             )
 
     return user
+
+
+async def select_user_by_id(user_id: int) -> UserRecord:
+    query = select(UserRecord).where(UserRecord.id == user_id)
+    return await scalar_selection(query)
