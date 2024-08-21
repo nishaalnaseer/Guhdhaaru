@@ -2,7 +2,7 @@ import os
 import json
 from httpx import Client as SyncClient
 from src.utils.settings import *
-from tests._logger import get_logger
+from src.utils.my_logger import get_logger
 from tests._test import Test
 
 
