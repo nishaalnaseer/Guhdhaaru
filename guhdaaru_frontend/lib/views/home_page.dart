@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
 
   void beforeAddCategoryRequest(String content, int parent) {
     post(
-      Uri.parse("${Settings.server}/items/categories/category"),
+      Uri.parse("${Settings.server}/v0/items/categories/category"),
       body: content,
       headers: Settings.headers
     ).then((value) => afterAddCategoryRequest(value, parent));
@@ -191,7 +191,7 @@ class _HomePageState extends State<HomePage> {
 
   void beforeAddTypeRequest(String content, int categoryID) {
     post(
-        Uri.parse("${Settings.server}/items/item-types/item-type"),
+        Uri.parse("${Settings.server}/v0/items/item-types/item-type"),
         body: content,
         headers: Settings.headers
     ).then((value) => afterAddTypeRequest(value, categoryID));

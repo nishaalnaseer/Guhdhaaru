@@ -110,7 +110,7 @@ Widget createItemTypePage(Response response) {
 Future<Response> getItemTypePage(int typeID) async {
   return await get(
       Uri.parse(
-          "${Settings.server}/items/item-types/item-type?type_id=$typeID"
+          "${Settings.server}/v0/items/item-types/item-type?type_id=$typeID"
       )
   );
 }
@@ -118,7 +118,7 @@ Future<Response> getItemTypePage(int typeID) async {
 Future<Response> getLeafNode(int typeID) async {
   return await get(
     Uri.parse(
-        "${Settings.server}/items/item-types/item-type"
+        "${Settings.server}/v0/items/item-types/item-type"
             "/leaf-node?type_id=$typeID"
     )
   );
@@ -134,7 +134,7 @@ LeafPage createLeafPage(Response response) {
 
 Future<Response> getListingsPage(int itemID) async {
   var response = await get(
-    Uri.parse("${Settings.server}/listings_page?item_id=$itemID"),
+    Uri.parse("${Settings.server}/v0/listings_page?item_id=$itemID"),
     headers: Settings.headers
   );
 

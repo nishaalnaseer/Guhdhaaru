@@ -60,7 +60,7 @@ class _ItemTypePageState extends State<ItemTypePage> {
 
   void beforeAddTypeRequest(String content) {
     post(
-        Uri.parse("${Settings.server}/items/item-types/item-type"),
+        Uri.parse("${Settings.server}/v0/items/item-types/item-type"),
         body: content,
         headers: Settings.headers
     ).then((value) => afterAddTypeRequest(value));

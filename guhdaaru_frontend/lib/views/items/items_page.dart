@@ -112,7 +112,7 @@ class _LeafPageState extends State<LeafPage> {
                   );
 
                   var response = await patch(
-                    Uri.parse("${Settings.server}/items/item/attribute-value"),
+                    Uri.parse("${Settings.server}/v0/items/item/attribute-value"),
                     headers: Settings.headers,
                     body: jsonEncode(value.toJson())
                   );
@@ -148,7 +148,7 @@ class _LeafPageState extends State<LeafPage> {
                 );
                 var response = await patch(
                   Uri.parse(
-                    "${Settings.server}/items/item/add-attribute-value"
+                    "${Settings.server}/v0/items/item/add-attribute-value"
                   ),
                   headers: Settings.headers,
                   body: jsonEncode(value.toJson())
@@ -229,7 +229,7 @@ class _LeafPageState extends State<LeafPage> {
 
   void editTypeRequest(ItemType type) async {
     var response = await patch(
-      Uri.parse("${Settings.server}/items/item-types/item-type"),
+      Uri.parse("${Settings.server}/v0/items/item-types/item-type"),
       body: jsonEncode(type.toJson()),
       headers: Settings.headers
     );
@@ -246,7 +246,7 @@ class _LeafPageState extends State<LeafPage> {
 
   void addAttribute(ItemAttribute attribute) async {
     var response = await patch(
-      Uri.parse("${Settings.server}/items/item/add-attribute"),
+      Uri.parse("${Settings.server}/v0/items/item/add-attribute"),
       headers: Settings.headers,
       body: jsonEncode(attribute.toJson())
     );
@@ -294,7 +294,7 @@ class _LeafPageState extends State<LeafPage> {
   Future<void> deleteAttribute(int attributeID) async {
     var response = await delete(
       Uri.parse(
-        "${Settings.server}/items/item/attribute?attribute_id=$attributeID"
+        "${Settings.server}/v0/items/item/attribute?attribute_id=$attributeID"
       ),
       headers:  Settings.headers
     );
@@ -595,7 +595,7 @@ class _LeafPageState extends State<LeafPage> {
                       }
                     });
 
-                    var path = "/items/item/attributes-value";
+                    var path = "/v0/items/item/attributes-value";
                     post(
                       Uri.parse("${Settings.server}$path"),
                       headers: Settings.headers,
