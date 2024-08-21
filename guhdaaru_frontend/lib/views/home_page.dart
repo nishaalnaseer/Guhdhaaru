@@ -411,8 +411,8 @@ class _HomePageState extends State<HomePage> {
         alignment: Alignment.topLeft,
         child: ListView(
           children: getCategories(
-              rootNode: true,
-              categories: widget.orderedCategories
+            rootNode: true,
+            categories: widget.orderedCategories
           ),
         ),
       ), currentRoute: '/',

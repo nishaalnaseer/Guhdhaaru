@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../structs/structs.dart';
+import '../users/login.dart';
+import '../users/register.dart';
 import 'my_drawer.dart';
+
 
 class MyScaffold extends StatefulWidget {
   final Widget body;
@@ -18,6 +21,7 @@ class MyScaffold extends StatefulWidget {
 
 class _MyScaffoldState extends State<MyScaffold> {
   late DrawerStruct drawerStruct;
+  bool loggedIn = Settings().loggedIn();
 
   @override
   void initState() {
@@ -31,11 +35,12 @@ class _MyScaffoldState extends State<MyScaffold> {
     });
   }
 
-  // void dispose_() {
-  //   Navigator.pop(context);
-  //   Navigator.pop(context);
-  // }
-
+  void update() {
+    loggedIn = Settings().loggedIn();
+    setState(() {
+      loggedIn;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +84,62 @@ class _MyScaffoldState extends State<MyScaffold> {
             fontFamily: "Roboto",
           ),
         ),
+        actions: [
+          loggedIn ? TextButton(
+            onPressed: () {
+              Settings().setTokenNull();
+              loggedIn = false;
+              setState(() {
+
+              });
+            },
+            child: const Text(
+              'Logout',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ) : TextButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return LoginPopUp(
+                    updateCallback: update,
+                  ); // Show the register popup
+                },
+              );
+            },
+            child: const Text(
+              'Login',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+
+          loggedIn ? const SizedBox(
+
+          ) : TextButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const RegisterPopup(); // Show the register popup
+                },
+              );
+            },
+            child: const Text(
+              'Register',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
       ),
       body: widget.body
     );

@@ -137,11 +137,11 @@ class UserRecord(Base):
     )
     name = Column(
         String(50, collation=_COLLATION),
-        nullable=False, unique=True
+        nullable=False
     )
     email = Column(
         String(50, collation=_COLLATION),
-        nullable=False,
+        nullable=False, unique=True
     )
     password = Column(
         String(60, collation=_COLLATION),

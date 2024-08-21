@@ -18,15 +18,25 @@ class DrawerStruct {
 }
 
 class Settings {
-  static String server = "http://api.guhdhaaru.nishawl.dev";
-  static String imageServer = "http://images.guhdhaaru.nishawl.dev";
+  static String server = "https://api.guhdhaaru.nishawl.dev";
+  static String imageServer = "https://images.guhdhaaru.nishawl.dev";
   static Map<String, String> headers = {
     "accept": "application/json",
     "Content-Type": "application/json"
   };
 
   void setToken(String token) {
-    headers["Authorization"] = token;
+    Settings.headers["Authorization"] = token;
+  }
+
+  void setTokenNull() {
+    headers.remove("Authorization");
+  }
+
+  bool loggedIn() {
+    String? token = Settings.headers["Authorization"];
+
+    return token != null;
   }
 }
 
