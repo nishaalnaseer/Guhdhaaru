@@ -1,5 +1,7 @@
 
 import json
+import urllib.parse
+
 from httpx import Client as SyncClient
 from src.utils.settings import *
 from src.utils.my_logger import get_logger
@@ -25,6 +27,7 @@ class Client:
         password = ADMIN1_PASSWORD
         data = (f'grant_type=&username={username}&password={password}'
                 f'&scope=&client_id=&client_secret=')
+        encoded_string = urllib.parse.quote(data)
         headers = {
             'accept': 'application/json',
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -37,7 +40,11 @@ class Client:
         )
 
         if response.status_code != 201:
-            raise Exception("Error while login in")
+            raise Exception(
+                f"Error while login in. "
+                f"Server returned {response.status_code}\n"
+                f"Content: {response.content.decode('utf-8')}"
+            )
 
         content = json.loads(response.content)
 

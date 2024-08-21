@@ -86,6 +86,7 @@ def create_access_token(user: User):
     to_encode = TokenData(
         sub=user.email,
         name=user.name,
+        is_admin=user.is_admin,
         exp=exp
     ).model_dump()
     encoded_jwt = jwt.encode(to_encode, OAUTH2_SECRET, algorithm=ALGORITHM)

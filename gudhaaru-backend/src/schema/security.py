@@ -9,6 +9,7 @@ from src.schema.validation import basic_string_validation
 class TokenData(BaseModel):
     sub: str
     name: str
+    is_admin: bool
     exp: int
 
 

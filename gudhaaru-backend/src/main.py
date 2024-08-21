@@ -38,6 +38,7 @@ async def login_for_access_token(
     Create a token up to specification of Oauth2 Scope Authentication
     db tables are checked to see if the user should have those modules
     """
+    print(form_data.password)
     user = await authenticate_user(
         form_data.username, form_data.password
     )
