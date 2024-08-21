@@ -95,7 +95,7 @@ class _LeafPageState extends State<LeafPage> {
         ElevatedButton button;
         if(itemValue != null) {
           attrController.text = itemValue.value;
-            button = ElevatedButton(
+          button = ElevatedButton(
                 onPressed: () async {
                   String text = attrController.text.trim();
 

@@ -17,7 +17,7 @@ from src.endpoints.main import router as v0_router
 app = FastAPI(lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*.nishawl.dev", "nishawl.dev"],  # List your allowed origins here
+    allow_origins=["*"],  # List your allowed origins here
     allow_credentials=True,
     allow_methods=["*"],  # You can restrict the HTTP methods if needed
     allow_headers=["*"],  # You can restrict the headers if needed

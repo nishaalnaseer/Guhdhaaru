@@ -17,7 +17,7 @@ import 'package:go_router/go_router.dart';
 Future<void> getSample() async {}
 
 Future<Response> getHomePageData() async {
-  return await get(Uri.parse("${Settings.server}/home"));
+  return await get(Uri.parse("${Settings.server}/v0/home"));
 }
 
 Widget createHomePage(Response response) {

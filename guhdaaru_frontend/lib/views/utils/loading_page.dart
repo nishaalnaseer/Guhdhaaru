@@ -16,6 +16,7 @@ class LoadingPage extends StatelessWidget {
       future: future,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+
           return decodeFunction(snapshot.data);
         } else if (snapshot.hasError) {
           print(snapshot.stackTrace);
