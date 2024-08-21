@@ -1,11 +1,11 @@
-from typing import Annotated
+from typing import Annotated, List
 
 from fastapi import APIRouter, Security
-from sqlalchemy import update, and_
+from sqlalchemy import update, and_, select
 
 from src.crud.models import VendorRecord
 from src.crud.queries.vendor import select_vendor, select_vendor_by_id
-from src.crud.utils import add_object, execute_safely
+from src.crud.utils import add_object, execute_safely, scalars_selection
 from src.schema.factrories.vendor import VendorFactory
 from src.schema.users import User
 from src.schema.vendor import Vendor
@@ -13,7 +13,7 @@ from src.endpoints.v0.vendors.listings import router as listings
 from src.security.security import get_current_active_user
 from src.utils.utils import check_admin
 
-router = APIRouter(prefix="/vendors")
+router = APIRouter(prefix="/vendors", tags=["Vendors"])
 router.include_router(listings)
 
 
@@ -58,3 +58,12 @@ async def approve_vendor(
 
     new_record = await select_vendor_by_id(vendor)
     return VendorFactory.create_vendor(new_record)
+
+
+@router.get("/vendors")
+async def get_vendors() -> List[Vendor]:
+    query = select(
+        VendorRecord
+    )
+
+    return await scalars_selection(query)

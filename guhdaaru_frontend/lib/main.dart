@@ -11,6 +11,7 @@ import 'package:guhdaaru_frontend/views/items/item_type_page.dart';
 import 'package:guhdaaru_frontend/views/utils/error_page.dart';
 import 'package:guhdaaru_frontend/views/utils/loading_page.dart';
 import 'package:guhdaaru_frontend/views/vendors/listings.dart';
+import 'package:guhdaaru_frontend/views/vendors/vendors.dart';
 import 'package:http/http.dart';
 import 'package:go_router/go_router.dart';
 
@@ -275,6 +276,14 @@ class App extends StatelessWidget {
                       future: getListingsPage(id),
                       decodeFunction: createListingsPage
                   );
+                },
+              ),
+
+              GoRoute(
+                path: 'vendors',
+                builder: (BuildContext context, GoRouterState state) {
+
+                  return const VendorsPage();
                 },
               ),
             ],

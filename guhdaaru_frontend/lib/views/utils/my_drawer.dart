@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:guhdaaru_frontend/structs/structs.dart';
@@ -40,49 +42,182 @@ class _MyDrawerState extends State<MyDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.black87,
-      child: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(2),
-            child: ListTile(
-              textColor: Colors.black,
-              tileColor: Colors.grey,
-              title: const Center(
-                child: Text(
-                  'Home',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: "Arial",
-                  ),
+      backgroundColor: Colors.white,
+      child: Container(
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: SizedBox(
+                height: 200,
+                width: 200,
+                child: Image.network(
+                    "http://10.62.13.11:8888/image?filename=smh.png"
                 ),
-              ),
-              onTap: () {
-                nextWindows(context, "/");
-              },
+              )
             ),
-          ),
 
-          Padding(
-            padding: const EdgeInsets.all(2),
-            child: ListTile(
-              textColor: Colors.black,
-              tileColor: Colors.grey,
-              title: const Center(
-                child: Text(
-                  'In Progress',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: "Arial",
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: ListTile(
+                textColor: Colors.black,
+                tileColor: Colors.grey,
+                title: const Center(
+                  child: Text(
+                    'Home',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "Arial",
+                    ),
                   ),
                 ),
+                onTap: () {
+                  nextWindows(context, "/");
+                },
               ),
-              onTap: () {
-                nextWindows(context, "/item/listings?itemID=91624");
-              },
             ),
-          ),
-        ],
+
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: ListTile(
+                textColor: Colors.black,
+                tileColor: Colors.grey,
+                title: Center(
+                  child: ExpansionTile(
+                    textColor: Colors.black,
+                    title: const Center(
+                        child: Text(
+                          "Vendors",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Arial",
+                          ),
+                        )
+                    ),
+
+                    children: [
+                      ListTile(
+                        textColor: Colors.black,
+                        tileColor: Colors.grey,
+                        title: const Center(
+                          child: Text(
+                            'View Vendors',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "Arial",
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          nextWindows(context, "/vendors");
+                        },
+                      ),
+                      ListTile(
+                        textColor: Colors.black,
+                        tileColor: Colors.grey,
+                        title: const Center(
+                          child: Text(
+                            'My Vendors',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "Arial",
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          nextWindows(context, "/my-vendors");
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  nextWindows(context, "/");
+                },
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: ListTile(
+                textColor: Colors.black,
+                tileColor: Colors.grey,
+                title: Center(
+                  child: ExpansionTile(
+                    textColor: Colors.black,
+                    title: const Center(
+                        child: Text(
+                          "Users",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Arial",
+                          ),
+                        )
+                    ),
+
+                    children: [
+                      ListTile(
+                        textColor: Colors.black,
+                        tileColor: Colors.grey,
+                        title: const Center(
+                          child: Text(
+                            'View Users',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "Arial",
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          nextWindows(context, "/users");
+                        },
+                      ),
+                      ListTile(
+                        textColor: Colors.black,
+                        tileColor: Colors.grey,
+                        title: const Center(
+                          child: Text(
+                            'View Administrators',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "Arial",
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          nextWindows(context, "/administrators");
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  nextWindows(context, "/");
+                },
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: ListTile(
+                textColor: Colors.black,
+                tileColor: Colors.grey,
+                title: const Center(
+                  child: Text(
+                    'In Progress',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "Arial",
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  nextWindows(context, "/item/listings?itemID=44622");
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
