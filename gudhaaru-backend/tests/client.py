@@ -1,4 +1,4 @@
-import os
+
 import json
 from httpx import Client as SyncClient
 from src.utils.settings import *
@@ -9,16 +9,14 @@ from tests._test import Test
 class Client:
     def __init__(self):
         self._headers: dict | None = None
-        host = os.getenv("host")
-        port = os.getenv("port")
         self._client = SyncClient()
 
-        if host == "0.0.0.0":
+        if HOST == "0.0.0.0":
             _host = "127.0.0.1"
         else:
-            _host = host
+            _host = HOST
 
-        self._server = f"http://{_host}:{port}"
+        self._server = f"http://{_host}:{PORT}"
         self._logger = get_logger(f"Logging {__name__}")
         self.login()
 
