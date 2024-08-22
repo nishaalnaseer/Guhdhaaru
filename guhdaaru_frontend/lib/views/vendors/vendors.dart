@@ -111,26 +111,26 @@ class _VendorsPageState extends State<VendorsPage> {
                 DataColumn(label: Text(""),)
               ],
               rows: vendors.map((vendor) => DataRow(
-                  cells: [
-                    DataCell(Text(vendor.name)),
-                    DataCell(Text(vendor.location)),
-                    DataCell(
-                      ElevatedButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return VendorPopUp(
-                                updateCallback: update,
-                                vendor: vendor,
-                              ); // Show the register popup
-                            },
-                          );
-                        },
-                        child: const Text("View"),
-                      )
-                    ),
-                  ]
+                cells: [
+                  DataCell(Text(vendor.name)),
+                  DataCell(Text(vendor.location)),
+                  DataCell(
+                    ElevatedButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return VendorPopUp(
+                              updateCallback: update,
+                              vendor: vendor,
+                            ); // Show the register popup
+                          },
+                        );
+                      },
+                      child: const Text("View"),
+                    )
+                  ),
+                ]
               )).toList(),
             ),
           )

@@ -80,19 +80,31 @@ class _VendorPopUpState extends State<VendorPopUp> {
                 color: Colors.black
             ),
           ),
-          TextField(
-            decoration: const InputDecoration(
-                labelText: "Status",
-                labelStyle: TextStyle(
-                    color: Colors.black
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: DropdownButton(
+              value: widget.vendor.status,
+              hint: const Text("Status"),
+              items: const [
+                DropdownMenuItem(
+                  value: "ENABLED",
+                  child: Text("ENABLED"),
+                ),
+                DropdownMenuItem(
+                  value: "DISABLED",
+                  child: Text("DISABLED"),
+                ),
+                DropdownMenuItem(
+                  value: "REQUESTED",
+                  child: Text("REQUESTED"),
+                ),
+                DropdownMenuItem(
+                  value: "DENIED",
+                  child: Text("DENIED"),
                 )
+              ], onChanged: (value) {  },
             ),
-            controller: statusController,
-            enabled: false,
-            style: const TextStyle(
-                color: Colors.black
-            ),
-          ),
+          )
         ],
       ),
       actions: [
@@ -101,6 +113,12 @@ class _VendorPopUpState extends State<VendorPopUp> {
             Navigator.of(context).pop(); // Close the dialog without action
           },
           child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(); // Close the dialog without action
+          },
+          child: const Text('Submit'),
         ),
       ],
     );

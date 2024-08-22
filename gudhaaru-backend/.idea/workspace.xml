@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="fuck corsss, updating homme page route to v0">
-      <change afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendor.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/vendor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/vendor.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendors.dart" afterDir="false" />
-    </list>
+    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="fuck corsss, updating homme page route to v0" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -184,7 +179,7 @@
       <workItem from="1724186378612" duration="16689000" />
       <workItem from="1724249491941" duration="3569000" />
       <workItem from="1724253267252" duration="7756000" />
-      <workItem from="1724267350321" duration="6058000" />
+      <workItem from="1724267350321" duration="6073000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />
