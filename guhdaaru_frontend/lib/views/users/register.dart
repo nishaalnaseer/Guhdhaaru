@@ -92,6 +92,8 @@ class _RegisterPopupState extends State<RegisterPopup> {
             },
           ),
           TextField(
+            obscuringCharacter: "*",
+            obscureText: true,
             decoration: const InputDecoration(labelText: 'Password'),
             onChanged: (value) {
               setState(() {

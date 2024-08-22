@@ -3,12 +3,14 @@ class Vendor{
   String name;
   String email;
   String location;
+  String status;
 
   Vendor({
     required this.id,
     required this.name,
     required this.email,
     required this.location,
+    required this.status,
   });
 
   factory Vendor.fromJson(Map<String, dynamic> json) {
@@ -16,8 +18,19 @@ class Vendor{
       id: json["id"],
       name: json["name"],
       email: json["email"],
-      location: json["location"]
+      location: json["location"],
+      status: json["status"]
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "name": name,
+      "email": email,
+      "location": location,
+      "status": status,
+    };
   }
 }
 

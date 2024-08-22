@@ -90,6 +90,8 @@ class _LoginPopUpState extends State<LoginPopUp> {
             },
           ),
           TextField(
+            obscuringCharacter: "*",
+            obscureText: true,
             decoration: const InputDecoration(labelText: 'Password'),
             onChanged: (value) {
               setState(() {

@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="fuck corsss, updating homme page route to v0">
-      <change afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendors.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendor.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/utils/my_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/utils/my_drawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/vendor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/vendor.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendors.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +184,7 @@
       <workItem from="1724186378612" duration="16689000" />
       <workItem from="1724249491941" duration="3569000" />
       <workItem from="1724253267252" duration="7756000" />
-      <workItem from="1724267350321" duration="5145000" />
+      <workItem from="1724267350321" duration="6058000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />
@@ -507,7 +506,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724267461799</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="fuck corsss, updating homme page route to v0">
+      <option name="closed" value="true" />
+      <created>1724283552977</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1724283552977</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

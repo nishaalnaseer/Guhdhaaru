@@ -1,4 +1,8 @@
+import "dart:convert";
+
 import "package:flutter/material.dart";
+import "package:guhdaaru_frontend/structs/structs.dart";
+import "package:guhdaaru_frontend/views/vendors/vendor.dart";
 import "package:http/http.dart";
 
 import "../../structs/vendor.dart";
@@ -16,8 +20,22 @@ class _VendorsPageState extends State<VendorsPage> {
 
   void getVendors() async {
     var response = await get(
-      
+      Uri.parse("${Settings.server}/v0/vendors/vendors")
     );
+    
+    var content = jsonDecode(response.body) as List<dynamic>;
+    
+    vendors = content.map((json) => Vendor.fromJson(json)).toList();
+
+    setState(() {
+
+    });
+  }
+
+  void update() {
+    setState(() {
+
+    });
   }
 
   @override
@@ -85,13 +103,35 @@ class _VendorsPageState extends State<VendorsPage> {
 
           SizedBox(
             height: MediaQuery.sizeOf(context).height - 250,
-            child: ListView.builder(
-              itemCount: vendors.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: Text("Hello"),
-                );
-              }
+            width: MediaQuery.sizeOf(context).width,
+            child: DataTable(
+              columns: const [
+                DataColumn(label: Text("Name"),),
+                DataColumn(label: Text("Location"),),
+                DataColumn(label: Text(""),)
+              ],
+              rows: vendors.map((vendor) => DataRow(
+                  cells: [
+                    DataCell(Text(vendor.name)),
+                    DataCell(Text(vendor.location)),
+                    DataCell(
+                      ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return VendorPopUp(
+                                updateCallback: update,
+                                vendor: vendor,
+                              ); // Show the register popup
+                            },
+                          );
+                        },
+                        child: const Text("View"),
+                      )
+                    ),
+                  ]
+              )).toList(),
             ),
           )
         ],
