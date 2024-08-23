@@ -8,7 +8,9 @@ class User(BaseModel):
     id: int
     name: str
     email: EmailStr
-    password: str | None = Field(exclude=True, default=None)
+    password: str | None = Field(
+        exclude=True, default=None, max_length=60, min_length=6
+    )
     is_admin: bool
     enabled: bool
 

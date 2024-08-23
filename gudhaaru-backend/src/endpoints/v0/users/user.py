@@ -21,6 +21,10 @@ router = APIRouter(prefix="/users", tags=["Users"])
 async def register(
         user: User
 ) -> User:
+
+    if not user.password:
+        raise HTTPException(422, "Password is null")
+
     user_record = UserRecord(
         name=user.name,
         email=user.email,

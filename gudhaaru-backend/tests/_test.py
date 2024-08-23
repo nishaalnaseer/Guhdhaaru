@@ -10,8 +10,10 @@ class Test:
             req_type: str,
             req_params: dict | None = None,
             req_body: BaseModel | None | List[BaseModel] = None,
-            test_id: int | None = None, version="/v0"
-            ):
+            test_id: int | None = None,
+            xtra_args: dict = {},
+            version: str = "/v0"
+    ):
         self.test_id = test_id
         self.req_url_path = req_url_path
         self.res_status_code = res_status_code
@@ -19,3 +21,4 @@ class Test:
         self.req_params = req_params
         self.req_body = req_body
         self.version = version
+        self.xtra_args = xtra_args

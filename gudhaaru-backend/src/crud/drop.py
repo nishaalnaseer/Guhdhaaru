@@ -43,6 +43,8 @@ async def init():
         PermissionRecord(id=3, name="add:listing"),
         PermissionRecord(id=4, name="remove:listing"),
         PermissionRecord(id=5, name="update:details"),
+        PermissionRecord(id=6, name="read:listings"),
+        PermissionRecord(id=7, name="update:listings"),
     ]
     perms = len(data)
     data.append(
@@ -65,9 +67,9 @@ async def create_new_db():
         VendorRecord(
             id=1,
             name="Great Hardware",
-            super_user=1,
+            super_admin=1,
             email=ADMIN1_EMAIL,
-            location="Maldives"
+            location="Ameenee Magu Male, Maldives"
         ),
         VendorUserRecord(
             vendor_id=1,

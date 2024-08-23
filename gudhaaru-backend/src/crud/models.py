@@ -175,7 +175,7 @@ class VendorRecord(Base):
         String(50, collation=_COLLATION),
         nullable=False,
     )
-    super_user = Column(
+    super_admin = Column(
         INTEGER(unsigned=True),
         ForeignKey("user.id"),
         nullable=False,

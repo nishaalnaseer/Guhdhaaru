@@ -12,6 +12,7 @@ class Vendor(BaseModel):
     location: str
     users: List[User] | None = None
     status: str
+    super_admin: int
 
 
 class Listing(BaseModel):
@@ -35,3 +36,7 @@ class Permission(BaseModel):
     id: int
     name: str
 
+
+class VendorListing(BaseModel):
+    item_details: str
+    item_id: int

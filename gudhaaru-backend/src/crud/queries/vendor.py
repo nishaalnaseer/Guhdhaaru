@@ -1,6 +1,6 @@
 from sqlalchemy import select, and_
 
-from src.crud.models import VendorRecord, ListingsRecord, AttributeValueRecord
+from src.crud.models import VendorRecord, ListingsRecord, AttributeValueRecord, AttributeRecord, TypeRecord
 from src.crud.utils import scalar_selection, scalars_selection, all_selection, fetch_one
 
 
@@ -43,3 +43,19 @@ async def select_listings_by_item_id(item_id: int, vendor_id: int):
         )
     )
     return await fetch_one(query)
+
+
+async def select_vendor_listings(vendor_id: int):
+    query = select(
+        ListingsRecord, TypeRecord
+    ).join(
+        AttributeValueRecord, AttributeValueRecord.item_id == ListingsRecord.item
+    ).join(
+        AttributeRecord, AttributeRecord.id == AttributeValueRecord.attribute
+    ).join(
+        TypeRecord, AttributeRecord.item_type == TypeRecord.id
+    ).where(
+        ListingsRecord.vendor_id == vendor_id
+    ).distinct()
+
+    return await all_selection(query)

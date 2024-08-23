@@ -11,7 +11,8 @@ class VendorFactory:
             name=record.name,
             email=record.email,
             location=record.location,
-            status=record.status
+            status=record.status,
+            super_admin=record.super_admin
         )
 
     @staticmethod

@@ -18,7 +18,7 @@ async def auth_user(username: str) -> User | bool:
     ).outerjoin(
         VendorUserRecord, VendorUserRecord.id == UserVendorPermission.user_id
     ).outerjoin(
-        VendorRecord, VendorRecord.super_user == UserRecord.id
+        VendorRecord, VendorRecord.super_admin == UserRecord.id
     ).where(UserRecord.email == username)
 
     rows = await all_selection(query)

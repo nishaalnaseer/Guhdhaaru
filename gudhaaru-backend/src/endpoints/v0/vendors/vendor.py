@@ -1,16 +1,17 @@
 import asyncio
 from typing import Annotated, List
 
-from fastapi import APIRouter, Security
+from fastapi import APIRouter, Security, HTTPException
 from sqlalchemy import update, and_, select
 from sqlalchemy.orm import aliased
 
-from src.crud.models import VendorRecord, UserRecord, VendorUserRecord
-from src.crud.queries.vendor import select_vendor, select_vendor_by_id
+from src.crud.models import VendorRecord, UserRecord, VendorUserRecord, PermissionRecord, ListingsRecord, TypeRecord
+from src.crud.queries.items import select_vendor_rights
+from src.crud.queries.vendor import select_vendor, select_vendor_by_id, select_vendor_listings
 from src.crud.utils import add_object, execute_safely, scalars_selection, all_selection
 from src.schema.factrories.vendor import VendorFactory
 from src.schema.users import User
-from src.schema.vendor import Vendor
+from src.schema.vendor import Vendor, VendorListing
 from src.endpoints.v0.vendors.listings import router as listings
 from src.security.security import get_current_active_user
 from src.utils.utils import check_admin
@@ -30,7 +31,7 @@ async def create_vendor(
         name=vendor.name,
         email=vendor.email,
         location=vendor.location,
-        super_user=current_user.id
+        super_admin=current_user.id
     )
     await add_object(record)
 
@@ -71,16 +72,11 @@ async def get_vendors() -> List[Vendor]:
     )
 
 
-@router.get("/vendors/me")
-async def get_my_vendors(
-        current_user: Annotated[
-            User, Security(get_current_active_user, scopes=[])
-        ],
-) -> List[Vendor]:
+async def _get_my_vendors(current_user: int):
     super_vendor_query = select(
         VendorRecord
     ).where(
-        VendorRecord.super_user == current_user.id
+        VendorRecord.super_user == current_user
     )
     ordinary_vendor_query = select(
         VendorRecord
@@ -88,14 +84,12 @@ async def get_my_vendors(
         VendorUserRecord,
         VendorRecord.id == VendorUserRecord.vendor_id
     ).where(
-        VendorUserRecord.user_id == current_user.id
+        VendorUserRecord.user_id == current_user
     )
-
     super_records, ordinary_records = await asyncio.gather(
         scalars_selection(super_vendor_query),
         scalars_selection(ordinary_vendor_query),
     )
-
     vendors = [
         VendorFactory.create_vendor(
             record
@@ -106,5 +100,69 @@ async def get_my_vendors(
             record
         ) for record in ordinary_records
     ])
-
     return vendors
+
+
+@router.get("/vendors/me")
+async def get_my_vendors(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+) -> List[Vendor]:
+    return await _get_my_vendors(current_user.id)
+
+
+async def does_user_have_vendor_rights(
+        current_user: int,
+        vendor_id: int,
+        rights: str
+):
+    _vendors = await _get_my_vendors(current_user)
+
+    vendor: Vendor | None = None
+
+    for _vendor in _vendors:
+        if _vendor.id == vendor_id:
+            vendor = _vendor
+
+    if not vendor:
+        raise HTTPException(404, "Vendor not found for user")
+
+    permission_records: List[PermissionRecord] = await select_vendor_rights(
+        vendor_id, current_user
+    )
+
+    permission_here = False
+    for permission_record in permission_records:
+        if permission_record.name == rights:
+            permission_here = True
+            return
+
+    if not permission_here:
+        raise HTTPException(401, "Permission denied")
+
+
+@router.get("/vendor/listings")
+async def get_vendor_listings(
+    vendor_id: int
+) -> List[VendorListing]:
+
+    # await does_user_have_vendor_rights(
+    #     current_user=current_user.id,
+    #     vendor_id=vendor_id,
+    #     rights="read:listings"
+    # )
+
+    records = await select_vendor_listings(vendor_id)
+    _listings: List[VendorListing] = []
+    for row in records:
+        listing_record: ListingsRecord = row[0]
+        type_record: TypeRecord = row[1]
+
+        listing = VendorListing(
+            item_details=type_record.name,
+            item_id=listing_record.item
+        )
+        _listings.append(listing)
+
+    return _listings

@@ -59,13 +59,13 @@ class Client:
 
     def req(self, _test: Test) -> str | None:
         if _test.req_body is not None:
-
             if type(_test.req_body) is list:
                 _body = [
                     x.model_dump() for x in _test.req_body
                 ]
             else:
                 _body = _test.req_body.model_dump()
+                _body.update(_test.xtra_args)
         else:
             _body = None
         url = f"{self._server}{_test.version}{_test.req_url_path}"

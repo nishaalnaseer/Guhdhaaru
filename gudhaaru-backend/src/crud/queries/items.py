@@ -2,7 +2,8 @@ from sqlalchemy import select, and_, or_, asc
 from sqlalchemy.orm import aliased
 
 from src.crud.engine import async_session
-from src.crud.models import CategoryRecord, TypeRecord, AttributeRecord, AttributeValueRecord
+from src.crud.models import CategoryRecord, TypeRecord, AttributeRecord, AttributeValueRecord, PermissionRecord, \
+    UserVendorPermission, VendorUserRecord, VendorRecord
 from src.crud.utils import scalar_selection, scalars_selection, all_selection
 
 
@@ -199,3 +200,22 @@ async def select_item(item_id: int):
         AttributeValueRecord.item_id == item_id
     )
     return await all_selection(query)
+
+
+async def select_vendor_rights(vendor_id: int, user_id: int):
+    query = select(
+        PermissionRecord
+    ).join(
+        UserVendorPermission,
+        UserVendorPermission.permission_id == PermissionRecord.id
+    ).join(
+        VendorUserRecord,
+        VendorUserRecord.id == UserVendorPermission.user_id
+    ).where(
+        and_(
+            VendorUserRecord.vendor_id == vendor_id,
+            UserVendorPermission.user_id == user_id
+        )
+    )
+
+    return await scalars_selection(query)

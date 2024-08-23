@@ -1,4 +1,5 @@
 from src.schema.item import *
+from src.schema.users import User
 from src.schema.vendor import Vendor, Listing
 from src.utils.db_initialzation import main as db_init
 from tests._test import Test
@@ -330,7 +331,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=1, name="Actuators",  category_id=14, leaf_node=False, parent_id=1,
+                id=1, name="Actuators", category_id=14, leaf_node=False, parent_id=1,
             ),
         ),
         "34": Test(
@@ -339,7 +340,7 @@ def main():
             req_type="post",
             req_params=None,
             req_body=ItemType(
-                id=1, name="Bearings",  category_id=14, leaf_node=False, parent_id=1,
+                id=1, name="Bearings", category_id=14, leaf_node=False, parent_id=1,
             ),
         ),
         "35": Test(
@@ -535,10 +536,11 @@ def main():
             req_params=None,
             req_body=Vendor(
                 id=0,
-                name="Somewhere",
+                name="Good Hardware",
                 email="nishawl.naseer@outlook.com",
-                location="Where",
-                status="ENABLED"
+                location="Ameenee Magu",
+                status="ENABLED",
+                super_admin=1,
             ),
         ),
         "52": Test(
@@ -548,10 +550,11 @@ def main():
             req_params=None,
             req_body=Vendor(
                 id=0,
-                name="Somewhere1",
+                name="Great Hardware Henveyru",
                 email="nishawl.naseer1@outlook.com",
-                location="Where",
-                status="ENABLED"
+                location="Henveyru",
+                status="ENABLED",
+                super_admin=1,
             ),
         ),
         "53": Test(
@@ -561,10 +564,11 @@ def main():
             req_params=None,
             req_body=Vendor(
                 id=0,
-                name="Somewhere2",
+                name="Good Hardware Galolhu",
                 email="nishawl.naseer2@outlook.com",
-                location="Where",
-                status="ENABLED"
+                location="Galolhu",
+                status="ENABLED",
+                super_admin=1,
             ),
         ),
         "54": Test(
@@ -576,7 +580,8 @@ def main():
                 id=0,
                 item_id=item.id,
                 vendor=1,
-                status="ENABLED"
+                status="ENABLED",
+                super_admin=1,
             ),
         ),
         "55": Test(
@@ -601,8 +606,189 @@ def main():
                 vendor=2
             ),
         ),
+        "57": Test(
+            req_url_path="/users/user/register",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=User(
+                id=0,
+                name="Nishaal",
+                email="nishaalnaseer4@gmail.com",
+                is_admin=True,
+                enabled=True,
+            ),
+            xtra_args={"password": "1234567"}
+        ),
+        "58": Test(
+            req_url_path="/users/user/register",
+            res_status_code=422,
+            req_type="post",
+            req_params=None,
+            req_body=User(
+                id=0,
+                name="Nishaal",
+                email="nishaalnaseer4@gmail.com",
+                is_admin=True,
+                enabled=True,
+            ),
+            xtra_args={"password": "1234567"}
+        ),
+        "59": Test(
+            req_url_path="/items/item/attributes-value",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=[
+                ItemAttributeValue(id=1, value='4', attribute=1),
+                ItemAttributeValue(id=1, value='Fully Threaded', attribute=2),
+                ItemAttributeValue(id=1, value='Coarse', attribute=3),
+                ItemAttributeValue(id=1, value='2.3', attribute=4),
+                ItemAttributeValue(id=1, value='1.5', attribute=5),
+                ItemAttributeValue(id=1, value='1.3', attribute=6),
+                ItemAttributeValue(id=1, value='170,000', attribute=7)
+            ],
+        ),
+        "60": Test(
+            req_url_path="/items/item/attributes-value",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=[
+                ItemAttributeValue(id=1, value='4', attribute=1),
+                ItemAttributeValue(id=1, value='Fully Threaded', attribute=2),
+                ItemAttributeValue(id=1, value='Coarse', attribute=3),
+                ItemAttributeValue(id=1, value='2.0', attribute=4),
+                ItemAttributeValue(id=1, value='1.4', attribute=5),
+                ItemAttributeValue(id=1, value='1.3', attribute=6),
+                ItemAttributeValue(id=1, value='170,000', attribute=7)
+            ],
+        ),
+        "61": Test(
+            req_url_path="/items/item/attributes-value",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=[
+                ItemAttributeValue(id=1, value='4', attribute=1),
+                ItemAttributeValue(id=1, value='Half Threaded', attribute=2),
+                ItemAttributeValue(id=1, value='Coarse', attribute=3),
+                ItemAttributeValue(id=1, value='2.5', attribute=4),
+                ItemAttributeValue(id=1, value='1.4', attribute=5),
+                ItemAttributeValue(id=1, value='1.3', attribute=6),
+                ItemAttributeValue(id=1, value='170,000', attribute=7)
+            ],
+        ),
+        "62": Test(
+            req_url_path="/items/item/attributes-value",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=[
+                ItemAttributeValue(id=1, value='4', attribute=1),
+                ItemAttributeValue(id=1, value='Quarter Threaded', attribute=2),
+                ItemAttributeValue(id=1, value='Coarse', attribute=3),
+                ItemAttributeValue(id=1, value='2.5', attribute=4),
+                ItemAttributeValue(id=1, value='1.4', attribute=5),
+                ItemAttributeValue(id=1, value='1.3', attribute=6),
+                ItemAttributeValue(id=1, value='170,000', attribute=7)
+            ],
+        ),
     }
 
     for i_id, _test in _next.items():
+        _test.test_id = i_id
+        client.req(_test)
+
+    content = Test(
+        test_id=-2,
+        req_url_path="/items/item-types/item-type/leaf-node",
+        res_status_code=200,
+        req_type="get",
+        req_params={
+            "type_id": 8
+        },
+        req_body=None
+    )
+    response = client.req(content)
+    if response is None:
+        return
+    leaf = LeafNode(**json.loads(response))
+
+    item_one: Item = list(leaf.items.values())[0]
+    item_two: Item = list(leaf.items.values())[1]
+    item_three: Item = list(leaf.items.values())[2]
+    item_four: Item = list(leaf.items.values())[3]
+    item_five: Item = list(leaf.items.values())[4]
+
+    _listings = {
+        "63": Test(
+            req_url_path="/vendors/listings/listing",
+            res_status_code=422,
+            req_type="post",
+            req_params=None,
+            req_body=Listing(
+                id=0,
+                item_id=item_one.id,
+                vendor=1,
+                status="ENABLED",
+                super_admin=1,
+            ),
+        ),
+        "64": Test(
+            req_url_path="/vendors/listings/listing",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Listing(
+                id=0,
+                item_id=item_two.id,
+                vendor=1,
+                status="ENABLED",
+                super_admin=1,
+            ),
+        ),
+        "66": Test(
+            req_url_path="/vendors/listings/listing",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Listing(
+                id=0,
+                item_id=item_three.id,
+                vendor=1,
+                status="ENABLED",
+                super_admin=1,
+            ),
+        ),
+        "67": Test(
+            req_url_path="/vendors/listings/listing",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Listing(
+                id=0,
+                item_id=item_four.id,
+                vendor=1,
+                status="ENABLED",
+                super_admin=1,
+            ),
+        ),
+        "68": Test(
+            req_url_path="/vendors/listings/listing",
+            res_status_code=201,
+            req_type="post",
+            req_params=None,
+            req_body=Listing(
+                id=0,
+                item_id=item_five.id,
+                vendor=1,
+                status="ENABLED",
+                super_admin=1,
+            ),
+        ),
+    }
+
+    for i_id, _test in _listings.items():
         _test.test_id = i_id
         client.req(_test)
