@@ -8,6 +8,7 @@ import 'package:guhdaaru_frontend/structs/vendor.dart';
 import 'package:guhdaaru_frontend/views/home_page.dart';
 import 'package:guhdaaru_frontend/views/items/items_page.dart';
 import 'package:guhdaaru_frontend/views/items/item_type_page.dart';
+import 'package:guhdaaru_frontend/views/users/users.dart';
 import 'package:guhdaaru_frontend/views/utils/error_page.dart';
 import 'package:guhdaaru_frontend/views/utils/loading_page.dart';
 import 'package:guhdaaru_frontend/views/vendors/listings.dart';
@@ -284,6 +285,22 @@ class App extends StatelessWidget {
                 builder: (BuildContext context, GoRouterState state) {
 
                   return const VendorsPage();
+                },
+              ),
+
+              GoRoute(
+                path: 'users',
+                builder: (BuildContext context, GoRouterState state) {
+
+                  return const UsersPage(adminOnly: false,);
+                },
+              ),
+
+              GoRoute(
+                path: 'administrators',
+                builder: (BuildContext context, GoRouterState state) {
+
+                  return const UsersPage(adminOnly: true,);
                 },
               ),
             ],

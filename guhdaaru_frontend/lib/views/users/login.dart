@@ -14,8 +14,8 @@ class LoginPopUp extends StatefulWidget {
 }
 
 class _LoginPopUpState extends State<LoginPopUp> {
-  String email = '';
-  String password = "";
+  String email = "nishaalnaseer4@gmail.com";
+  String password = "123";
 
   void afterLogin(Response response) {
 
@@ -26,29 +26,8 @@ class _LoginPopUpState extends State<LoginPopUp> {
       String token = "${content["token_type"]} ${content["access_token"]}";
       Settings().setToken(token);
 
-      showDialog(
-        context: context,
-        barrierDismissible: false, // Prevent dismissing dialog by tapping outside
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text(
-                'Success.'
-            ),
-
-            // content: Text(response.body),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
-                  Navigator.of(context).pop();
-                  widget.updateCallback();
-                },
-                child: const Text('Close'),
-              ),
-            ],
-          );
-        },
-      );
+      Navigator.of(context).pop();
+      widget.updateCallback();
     } else {
       showDialog(
         context: context,
@@ -101,6 +80,7 @@ class _LoginPopUpState extends State<LoginPopUp> {
           ),
         ],
       ),
+
       actions: [
         TextButton(
           onPressed: () async {
@@ -115,12 +95,12 @@ class _LoginPopUpState extends State<LoginPopUp> {
             '&scope=&client_id=&client_secret=';
 
             await post(
-                Uri.parse("${Settings.server}/token"),
-                body: jsonEncode(data),
-                headers: {
-                  'accept': 'application/json',
-                  'Content-Type': 'application/x-www-form-urlencoded'
-                }).then(afterLogin);
+              Uri.parse("${Settings.server}/token"),
+              body: jsonEncode(data),
+              headers: {
+                'accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }).then(afterLogin);
           },
           child: const Text('Login'),
         ),

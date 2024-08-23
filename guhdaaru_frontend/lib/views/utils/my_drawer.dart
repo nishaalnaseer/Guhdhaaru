@@ -46,13 +46,15 @@ class _MyDrawerState extends State<MyDrawer> {
       child: Container(
         child: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(10),
+            const Padding(
+              padding: EdgeInsets.all(10),
               child: SizedBox(
                 height: 200,
                 width: 200,
-                child: Image.network(
-                    "http://10.62.13.11:8888/image?filename=smh.png"
+                child: Image(
+                    image: AssetImage(
+                        'assets/images/general/drawer.jpg'
+                    )
                 ),
               )
             ),

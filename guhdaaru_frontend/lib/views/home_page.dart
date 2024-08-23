@@ -271,31 +271,59 @@ class _HomePageState extends State<HomePage> {
 
       List<Widget> children = [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               value.name,
               style: rootNode ? bigStyle : smallStyle,
             ),
-            IconButton(
-              onPressed: () {
-                addCategory(parentCategoryId: value.id);
-              },
-              padding: const EdgeInsets.all(10),
-              icon: const Icon(
-                Icons.add,
-              ),
-              tooltip: 'Add Sub Category', // Set the hint text
-            ),
-            IconButton(
-              onPressed: () {
-                addItemType(categoryID: value.id);
-              },
-              padding: const EdgeInsets.all(10),
-              icon: const Icon(
-                Icons.add,
-              ),
-              tooltip: 'Add Item Type', // Set the hint text
-            ),
+            Row(
+              children: [
+                OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(
+                          width: 1.0,
+                          color: Colors.red
+                      ),
+                    ),
+                    onPressed: () {
+                      addCategory(parentCategoryId: value.id);
+                    },
+
+                    child: const Text(
+                      "Add Sub Category",
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.red
+                      ),
+                    )
+                ),
+
+                const SizedBox(
+                  width: 8,
+                ),
+
+                OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(
+                          width: 1.0,
+                          color: Colors.red
+                      ),
+                    ),
+                    onPressed: () {
+                      addItemType(categoryID: value.id);
+                    },
+                    child: const Text(
+                      "Add Item Type",
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.red
+                      ),
+                    )
+                ),
+              ],
+              // mainAxisAlignment:,
+            )
           ],
         )
       ];
@@ -306,19 +334,16 @@ class _HomePageState extends State<HomePage> {
         padding: rootNode ? const EdgeInsets.all(30) : const EdgeInsets.all(10),
         alignment: Alignment.topLeft, // Ensure all containers align to the left
 
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
-          color: Colors.white, // Set container background color
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5), // Soften the border
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
-            ),
-          ],
-        ),
+        decoration: value.parentId != 1 ? BoxDecoration(
+            border: Border(
+              bottom: BorderSide( //                   <--- right side
+                color: Colors.grey.shade300,
+                width: 1.0,
+              ),
+            )
+        ) : BoxDecoration(
 
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start, // Align children to the start
           children: children,

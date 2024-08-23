@@ -28,7 +28,6 @@ class _VendorsPageState extends State<VendorsPage> {
     vendors = content.map((json) => Vendor.fromJson(json)).toList();
 
     setState(() {
-
     });
   }
 
@@ -66,21 +65,6 @@ class _VendorsPageState extends State<VendorsPage> {
                       controller.openView();
                     },
                     leading: const Icon(Icons.search),
-                    // trailing: <Widget>[
-                    //   Tooltip(
-                    //     message: 'Change brightness mode',
-                    //     child: IconButton(
-                    //       isSelected: isDark,
-                    //       onPressed: () {
-                    //         setState(() {
-                    //           isDark = !isDark;
-                    //         });
-                    //       },
-                    //       icon: const Icon(Icons.wb_sunny_outlined),
-                    //       selectedIcon: const Icon(Icons.brightness_2_outlined),
-                    //     ),
-                    //   )
-                    // ],
                   );
                 },
 
