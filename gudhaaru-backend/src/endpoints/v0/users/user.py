@@ -1,16 +1,17 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Security, HTTPException
-from sqlalchemy import update
+from sqlalchemy import update, select
 
 from src.crud.models import UserRecord
 from src.crud.queries.users import select_user_by_id
-from src.crud.utils import add_object, execute_safely
+from src.crud.utils import add_object, execute_safely, scalars_selection
 from src.schema.factrories.user import UserFactory
 from src.schema.users import User
 from src.security.security import get_password_hash, get_current_active_user
+from src.utils.utils import check_admin
 
-router = APIRouter(prefix="/users")
+router = APIRouter(prefix="/users", tags=["Users"])
 # todo password changing
 # todo when users email / phone number need to be verified upon creation
 #
@@ -52,3 +53,20 @@ async def update_me(
         raise HTTPException(status_code=404, detail="User not found")
 
     return UserFactory.get_user(user_record)
+
+
+@router.get("/users")
+async def get_users(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+):
+    check_admin(current_user)
+    records = await scalars_selection(
+        select(UserRecord)
+    )
+
+    return [
+        UserFactory.get_user(record) for record in records
+    ]
+

@@ -74,5 +74,8 @@ async def home() -> HomePage:
 
 @router.get("/listings_page")
 async def get_listings_page(item_id: int) -> ListingsPage:
-    item, listings = await asyncio.gather(get_item(item_id), get_listings(item_id))
+    item, listings = await asyncio.gather(
+        get_item(item_id),
+        get_listings(item_id)
+    )
     return ListingsPage(item=item, listings=listings)

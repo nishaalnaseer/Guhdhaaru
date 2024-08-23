@@ -1,11 +1,13 @@
+import asyncio
 from typing import Annotated, List
 
 from fastapi import APIRouter, Security
 from sqlalchemy import update, and_, select
+from sqlalchemy.orm import aliased
 
-from src.crud.models import VendorRecord
+from src.crud.models import VendorRecord, UserRecord, VendorUserRecord
 from src.crud.queries.vendor import select_vendor, select_vendor_by_id
-from src.crud.utils import add_object, execute_safely, scalars_selection
+from src.crud.utils import add_object, execute_safely, scalars_selection, all_selection
 from src.schema.factrories.vendor import VendorFactory
 from src.schema.users import User
 from src.schema.vendor import Vendor
@@ -62,8 +64,47 @@ async def approve_vendor(
 
 @router.get("/vendors")
 async def get_vendors() -> List[Vendor]:
-    query = select(
-        VendorRecord
+    return await scalars_selection(
+        select(
+            VendorRecord
+        )
     )
 
-    return await scalars_selection(query)
+
+@router.get("/vendors/me")
+async def get_my_vendors(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+) -> List[Vendor]:
+    super_vendor_query = select(
+        VendorRecord
+    ).where(
+        VendorRecord.super_user == current_user.id
+    )
+    ordinary_vendor_query = select(
+        VendorRecord
+    ).join(
+        VendorUserRecord,
+        VendorRecord.id == VendorUserRecord.vendor_id
+    ).where(
+        VendorUserRecord.user_id == current_user.id
+    )
+
+    super_records, ordinary_records = await asyncio.gather(
+        scalars_selection(super_vendor_query),
+        scalars_selection(ordinary_vendor_query),
+    )
+
+    vendors = [
+        VendorFactory.create_vendor(
+            record
+        ) for record in super_records
+    ]
+    vendors.extend([
+        VendorFactory.create_vendor(
+            record
+        ) for record in ordinary_records
+    ])
+
+    return vendors
