@@ -127,7 +127,7 @@ class _MyDrawerState extends State<MyDrawer> {
                           ),
                         ),
                         onTap: () {
-                          nextWindows(context, "/my-vendors");
+                          nextWindows(context, "/vendors/me");
                         },
                       ),
                     ],

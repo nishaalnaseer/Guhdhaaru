@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -8,10 +9,10 @@ import 'package:http/http.dart';
 import '../structs/items.dart';
 
 class HomePage extends StatefulWidget {
-  final Map<int, Category> orderedCategories;
-  final Map<int, Category> categories;
+  // final Map<int, Category> orderedCategories;
+  // final Map<int, Category> categories;
   const HomePage({
-    super.key, required this.orderedCategories, required this.categories
+    super.key, // required this.orderedCategories, required this.categories
   });
 
   @override
@@ -29,6 +30,77 @@ class _HomePageState extends State<HomePage> {
     fontWeight: FontWeight.w500,
     fontFamily: "Roboto",
   );
+  Map<int, Category> orderedCategories = {};
+  Map<int, Category> categories = {};
+  bool disposing = false;
+
+  void getHomePageData() async {
+    var response = await get(Uri.parse("${Settings.server}/v0/home"));
+
+    var content = jsonDecode(response.body);
+    var categoriesContent = content["categories"] as List<dynamic>;
+    var typesContent = content["types"] as List<dynamic>;
+
+    Map<int, Category> orderedCategories = {};
+    Map<int, Category> categories = {};
+
+    for(var category_ in categoriesContent) {
+      var category = Category.fromJson(category_);
+
+      if(category.id == 1) {
+        continue;
+      }
+
+      if(category.parentId == 1) {
+        orderedCategories[category.id] = category;
+      }
+      categories[category.id] = category;
+    }
+
+    categories.forEach((key, value) {
+      int parentId = value.parentId;
+      if(parentId != 1) {
+        if(orderedCategories.containsKey(parentId)) {
+          var parent = orderedCategories[parentId];
+          parent!.childrenTree[key] = value;
+        } else {
+          value.childrenTree[key] = value;
+        }
+      }
+    });
+
+    for(var type_ in typesContent) {
+      var type = ItemType.fromJson(type_);
+
+      if(type.id == 1) {
+        continue;
+      }
+
+      var category = categories[type.categoryId];
+      category!.typesTree[type.id] = type;
+    }
+
+    categories.forEach((key, value) {
+      // Sort childrenTree in ascending order
+      value.childrenTree = LinkedHashMap.fromEntries(
+        value.childrenTree.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
+      );
+
+      // Sort typesTree in ascending order
+      value.typesTree = LinkedHashMap.fromEntries(
+        value.typesTree.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
+      );
+    });
+
+    this.orderedCategories = orderedCategories;
+    this.categories = categories;
+
+    if(!disposing) {
+      setState(() {
+
+      });
+    }
+  }
 
   void afterAddCategoryRequest(Response response, int parent) {
     if(response.statusCode == 201) {
@@ -38,10 +110,10 @@ class _HomePageState extends State<HomePage> {
       );
 
       if(parent == 0) {
-        widget.categories[newCategory.id] = newCategory;
-        widget.orderedCategories[newCategory.id] = newCategory;
+        categories[newCategory.id] = newCategory;
+        orderedCategories[newCategory.id] = newCategory;
       } else {
-        Category? parentCategory = widget.categories[parent];
+        Category? parentCategory = categories[parent];
         parentCategory!.childrenTree[newCategory.id] = newCategory;
       }
       Navigator.of(context).pop();
@@ -156,7 +228,7 @@ class _HomePageState extends State<HomePage> {
           jsonDecode(response.body)
       );
 
-      Category? category = widget.categories[categoryID];
+      Category? category = categories[categoryID];
       category!.typesTree[type.id] = type;
       Navigator.of(context).pop();
 
@@ -425,8 +497,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    getHomePageData();
+  }
+
+  @override
+  void dispose() {
+    disposing = true;
+    super.dispose();
   }
 
   @override
@@ -437,7 +515,7 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           children: getCategories(
             rootNode: true,
-            categories: widget.orderedCategories
+            categories: orderedCategories
           ),
         ),
       ), currentRoute: '/',

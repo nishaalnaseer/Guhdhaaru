@@ -18,10 +18,12 @@ class UsersPage extends StatefulWidget {
 
 class _UsersPageState extends State<UsersPage> {
   List<User> users = [];
+  late String currentRoute;
 
-  Future<void> getUsers() async {
+  Future<void> getUsers(String route) async {
     var response = await get(
       Uri.parse(
+        // todo make dedicated endpoint for admins
         "${Settings.server}/v0/users/users"
       ),
       headers: Settings.headers
@@ -43,7 +45,17 @@ class _UsersPageState extends State<UsersPage> {
 
   @override
   void initState() {
-    getUsers();
+
+    String apiRoute;
+    if(widget.adminOnly) {
+      apiRoute = "/v0/users/admins";
+      currentRoute = "/administrators";
+    } else {
+      apiRoute = "/v0/users/users";
+      currentRoute = "/users";
+    }
+
+    getUsers(apiRoute);
     super.initState();
   }
 
@@ -106,7 +118,7 @@ class _UsersPageState extends State<UsersPage> {
             )
           ],
         ),
-        currentRoute: "/users"
+        currentRoute: currentRoute
     );
   }
 }

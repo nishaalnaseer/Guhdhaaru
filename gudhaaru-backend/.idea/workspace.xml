@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="fuck corsss, updating homme page route to v0">
+    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="users/admins">
       <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/users.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/users.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/vendor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/vendor.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/home_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/users/users.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/users/users.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/utils/my_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/utils/my_drawer.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendors.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,24 +34,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.item.executor": "Run",
-    "Python.run_tests.executor": "Run",
-    "Python.uvicorn.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/nishaalnaseer/Documents/GitHub/Guhdhaaru/gudhaaru-backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.item.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_tests.executor&quot;: &quot;Run&quot;,
+    &quot;Python.uvicorn.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/nishaalnaseer/Documents/GitHub/Guhdhaaru/gudhaaru-backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend\src\crud" />
@@ -189,6 +188,7 @@
       <workItem from="1724267350321" duration="6659000" />
       <workItem from="1724339788756" duration="2557000" />
       <workItem from="1724427330426" duration="1482000" />
+      <workItem from="1724443192911" duration="418000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />
@@ -526,14 +526,21 @@
       <option name="project" value="LOCAL" />
       <updated>1724428805514</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="users/admins">
+      <option name="closed" value="true" />
+      <created>1724443591803</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1724443591803</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="get leaf node (node with items)" />
     <MESSAGE value="small bug where attribute value id wasnt being serialised in backend fixed, next up making the item page UI in the frontend. all structs and objects seem to encoding well" />
     <MESSAGE value="changed the schema from the previous night&#10;tests all working&#10;items page or the leaf node page finished&#10;concepts proven!" />
     <MESSAGE value="bug fixed where if item type doesnt have an attribute and all items of that type are being feteched from server server throws a 500" />
@@ -558,7 +565,8 @@
     <MESSAGE value="test client config" />
     <MESSAGE value="Dockerfile updates" />
     <MESSAGE value="fuck corsss, updating homme page route to v0" />
-    <option name="LAST_COMMIT_MESSAGE" value="fuck corsss, updating homme page route to v0" />
+    <MESSAGE value="users/admins" />
+    <option name="LAST_COMMIT_MESSAGE" value="users/admins" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

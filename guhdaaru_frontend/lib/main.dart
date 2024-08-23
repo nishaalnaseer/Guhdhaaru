@@ -18,75 +18,7 @@ import 'package:go_router/go_router.dart';
 
 Future<void> getSample() async {}
 
-Future<Response> getHomePageData() async {
-  return await get(Uri.parse("${Settings.server}/v0/home"));
-}
-
-Widget createHomePage(Response response) {
-
-  var content = jsonDecode(response.body);
-  var categoriesContent = content["categories"] as List<dynamic>;
-  var typesContent = content["types"] as List<dynamic>;
-
-  Map<int, Category> finalCategories = {};
-  Map<int, Category> categories = {};
-
-  for(var category_ in categoriesContent) {
-    var category = Category.fromJson(category_);
-
-    if(category.id == 1) {
-      continue;
-    }
-
-    if(category.parentId == 1) {
-      finalCategories[category.id] = category;
-    }
-    categories[category.id] = category;
-  }
-
-  categories.forEach((key, value) {
-    int parentId = value.parentId;
-    if(parentId != 1) {
-      if(finalCategories.containsKey(parentId)) {
-        var parent = finalCategories[parentId];
-        parent!.childrenTree[key] = value;
-      } else {
-        value.childrenTree[key] = value;
-      }
-    }
-  });
-
-  for(var type_ in typesContent) {
-    var type = ItemType.fromJson(type_);
-
-    if(type.id == 1) {
-      continue;
-    }
-
-    var category = categories[type.categoryId];
-    category!.typesTree[type.id] = type;
-  }
-
-  categories.forEach((key, value) {
-    // Sort childrenTree in ascending order
-    value.childrenTree = LinkedHashMap.fromEntries(
-      value.childrenTree.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
-    );
-
-    // Sort typesTree in ascending order
-    value.typesTree = LinkedHashMap.fromEntries(
-      value.typesTree.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
-    );
-  });
-
-  return HomePage(
-      orderedCategories: finalCategories,
-      categories: categories
-  );
-}
-
 Widget createItemTypePage(Response response) {
-
   Map<int, ItemType> childrenTree = {};
 
   var content = jsonDecode(response.body) as List<dynamic>;
@@ -158,6 +90,151 @@ ListingsPage createListingsPage(Response response) {
 }
 
 
+final GoRouter goRouter = GoRouter(
+    routes: [
+
+      GoRoute(
+        path: '/',
+        builder: (BuildContext context, GoRouterState state) {
+          return const HomePage();
+        },
+      ),
+
+      GoRoute(
+        path: '/items/item-type/:typeID',
+        builder: (BuildContext context, GoRouterState state) {
+          String? typeRaw = state.pathParameters["typeID"];
+
+          bool showError;
+          int typeID;
+          if(typeRaw == null) {
+            showError = true;
+          } else {
+            try {
+              typeID = int.parse(typeRaw);
+              showError = false;
+            } on FormatException {
+              showError = true;
+            }
+          }
+
+          if(showError) {
+            return const ErrorPage(
+                error: "Invalid item type ID",
+                backRoute: "/"
+            );
+          }
+
+          typeID = int.parse(typeRaw!);
+          return LoadingPage(
+              future: getItemTypePage(typeID),
+              decodeFunction: createItemTypePage
+          );
+        },
+      ),
+
+      GoRoute(
+        path: '/items/item/leaf',
+        builder: (BuildContext context, GoRouterState state) {
+          String? idRaw = state.uri.queryParameters["typeID"];
+
+          bool showError;
+          int id;
+          if(idRaw == null) {
+            showError = true;
+          } else {
+            try {
+              id = int.parse(idRaw);
+              showError = false;
+            } on FormatException {
+              showError = true;
+            }
+          }
+
+          if(showError) {
+            return const ErrorPage(
+                error: "Invalid item ID",
+                backRoute: "/"
+            );
+          }
+
+          id = int.parse(idRaw!);
+          return LoadingPage(
+              future: getLeafNode(id),
+              decodeFunction: createLeafPage
+          );
+        },
+      ),
+
+      GoRoute(
+        path: '/item/listings',
+        builder: (BuildContext context, GoRouterState state) {
+          String? itemID = state.uri.queryParameters["itemID"];
+
+          bool showError;
+          int id;
+          if(itemID == null) {
+            showError = true;
+          } else {
+            try {
+              id = int.parse(itemID);
+              showError = false;
+            } on FormatException {
+              showError = true;
+            }
+          }
+
+          if(showError) {
+            return const ErrorPage(
+                error: "Invalid item ID",
+                backRoute: "/"
+            );
+          }
+
+          id = int.parse(itemID!);
+          return LoadingPage(
+              future: getListingsPage(id),
+              decodeFunction: createListingsPage
+          );
+        },
+      ),
+
+      GoRoute(
+        path: '/vendors',
+        builder: (BuildContext context, GoRouterState state) {
+
+          return const VendorsPage(myVendors: false,);
+        },
+      ),
+
+      GoRoute(
+        path: '/vendors/me',
+        builder: (BuildContext context, GoRouterState state) {
+
+          return const VendorsPage(myVendors: true,);
+        },
+      ),
+
+      GoRoute(
+        path: '/users',
+        builder: (BuildContext context, GoRouterState state) {
+
+          return const UsersPage(adminOnly: false,);
+        },
+      ),
+
+      GoRoute(
+        path: '/administrators',
+        builder: (BuildContext context, GoRouterState state) {
+
+          return const UsersPage(adminOnly: true,);
+        },
+      ),
+
+    ]
+);
+
+
 void main(List<String> args) {
   runApp(const App());
 }
@@ -170,143 +247,7 @@ class App extends StatelessWidget {
     return MaterialApp.router(
       title: "Guhdhaaru",
 
-      routerConfig: GoRouter(
-        routes: <RouteBase>[
-          GoRoute(
-            path: '/',
-            builder: (BuildContext context, GoRouterState state) {
-              return LoadingPage(
-                decodeFunction: createHomePage,
-                future: getHomePageData(),
-              );
-            },
-            routes: <RouteBase>[
-              GoRoute(
-                path: 'items/item-type/:typeID',
-                builder: (BuildContext context, GoRouterState state) {
-                  String? typeRaw = state.pathParameters["typeID"];
-
-                  bool showError;
-                  int typeID;
-                  if(typeRaw == null) {
-                    showError = true;
-                  } else {
-                    try {
-                      typeID = int.parse(typeRaw);
-                      showError = false;
-                    } on FormatException {
-                      showError = true;
-                    }
-                  }
-
-                  if(showError) {
-                    return const ErrorPage(
-                        error: "Invalid item type ID",
-                        backRoute: "/"
-                    );
-                  }
-
-                  typeID = int.parse(typeRaw!);
-                  return LoadingPage(
-                    future: getItemTypePage(typeID),
-                    decodeFunction: createItemTypePage
-                  );
-                },
-              ),
-
-              GoRoute(
-                path: 'items/item/leaf',
-                builder: (BuildContext context, GoRouterState state) {
-                  String? idRaw = state.uri.queryParameters["typeID"];
-
-                  bool showError;
-                  int id;
-                  if(idRaw == null) {
-                    showError = true;
-                  } else {
-                    try {
-                      id = int.parse(idRaw);
-                      showError = false;
-                    } on FormatException {
-                      showError = true;
-                    }
-                  }
-
-                  if(showError) {
-                    return const ErrorPage(
-                        error: "Invalid item ID",
-                        backRoute: "/"
-                    );
-                  }
-
-                  id = int.parse(idRaw!);
-                  return LoadingPage(
-                    future: getLeafNode(id),
-                    decodeFunction: createLeafPage
-                  );
-                },
-              ),
-
-              GoRoute(
-                path: 'item/listings',
-                builder: (BuildContext context, GoRouterState state) {
-                  String? itemID = state.uri.queryParameters["itemID"];
-
-                  bool showError;
-                  int id;
-                  if(itemID == null) {
-                    showError = true;
-                  } else {
-                    try {
-                      id = int.parse(itemID);
-                      showError = false;
-                    } on FormatException {
-                      showError = true;
-                    }
-                  }
-
-                  if(showError) {
-                    return const ErrorPage(
-                        error: "Invalid item ID",
-                        backRoute: "/"
-                    );
-                  }
-
-                  id = int.parse(itemID!);
-                  return LoadingPage(
-                      future: getListingsPage(id),
-                      decodeFunction: createListingsPage
-                  );
-                },
-              ),
-
-              GoRoute(
-                path: 'vendors',
-                builder: (BuildContext context, GoRouterState state) {
-
-                  return const VendorsPage();
-                },
-              ),
-
-              GoRoute(
-                path: 'users',
-                builder: (BuildContext context, GoRouterState state) {
-
-                  return const UsersPage(adminOnly: false,);
-                },
-              ),
-
-              GoRoute(
-                path: 'administrators',
-                builder: (BuildContext context, GoRouterState state) {
-
-                  return const UsersPage(adminOnly: true,);
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
+      routerConfig: goRouter,
     );
   }
 }

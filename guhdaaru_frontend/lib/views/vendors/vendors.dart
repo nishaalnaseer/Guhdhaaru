@@ -9,7 +9,8 @@ import "../../structs/vendor.dart";
 import "../utils/my_scaffold.dart";
 
 class VendorsPage extends StatefulWidget {
-  const VendorsPage({super.key});
+  final bool myVendors;
+  const VendorsPage({super.key, required this.myVendors});
 
   @override
   State<VendorsPage> createState() => _VendorsPageState();
@@ -17,10 +18,13 @@ class VendorsPage extends StatefulWidget {
 
 class _VendorsPageState extends State<VendorsPage> {
   List<Vendor> vendors = [];
+  late String currentRoute;
 
-  void getVendors() async {
+  void getVendors(String apiRoute) async {
+
     var response = await get(
-      Uri.parse("${Settings.server}/v0/vendors/vendors")
+      Uri.parse("${Settings.server}$apiRoute"),
+      headers: Settings.headers
     );
     
     var content = jsonDecode(response.body) as List<dynamic>;
@@ -39,8 +43,18 @@ class _VendorsPageState extends State<VendorsPage> {
 
   @override
   void initState() {
+
+    String apiRoute;
+    if(widget.myVendors) {
+      apiRoute = "/v0/vendors/vendors/me";
+      currentRoute = "/vendors/me";
+    } else {
+      apiRoute = "/v0/vendors/vendors";
+      currentRoute = "/vendors";
+    }
+
     super.initState();
-    getVendors();
+    getVendors(apiRoute);
   }
 
   @override
@@ -120,7 +134,7 @@ class _VendorsPageState extends State<VendorsPage> {
           )
         ],
       ),
-      currentRoute: '/vendors',
+      currentRoute: currentRoute,
     );
   }
 }
