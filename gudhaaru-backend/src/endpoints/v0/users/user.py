@@ -70,3 +70,17 @@ async def get_users(
         UserFactory.get_user(record) for record in records
     ]
 
+
+@router.get("/admins")
+async def get_admins(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+):
+    check_admin(current_user)
+    records = await scalars_selection(
+        select(UserRecord).where(UserRecord.is_admin == 1)
+    )
+    return [
+        UserFactory.get_user(record) for record in records
+    ]
