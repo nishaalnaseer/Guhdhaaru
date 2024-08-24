@@ -23,21 +23,12 @@ class _UsersPageState extends State<UsersPage> {
   Future<void> getUsers(String route) async {
     var response = await get(
       Uri.parse(
-        // todo make dedicated endpoint for admins
-        "${Settings.server}/v0/users/users"
+        "${Settings.server}$route"
       ),
       headers: Settings.headers
     );
     var content = jsonDecode(response.body) as List<dynamic>;
-    var tempUsers = content.map((json) => User.fromJson(json)).toList();
-
-    for(var user in tempUsers) {
-      if(widget.adminOnly && user.isAdmin) {
-        users.add(user);
-      } else if (!widget.adminOnly) {
-        users.add(user);
-      }
-    }
+    users = content.map((json) => User.fromJson(json)).toList();
 
     setState(() {
     });

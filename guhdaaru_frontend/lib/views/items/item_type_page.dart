@@ -67,7 +67,6 @@ class _ItemTypePageState extends State<ItemTypePage> {
   }
 
   void addItemType() {
-
     showDialog(
       context: context,
       builder: (context) {
@@ -140,12 +139,14 @@ class _ItemTypePageState extends State<ItemTypePage> {
     String url;
     if(child.isLeafNode) {
       url = "/items/item/leaf?typeID=${child.id}";
+      context.go(url);
     } else {
       url = "/items/item-type/${child.id}/";
+      context.push(url);
     }
 
-    context.pop();
-    context.go(url);
+    // context.pop();
+    // context.replace(url);
   }
 
   @override

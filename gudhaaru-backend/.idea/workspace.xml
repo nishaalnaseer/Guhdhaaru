@@ -4,22 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="users/admins">
+    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="vendors/vendor/listings &#10;listings router for each vendor,&#10;more demo data in the form of test cases">
+      <change afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendor_listings.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/crud/drop.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/crud/drop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/crud/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/crud/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/crud/queries/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/crud/queries/items.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/crud/queries/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/crud/queries/users.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/crud/queries/vendor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/crud/queries/vendor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/endpoints/v0/users/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/v0/users/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/schema/factrories/vendor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/factrories/vendor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/schema/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/users.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/schema/vendor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/vendor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/vendor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/vendor.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/home_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/items/item_type_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/items/item_type_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/users/login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/users/login.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/users/users.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/users/users.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/utils/my_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/utils/my_drawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendors.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,7 +194,7 @@
       <workItem from="1724339788756" duration="2557000" />
       <workItem from="1724427330426" duration="1482000" />
       <workItem from="1724443192911" duration="418000" />
-      <workItem from="1724446613307" duration="9549000" />
+      <workItem from="1724446613307" duration="10935000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />
@@ -545,14 +540,29 @@
       <option name="project" value="LOCAL" />
       <updated>1724443591803</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="vendors/vendor/listings &#10;listings router for each vendor,&#10;more demo data in the form of test cases">
+      <option name="closed" value="true" />
+      <created>1724457065886</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1724457065886</updated>
+    </task>
+    <task id="LOCAL-00045" summary="vendors/vendor/listings &#10;listings router for each vendor,&#10;more demo data in the form of test cases">
+      <option name="closed" value="true" />
+      <created>1724457641427</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1724457641427</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="small bug where attribute value id wasnt being serialised in backend fixed, next up making the item page UI in the frontend. all structs and objects seem to encoding well" />
     <MESSAGE value="changed the schema from the previous night&#10;tests all working&#10;items page or the leaf node page finished&#10;concepts proven!" />
     <MESSAGE value="bug fixed where if item type doesnt have an attribute and all items of that type are being feteched from server server throws a 500" />
     <MESSAGE value="small change to schema as now the type and category table will have cascade as the foriegn key is finally applied" />
@@ -577,7 +587,8 @@
     <MESSAGE value="Dockerfile updates" />
     <MESSAGE value="fuck corsss, updating homme page route to v0" />
     <MESSAGE value="users/admins" />
-    <option name="LAST_COMMIT_MESSAGE" value="users/admins" />
+    <MESSAGE value="vendors/vendor/listings &#10;listings router for each vendor,&#10;more demo data in the form of test cases" />
+    <option name="LAST_COMMIT_MESSAGE" value="vendors/vendor/listings &#10;listings router for each vendor,&#10;more demo data in the form of test cases" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

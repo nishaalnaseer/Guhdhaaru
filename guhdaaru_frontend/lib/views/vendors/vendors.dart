@@ -3,6 +3,7 @@ import "dart:convert";
 import "package:flutter/material.dart";
 import "package:guhdaaru_frontend/structs/structs.dart";
 import "package:guhdaaru_frontend/views/vendors/vendor.dart";
+import "package:guhdaaru_frontend/views/vendors/vendor_listings.dart";
 import "package:http/http.dart";
 
 import "../../structs/vendor.dart";
@@ -10,7 +11,10 @@ import "../utils/my_scaffold.dart";
 
 class VendorsPage extends StatefulWidget {
   final bool myVendors;
-  const VendorsPage({super.key, required this.myVendors});
+  final bool adminView;
+  const VendorsPage({
+    super.key, required this.myVendors, required this.adminView
+  });
 
   @override
   State<VendorsPage> createState() => _VendorsPageState();
@@ -106,7 +110,8 @@ class _VendorsPageState extends State<VendorsPage> {
               columns: const [
                 DataColumn(label: Text("Name"),),
                 DataColumn(label: Text("Location"),),
-                DataColumn(label: Text(""),)
+                DataColumn(label: Text(""),),
+                DataColumn(label: Text(""))
               ],
               rows: vendors.map((vendor) => DataRow(
                 cells: [
@@ -125,7 +130,22 @@ class _VendorsPageState extends State<VendorsPage> {
                           },
                         );
                       },
-                      child: const Text("View"),
+                      child: const Text("View Details"),
+                    )
+                  ),
+                  DataCell(
+                    ElevatedButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return VendorListingsPopUp(
+                              vendor: vendor,
+                            ); // Show the register popup
+                          },
+                        );
+                      },
+                      child: const Text("View Listings"),
                     )
                   ),
                 ]

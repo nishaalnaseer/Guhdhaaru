@@ -203,7 +203,7 @@ final GoRouter goRouter = GoRouter(
         path: '/vendors',
         builder: (BuildContext context, GoRouterState state) {
 
-          return const VendorsPage(myVendors: false,);
+          return const VendorsPage(myVendors: false, adminView: false,);
         },
       ),
 
@@ -211,7 +211,7 @@ final GoRouter goRouter = GoRouter(
         path: '/vendors/me',
         builder: (BuildContext context, GoRouterState state) {
 
-          return const VendorsPage(myVendors: true,);
+          return const VendorsPage(myVendors: true, adminView: true,);
         },
       ),
 

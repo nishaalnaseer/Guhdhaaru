@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../structs/structs.dart';
 import '../users/login.dart';
@@ -23,8 +24,25 @@ class _MyScaffoldState extends State<MyScaffold> {
   late DrawerStruct drawerStruct;
   bool loggedIn = Settings().loggedIn();
 
+  void getToken() async {
+    AndroidOptions getAndroidOptions() => const AndroidOptions(
+      encryptedSharedPreferences: true,
+    );
+    late final storage = FlutterSecureStorage(aOptions: getAndroidOptions());
+
+    String? token = await storage.read(key: "token");
+
+    if(token == null) {
+      return;
+    }
+    Settings().setToken(token);
+    loggedIn = true;
+  }
+
   @override
   void initState() {
+    getToken();
+
     super.initState();
     drawerStruct = DrawerStruct(
       dispose: dispose, currentRoute: widget.currentRoute
@@ -89,6 +107,13 @@ class _MyScaffoldState extends State<MyScaffold> {
             onPressed: () {
               Settings().setTokenNull();
               loggedIn = false;
+
+              AndroidOptions getAndroidOptions() => const AndroidOptions(
+                encryptedSharedPreferences: true,
+              );
+              late final storage = FlutterSecureStorage(aOptions: getAndroidOptions());
+              storage.write(key: "token", value: null);
+
               setState(() {
 
               });

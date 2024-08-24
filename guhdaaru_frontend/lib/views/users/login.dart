@@ -1,6 +1,7 @@
 import "dart:convert";
 
 import "package:flutter/material.dart";
+import "package:flutter_secure_storage/flutter_secure_storage.dart";
 import "package:http/http.dart";
 
 import "../../structs/structs.dart";
@@ -14,16 +15,22 @@ class LoginPopUp extends StatefulWidget {
 }
 
 class _LoginPopUpState extends State<LoginPopUp> {
-  String email = "nishaalnaseer4@gmail.com";
-  String password = "123";
+  String email = "nishawl.naseer@outlook.com";
+  String password = "FinalYearApp123";
 
   void afterLogin(Response response) {
-
     if(response.statusCode == 201) {
       var content = jsonDecode(response.body);
 
       //             ex:                Bearer schema.payload.signature
       String token = "${content["token_type"]} ${content["access_token"]}";
+
+      AndroidOptions getAndroidOptions() => const AndroidOptions(
+        encryptedSharedPreferences: true,
+      );
+      late final storage = FlutterSecureStorage(aOptions: getAndroidOptions());
+      storage.write(key: "token", value: token);
+
       Settings().setToken(token);
 
       Navigator.of(context).pop();
@@ -35,7 +42,7 @@ class _LoginPopUpState extends State<LoginPopUp> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text(
-                'Failed, an email will be sent to you for verification.'
+                'Failed.'
             ),
 
             content: Text(response.body),

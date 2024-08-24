@@ -352,23 +352,23 @@ class _HomePageState extends State<HomePage> {
             Row(
               children: [
                 OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(
-                          width: 1.0,
-                          color: Colors.red
-                      ),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(
+                        width: 1.0,
+                        color: Colors.red
                     ),
-                    onPressed: () {
-                      addCategory(parentCategoryId: value.id);
-                    },
+                  ),
+                  onPressed: () {
+                    addCategory(parentCategoryId: value.id);
+                  },
 
-                    child: const Text(
-                      "Add Sub Category",
-                      style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.red
-                      ),
-                    )
+                  child: const Text(
+                    "Add Sub Category",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.red
+                    ),
+                  )
                 ),
 
                 const SizedBox(
@@ -376,22 +376,22 @@ class _HomePageState extends State<HomePage> {
                 ),
 
                 OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(
-                          width: 1.0,
-                          color: Colors.red
-                      ),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(
+                      width: 1.0,
+                      color: Colors.red
                     ),
-                    onPressed: () {
-                      addItemType(categoryID: value.id);
-                    },
-                    child: const Text(
-                      "Add Item Type",
-                      style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.red
-                      ),
-                    )
+                  ),
+                  onPressed: () {
+                    addItemType(categoryID: value.id);
+                  },
+                  child: const Text(
+                    "Add Item Type",
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.red
+                    ),
+                  )
                 ),
               ],
               // mainAxisAlignment:,

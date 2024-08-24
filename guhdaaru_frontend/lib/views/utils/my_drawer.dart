@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -13,7 +12,6 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
-
   void nextWindows(BuildContext context, String route) {
     var uri = Uri.parse(
       "${Settings.server}$route"
@@ -39,6 +37,22 @@ class _MyDrawerState extends State<MyDrawer> {
     widget.struct.drawerInitialised = true;
   }
 
+  Color getHoverColor(String route) {
+    if(route == widget.struct.currentRoute) {
+      return Colors.red;
+    } else {
+      return Colors.white;
+    }
+  }
+
+  Color getTileColor(String route) {
+    if(route == widget.struct.currentRoute) {
+      return Colors.red;
+    } else {
+      return Colors.white;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -46,24 +60,24 @@ class _MyDrawerState extends State<MyDrawer> {
       child: Container(
         child: ListView(
           children: [
-            const Padding(
-              padding: EdgeInsets.all(10),
-              child: SizedBox(
-                height: 200,
-                width: 200,
-                child: Image(
-                    image: AssetImage(
-                        'assets/images/general/drawer.jpg'
-                    )
+            const SizedBox(
+              // height: 200,
+              // width: 200,
+              child: Image(
+                image: AssetImage(
+                    'assets/images/general/drawer.jpg'
                 ),
-              )
+                fit: BoxFit.fill,
+              ),
             ),
 
             Padding(
               padding: const EdgeInsets.all(2),
               child: ListTile(
                 textColor: Colors.black,
-                tileColor: Colors.grey,
+                tileColor: getTileColor("/"),
+                hoverColor: getHoverColor("/"),
+
                 title: const Center(
                   child: Text(
                     'Home',
@@ -83,7 +97,8 @@ class _MyDrawerState extends State<MyDrawer> {
               padding: const EdgeInsets.all(2),
               child: ListTile(
                 textColor: Colors.black,
-                tileColor: Colors.grey,
+                tileColor: Colors.transparent,
+                hoverColor: Colors.grey.shade200,
                 title: Center(
                   child: ExpansionTile(
                     textColor: Colors.black,
@@ -100,7 +115,8 @@ class _MyDrawerState extends State<MyDrawer> {
                     children: [
                       ListTile(
                         textColor: Colors.black,
-                        tileColor: Colors.grey,
+                        tileColor: getTileColor("/vendors"),
+                        hoverColor: getHoverColor("/vendors"),
                         title: const Center(
                           child: Text(
                             'View Vendors',
@@ -116,7 +132,8 @@ class _MyDrawerState extends State<MyDrawer> {
                       ),
                       ListTile(
                         textColor: Colors.black,
-                        tileColor: Colors.grey,
+                        tileColor: getTileColor("/vendors/me"),
+                        hoverColor: getHoverColor("/vendors/me"),
                         title: const Center(
                           child: Text(
                             'My Vendors',
@@ -134,7 +151,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   ),
                 ),
                 onTap: () {
-                  nextWindows(context, "/");
+                  // nextWindows(context, "/");
                 },
               ),
             ),
@@ -143,24 +160,25 @@ class _MyDrawerState extends State<MyDrawer> {
               padding: const EdgeInsets.all(2),
               child: ListTile(
                 textColor: Colors.black,
-                tileColor: Colors.grey,
+                tileColor: Colors.transparent,
                 title: Center(
                   child: ExpansionTile(
                     textColor: Colors.black,
                     title: const Center(
-                        child: Text(
-                          "Users",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: "Arial",
-                          ),
-                        )
+                      child: Text(
+                        "Users",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "Arial",
+                        ),
+                      )
                     ),
 
                     children: [
                       ListTile(
                         textColor: Colors.black,
-                        tileColor: Colors.grey,
+                        tileColor: getTileColor("/users"),
+                        hoverColor: getHoverColor("/users"),
                         title: const Center(
                           child: Text(
                             'View Users',
@@ -176,7 +194,8 @@ class _MyDrawerState extends State<MyDrawer> {
                       ),
                       ListTile(
                         textColor: Colors.black,
-                        tileColor: Colors.grey,
+                        tileColor: getTileColor("/administrators"),
+                        hoverColor: getHoverColor("/administrators"),
                         title: const Center(
                           child: Text(
                             'View Administrators',
@@ -194,7 +213,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   ),
                 ),
                 onTap: () {
-                  nextWindows(context, "/");
+                  // nextWindows(context, "/");
                 },
               ),
             ),
@@ -203,7 +222,6 @@ class _MyDrawerState extends State<MyDrawer> {
               padding: const EdgeInsets.all(2),
               child: ListTile(
                 textColor: Colors.black,
-                tileColor: Colors.grey,
                 title: const Center(
                   child: Text(
                     'In Progress',

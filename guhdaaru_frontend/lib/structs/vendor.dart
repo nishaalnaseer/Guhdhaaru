@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class Vendor{
   int id;
   String name;
@@ -30,6 +32,30 @@ class Vendor{
       "email": email,
       "location": location,
       "status": status,
+    };
+  }
+}
+
+class VendorListing {
+  String itemDetails;
+  int itemID;
+
+  VendorListing({
+    required this.itemDetails,
+    required this.itemID,
+  });
+
+  factory VendorListing.fromJson(json) {
+    return VendorListing(
+        itemDetails: json["item_details"],
+        itemID: json["item_id"]
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "item_details": itemDetails,
+      "item_id": itemID,
     };
   }
 }
