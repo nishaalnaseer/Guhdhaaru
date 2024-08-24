@@ -50,7 +50,7 @@ class _RegisterPopupState extends State<RegisterPopup> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text(
-                'Failed, an email will be sent to you for verification.'
+                'Failed.'
             ),
 
             content: Text(response.body),

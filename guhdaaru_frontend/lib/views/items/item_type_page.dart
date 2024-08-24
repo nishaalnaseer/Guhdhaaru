@@ -150,9 +150,6 @@ class _ItemTypePageState extends State<ItemTypePage> {
       url = "/items/item-type/${child.id}/";
       context.push(url);
     }
-
-    // context.pop();
-    // context.replace(url);
   }
 
   void uploadItemImage() async {
@@ -233,39 +230,39 @@ class _ItemTypePageState extends State<ItemTypePage> {
             ),
           ),
 
-          Container(
-            alignment: Alignment.topRight,
-            child: Row(
-              children: [
-                SizedBox(
-                  width: MediaQuery.sizeOf(context).width - 100,
-                ),
+          SizedBox(
+            width: MediaQuery.sizeOf(context).width,
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      onPressed: () {
+                        uploadItemImage();
+                      },
+                      padding: const EdgeInsets.all(10),
+                      icon: const Icon(
+                        Icons.image,
+                      ),
+                      tooltip: 'Upload Image', // Set the hint text
+                    ),
+                  ),
 
-                Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
+                  IconButton(
                     onPressed: () {
-                      uploadItemImage();
+                      addItemType();
                     },
                     padding: const EdgeInsets.all(10),
                     icon: const Icon(
-                      Icons.image,
+                      Icons.add,
                     ),
-                    tooltip: 'Upload Image', // Set the hint text
-                  ),
-                ),
-
-                IconButton(
-                  onPressed: () {
-                    addItemType();
-                  },
-                  padding: const EdgeInsets.all(10),
-                  icon: const Icon(
-                    Icons.add,
-                  ),
-                  tooltip: 'Add Item Type', // Set the hint text
-                )
-              ],
+                    tooltip: 'Add Item Type', // Set the hint text
+                  )
+                ],
+              ),
             ),
           ),
 

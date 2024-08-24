@@ -2,6 +2,7 @@ import "dart:convert";
 
 import "package:flutter/material.dart";
 import "package:guhdaaru_frontend/structs/structs.dart";
+import "package:guhdaaru_frontend/views/vendors/request_vendor.dart";
 import "package:guhdaaru_frontend/views/vendors/vendor.dart";
 import "package:guhdaaru_frontend/views/vendors/vendor_listings.dart";
 import "package:http/http.dart";
@@ -102,7 +103,40 @@ class _VendorsPageState extends State<VendorsPage> {
               ),
             ),
           ),
-
+          
+          SizedBox(
+            width: MediaQuery.sizeOf(context).width,
+            child: Container(
+              padding: EdgeInsets.all(10),
+              alignment: Alignment.topRight,
+              child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(
+                        width: 1.0,
+                        color: Colors.red
+                    ),
+                  ),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return RequestVendorPopUp(
+                          existingVendors: vendors,
+                          updateCallback: update,
+                        ); // Show the register popup
+                      },
+                    );
+                  },
+                  child: const Text(
+                      "Request New Vendor",
+                    style: TextStyle(
+                      color: Colors.red
+                    ),
+                  )
+              ),
+            ),
+          ),
+          
           SizedBox(
             height: MediaQuery.sizeOf(context).height - 250,
             width: MediaQuery.sizeOf(context).width,
@@ -130,7 +164,12 @@ class _VendorsPageState extends State<VendorsPage> {
                           },
                         );
                       },
-                      child: const Text("View Details"),
+                      child: const Text(
+                          "View Details",
+                        style: TextStyle(
+                            color: Colors.red
+                        ),
+                      ),
                     )
                   ),
                   DataCell(
@@ -145,7 +184,12 @@ class _VendorsPageState extends State<VendorsPage> {
                           },
                         );
                       },
-                      child: const Text("View Listings"),
+                      child: const Text(
+                          "View Listings",
+                        style: TextStyle(
+                            color: Colors.red
+                        ),
+                      ),
                     )
                   ),
                 ]

@@ -6,6 +6,7 @@ class Vendor{
   String email;
   String location;
   String status;
+  int superAdmin;
 
   Vendor({
     required this.id,
@@ -13,6 +14,7 @@ class Vendor{
     required this.email,
     required this.location,
     required this.status,
+    required this.superAdmin,
   });
 
   factory Vendor.fromJson(Map<String, dynamic> json) {
@@ -21,7 +23,8 @@ class Vendor{
       name: json["name"],
       email: json["email"],
       location: json["location"],
-      status: json["status"]
+      status: json["status"],
+      superAdmin: json["super_admin"],
     );
   }
 
@@ -32,6 +35,7 @@ class Vendor{
       "email": email,
       "location": location,
       "status": status,
+      "super_admin": superAdmin,
     };
   }
 }
