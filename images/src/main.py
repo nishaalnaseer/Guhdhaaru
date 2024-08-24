@@ -2,6 +2,8 @@ import asyncio
 from contextlib import asynccontextmanager
 from aiofiles import os
 from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
+
 from src.endpoints.v0 import router as v0
 from src.settings import CATEGORY_DIRECTORY, ITEM_TYPE_DIRECTORY, ITEM_DIRECTORY
 
@@ -40,3 +42,11 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 app.include_router(v0)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # List your allowed origins here
+    allow_credentials=True,
+    allow_methods=["*"],  # You can restrict the HTTP methods if needed
+    allow_headers=["*"],  # You can restrict the headers if needed
+)
