@@ -98,6 +98,7 @@ class _MyScaffoldState extends State<MyScaffold> {
           "Guhdhaaru",
           style: TextStyle(
             fontSize: 30,
+            color: Colors.white,
             fontWeight: FontWeight.bold,
             fontFamily: "Roboto",
           ),

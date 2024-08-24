@@ -53,6 +53,37 @@ class _MyDrawerState extends State<MyDrawer> {
     }
   }
 
+  Color getFrontColor(String route) {
+    if(route == widget.struct.currentRoute) {
+      return Colors.white;
+    } else {
+      return Colors.black;
+    }
+  }
+
+  Padding getTextTile(String route, String display) {
+    return Padding(
+      padding: const EdgeInsets.all(2),
+      child: ListTile(
+        textColor: Colors.black,
+        tileColor: getTileColor(route),
+        hoverColor: getHoverColor(route),
+        title: Center(
+          child: Text(
+            display,
+            style: TextStyle(
+              color: getFrontColor(route),
+              fontFamily: "Arial",
+            ),
+          ),
+        ),
+        onTap: () {
+          nextWindows(context, route);
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -71,27 +102,7 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.all(2),
-              child: ListTile(
-                textColor: Colors.black,
-                tileColor: getTileColor("/"),
-                hoverColor: getHoverColor("/"),
-
-                title: const Center(
-                  child: Text(
-                    'Home',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: "Arial",
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  nextWindows(context, "/");
-                },
-              ),
-            ),
+            getTextTile("/", "Home"),
 
             Padding(
               padding: const EdgeInsets.all(2),
@@ -113,40 +124,8 @@ class _MyDrawerState extends State<MyDrawer> {
                     ),
 
                     children: [
-                      ListTile(
-                        textColor: Colors.black,
-                        tileColor: getTileColor("/vendors"),
-                        hoverColor: getHoverColor("/vendors"),
-                        title: const Center(
-                          child: Text(
-                            'View Vendors',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: "Arial",
-                            ),
-                          ),
-                        ),
-                        onTap: () {
-                          nextWindows(context, "/vendors");
-                        },
-                      ),
-                      ListTile(
-                        textColor: Colors.black,
-                        tileColor: getTileColor("/vendors/me"),
-                        hoverColor: getHoverColor("/vendors/me"),
-                        title: const Center(
-                          child: Text(
-                            'My Vendors',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: "Arial",
-                            ),
-                          ),
-                        ),
-                        onTap: () {
-                          nextWindows(context, "/vendors/me");
-                        },
-                      ),
+                      getTextTile("/vendors", "View Vendors"),
+                      getTextTile("/vendors/me", "My Vendors"),
                     ],
                   ),
                 ),
@@ -175,39 +154,10 @@ class _MyDrawerState extends State<MyDrawer> {
                     ),
 
                     children: [
-                      ListTile(
-                        textColor: Colors.black,
-                        tileColor: getTileColor("/users"),
-                        hoverColor: getHoverColor("/users"),
-                        title: const Center(
-                          child: Text(
-                            'View Users',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: "Arial",
-                            ),
-                          ),
-                        ),
-                        onTap: () {
-                          nextWindows(context, "/users");
-                        },
-                      ),
-                      ListTile(
-                        textColor: Colors.black,
-                        tileColor: getTileColor("/administrators"),
-                        hoverColor: getHoverColor("/administrators"),
-                        title: const Center(
-                          child: Text(
-                            'View Administrators',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: "Arial",
-                            ),
-                          ),
-                        ),
-                        onTap: () {
-                          nextWindows(context, "/administrators");
-                        },
+                      getTextTile("/users", "View Users"),
+                      getTextTile(
+                          "/administrators",
+                          "View Administrators"
                       ),
                     ],
                   ),

@@ -282,22 +282,39 @@ class _HomePageState extends State<HomePage> {
 
     types.forEach((key, value) {
       row.add(
-        Container(
-          alignment: Alignment.topLeft,
-          child: IconButton(
-            onPressed: () {
-              String url;
-              if(value.isLeafNode) {
-                url = "/items/item/leaf?typeID=${value.id}";
-              } else {
-                url = "/items/item-type/${value.id}/";
-              }
-
-              context.go(url);
-            },
-            icon: Text(value.name),
+        InkWell(
+          onTap: () {
+            String url;
+            if(value.isLeafNode) {
+              url = "/items/item/leaf?typeID=${value.id}";
+            } else {
+              url = "/items/item-type/${value.id}/";
+            }
+            context.go(url);
+          },
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20)
+            ),
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              children: [
+                Image.network(
+                  "${Settings.imageServer}/v0/item_type/${value.id}",
+                  width: 50,
+                  height: 50,
+                  //"/item_type/${value.id}"
+                ),
+                Text(
+                  value.name,
+                  style: const TextStyle(
+                    color: Colors.black
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
+        )
       );
 
       if (count % columns+1 == 0) {
@@ -450,7 +467,9 @@ class _HomePageState extends State<HomePage> {
                   focusNode: focusNode, // Assign the focus node to the TextField
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                  padding: const EdgeInsets.fromLTRB(
+                      0, 20, 0, 20
+                  ),
                   child: CheckboxListTile(
                     value: isLeafNode,
                     title: const Text(
@@ -479,8 +498,9 @@ class _HomePageState extends State<HomePage> {
             TextButton(
               onPressed: () {
                 var type = ItemType(
-                    id: 0, name: controller.text, categoryId: categoryID,
-                    parentId: 0, isLeafNode: isLeafNode
+                    id: 0, name: controller.text,
+                    categoryId: categoryID,
+                    parentId: 1, isLeafNode: isLeafNode
                 );
 
                 var content = jsonEncode(type.toJson());

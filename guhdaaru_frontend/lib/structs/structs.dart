@@ -19,10 +19,10 @@ class DrawerStruct {
 
 class Settings {
   static String server = "https://api.guhdhaaru.nishawl.dev";
-  static String imageServer = "https://images.guhdhaaru.nishawl.dev";
+  static String imageServer = "http://127.0.0.1:10000";
   static Map<String, String> headers = {
     "accept": "application/json",
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
   };
 
   void setToken(String token) {
