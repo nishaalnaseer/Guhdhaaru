@@ -24,6 +24,7 @@ class VendorsPage extends StatefulWidget {
 class _VendorsPageState extends State<VendorsPage> {
   List<Vendor> vendors = [];
   late String currentRoute;
+  bool vendorEditable = false;
 
   void getVendors(String apiRoute) async {
 
@@ -53,6 +54,7 @@ class _VendorsPageState extends State<VendorsPage> {
     if(widget.myVendors) {
       apiRoute = "/v0/vendors/vendors/me";
       currentRoute = "/vendors/me";
+      vendorEditable = true;
     } else {
       apiRoute = "/v0/vendors/vendors";
       currentRoute = "/vendors";
@@ -159,7 +161,7 @@ class _VendorsPageState extends State<VendorsPage> {
                           builder: (BuildContext context) {
                             return VendorPopUp(
                               updateCallback: update,
-                              vendor: vendor,
+                              vendor: vendor, editable: vendorEditable,
                             ); // Show the register popup
                           },
                         );

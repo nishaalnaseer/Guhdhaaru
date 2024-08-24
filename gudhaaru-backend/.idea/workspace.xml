@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="vendors/vendor/listings &#10;listings router for each vendor,&#10;more demo data in the form of test cases">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="endpoints to edit vendors and users">
       <change beforePath="$PROJECT_DIR$/src/endpoints/v0/users/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/v0/users/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/structs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/structs.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/request_vendor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/request_vendor.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendor.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendors.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +192,7 @@
       <workItem from="1724446613307" duration="10935000" />
       <workItem from="1724509438250" duration="26000" />
       <workItem from="1724521989695" duration="665000" />
-      <workItem from="1724527388892" duration="2774000" />
+      <workItem from="1724527388892" duration="3386000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />
@@ -552,14 +554,21 @@
       <option name="project" value="LOCAL" />
       <updated>1724457641427</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="endpoints to edit vendors and users">
+      <option name="closed" value="true" />
+      <created>1724531237256</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1724531237256</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="changed the schema from the previous night&#10;tests all working&#10;items page or the leaf node page finished&#10;concepts proven!" />
     <MESSAGE value="bug fixed where if item type doesnt have an attribute and all items of that type are being feteched from server server throws a 500" />
     <MESSAGE value="small change to schema as now the type and category table will have cascade as the foriegn key is finally applied" />
     <MESSAGE value="previous schema change caused bugs, fixed bugs" />
@@ -584,7 +593,8 @@
     <MESSAGE value="fuck corsss, updating homme page route to v0" />
     <MESSAGE value="users/admins" />
     <MESSAGE value="vendors/vendor/listings &#10;listings router for each vendor,&#10;more demo data in the form of test cases" />
-    <option name="LAST_COMMIT_MESSAGE" value="vendors/vendor/listings &#10;listings router for each vendor,&#10;more demo data in the form of test cases" />
+    <MESSAGE value="endpoints to edit vendors and users" />
+    <option name="LAST_COMMIT_MESSAGE" value="endpoints to edit vendors and users" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

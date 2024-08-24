@@ -61,7 +61,7 @@ class _RequestVendorPopUpState extends State<RequestVendorPopUp> {
         builder: (BuildContext context) {
           return VendorPopUp(
             updateCallback: widget.updateCallback,
-            vendor: vendor,
+            vendor: vendor, editable: false,
           ); // Show the register popup
         },
       );
@@ -76,9 +76,13 @@ class _RequestVendorPopUpState extends State<RequestVendorPopUp> {
 
   void submit() async {
 
-    String name = nameController.text;
-    String email = emailController.text;
-    String location = locationController.text;
+    String name = nameController.text.trim();
+    String email = emailController.text.trim();
+    String location = locationController.text.trim();
+
+    if(name.isEmpty || email.isEmpty || location.isEmpty) {
+      return;
+    }
 
     var vendorForEntry = Vendor(
         id: 0,

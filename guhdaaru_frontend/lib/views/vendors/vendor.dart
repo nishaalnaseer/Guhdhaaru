@@ -1,17 +1,14 @@
-import "dart:convert";
-
 import "package:flutter/material.dart";
-import "package:guhdaaru_frontend/structs/users.dart";
-import "package:http/http.dart";
-
-import "../../structs/structs.dart";
+import "package:guhdaaru_frontend/structs/structs.dart";
 import "../../structs/vendor.dart";
 
 class VendorPopUp extends StatefulWidget {
   final Vendor vendor;
+  final bool editable;
   final Function updateCallback;
   const VendorPopUp({
-    super.key, required this.vendor, required this.updateCallback
+    super.key, required this.vendor, required this.updateCallback,
+    required this.editable
   });
 
   @override
@@ -22,15 +19,31 @@ class _VendorPopUpState extends State<VendorPopUp> {
   var nameController = TextEditingController();
   var emailController = TextEditingController();
   var locationController = TextEditingController();
-  var statusController = TextEditingController();
+  var isAdmin = Settings().isAdmin();
+  String newStatus = "";
 
   @override
   void initState() {
     nameController.text = widget.vendor.name;
     emailController.text = widget.vendor.email;
     locationController.text = widget.vendor.location;
-    statusController.text = widget.vendor.status;
     super.initState();
+  }
+
+  bool showSubmit() {
+    var name = nameController.text.trim();
+    var email = emailController.text.trim();
+    var location = locationController.text.trim();
+
+    if(name.isEmpty || email.isEmpty || location.isEmpty || newStatus.isEmpty) {
+      return false;
+    }
+
+    return (
+      name != widget.vendor.name || email != widget.vendor.email
+        || location != widget.vendor.location ||
+        newStatus != widget.vendor.status
+    );
   }
 
   @override
@@ -48,7 +61,7 @@ class _VendorPopUpState extends State<VendorPopUp> {
               )
             ),
             controller: nameController,
-            enabled: false,
+            enabled: widget.editable,
 
             style: const TextStyle(
               color: Colors.black
@@ -62,7 +75,7 @@ class _VendorPopUpState extends State<VendorPopUp> {
                 )
             ),
             controller: emailController,
-            enabled: false,
+            enabled: widget.editable,
             style: const TextStyle(
                 color: Colors.black
             ),
@@ -75,12 +88,12 @@ class _VendorPopUpState extends State<VendorPopUp> {
                 )
             ),
             controller: locationController,
-            enabled: false,
+            enabled: widget.editable,
             style: const TextStyle(
                 color: Colors.black
             ),
           ),
-          Padding(
+          isAdmin ? Padding(
             padding: const EdgeInsets.all(10),
             child: DropdownButton(
               value: widget.vendor.status,
@@ -102,9 +115,16 @@ class _VendorPopUpState extends State<VendorPopUp> {
                   value: "DENIED",
                   child: Text("DENIED"),
                 )
-              ], onChanged: (value) {  },
+              ],
+              onChanged: (value) {
+                newStatus = value ?? "";
+                setState(() {
+
+                });
+              },
             ),
           )
+              : const SizedBox()
         ],
       ),
       actions: [

@@ -96,7 +96,7 @@ async def get_admins(
     ]
 
 
-@router.patch("/user/status")
+@router.patch("/user")
 async def update_user(
         current_user: Annotated[
             User, Security(get_current_active_user, scopes=[])

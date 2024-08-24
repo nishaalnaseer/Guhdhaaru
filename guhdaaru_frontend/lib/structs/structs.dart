@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:guhdaaru_frontend/structs/vendor.dart';
 
@@ -38,6 +40,26 @@ class Settings {
 
     return token != null;
   }
+
+  bool isAdmin() {
+    String? token = Settings.headers["Authorization"];
+
+    if(token == null) {
+      return false;
+    }
+
+    var payload = token.split(".")[1];
+    var bytes = base64.decode(payload);
+    var content = utf8.decode(bytes);
+    var json = jsonDecode(content);
+
+    bool? value = json["is_admin"];
+    if(value == null) {
+      return false;
+    }
+    return value;
+  }
+
 }
 
 class ListingsPageStruct{
