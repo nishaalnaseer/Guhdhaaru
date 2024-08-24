@@ -37,6 +37,11 @@ def validate_token(
 
     token_data = TokenData(**payload)
 
+    if not token_data.is_admin:
+        HTTPException(
+            401, "Not Authorised"
+        )
+
     return token_data
 
 

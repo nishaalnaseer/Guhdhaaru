@@ -1,35 +1,14 @@
 from pathlib import Path
-from typing import Annotated
 
 from aiofiles import os
-from fastapi import APIRouter, Security, HTTPException, File, UploadFile
+from fastapi import APIRouter
 from starlette.responses import FileResponse
+from src.endpoints.upload import router as uploads
 
-from src.models import TokenData
-from src.security import validate_token
 from src.settings import CATEGORY_DIRECTORY, ITEM_TYPE_DIRECTORY, ITEM_DIRECTORY
 
 router = APIRouter(prefix="/v0")
-
-
-@router.post("/category/{category_id}", status_code=201)
-async def upload_image(
-        token: Annotated[
-            TokenData, Security(validate_token, scopes=[])
-        ],
-        category_id: int,
-        file: UploadFile = File(...)
-):
-    if not token.is_admin:
-        raise HTTPException(401, "Not authorized")
-    # try:
-    #     return FileResponse(
-    #         CATEGORY_DIRECTORY / f"{category_id}.jpg"
-    #     )
-    # except FileNotFoundError:
-    #     raise FileResponse(
-    #         CATEGORY_DIRECTORY / f"default.jpg"
-    #     )
+router.include_router(uploads)
 
 
 async def _get_image(path: Path, image_id: int):
