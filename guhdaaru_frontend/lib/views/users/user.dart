@@ -1,4 +1,8 @@
+import "dart:convert";
+
 import "package:flutter/material.dart";
+import "package:guhdaaru_frontend/structs/structs.dart";
+import "package:http/http.dart";
 import "../../structs/users.dart";
 
 class UserPopUp extends StatefulWidget {
@@ -29,12 +33,29 @@ class _UserPopUpState extends State<UserPopUp> {
     return (
         isAdmin != widget.user.isAdmin
     ) || (
-        enabled != widget.user.isAdmin
+        enabled != widget.user.enabled
     );
   }
 
-  void submit() {
-    
+  void submit() async {
+
+    widget.user.isAdmin = isAdmin;
+    widget.user.enabled = enabled;
+    var content = jsonEncode(widget.user.toJson());
+
+    var response = await patch(
+      Uri.parse("${Settings.server}/v0/users/user"),
+      headers: Settings.headers,
+      body: content
+    );
+
+    var user = User.fromJson(jsonDecode(response.body));
+    widget.user.isAdmin = user.isAdmin;
+    widget.user.enabled = user.enabled;
+    setState(() {
+
+    });
+    widget.updateCallback();
   }
 
   @override
@@ -98,11 +119,11 @@ class _UserPopUpState extends State<UserPopUp> {
           onPressed: () {
             Navigator.of(context).pop(); // Close the dialog without action
           },
-          child: const Text('Cancel'),
+          child: const Text('Close'),
         ),
         showSubmit() ? TextButton(
           onPressed: () {
-            Navigator.of(context).pop(); // Close the dialog without action
+            submit();
           },
           child: const Text('Submit'),
         ) : const SizedBox(),
