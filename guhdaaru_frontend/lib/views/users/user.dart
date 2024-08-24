@@ -95,6 +95,7 @@ class _UserPopUpState extends State<UserPopUp> {
 
           CheckboxListTile(
             title: const Text("Admin"),
+            activeColor: Colors.red,
             value: isAdmin,
             onChanged: (value) {
               setState(() {
@@ -105,6 +106,7 @@ class _UserPopUpState extends State<UserPopUp> {
 
           CheckboxListTile(
             title: const Text("ENABLED"),
+              activeColor: Colors.red,
             value: enabled,
             onChanged: (value) {
               setState(() {
@@ -115,17 +117,27 @@ class _UserPopUpState extends State<UserPopUp> {
         ],
       ),
       actions: [
-        TextButton(
+        ElevatedButton(
           onPressed: () {
             Navigator.of(context).pop(); // Close the dialog without action
           },
-          child: const Text('Close'),
+          child: const Text(
+            'Close',
+            style: TextStyle(
+              color: Colors.red
+            ),
+          ),
         ),
-        showSubmit() ? TextButton(
+        showSubmit() ? ElevatedButton(
           onPressed: () {
             submit();
           },
-          child: const Text('Submit'),
+          child: const Text(
+            'Submit',
+            style: TextStyle(
+              color: Colors.red
+            ),
+          ),
         ) : const SizedBox(),
       ],
     );

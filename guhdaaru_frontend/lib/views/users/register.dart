@@ -46,7 +46,7 @@ class _RegisterPopupState extends State<RegisterPopup> {
     } else {
       showDialog(
         context: context,
-        barrierDismissible: false, // Prevent dismissing dialog by tapping outside
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text(
@@ -57,7 +57,7 @@ class _RegisterPopupState extends State<RegisterPopup> {
             actions: <Widget>[
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.of(context).pop();
                 },
                 child: const Text('Close'),
               ),
@@ -131,11 +131,11 @@ class _RegisterPopupState extends State<RegisterPopup> {
           },
           child: const Text('Register'),
         ),
-        TextButton(
+        ElevatedButton(
           onPressed: () {
             Navigator.of(context).pop(); // Close the dialog without action
           },
-          child: const Text('Cancel'),
+          child: const Text('Close'),
         ),
       ],
     );

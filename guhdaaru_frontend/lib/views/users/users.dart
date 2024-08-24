@@ -84,26 +84,31 @@ class _UsersPageState extends State<UsersPage> {
                   DataColumn(label: Text("")),
                 ],
                 rows: users.map((user) => DataRow(
-                    cells: [
-                      DataCell(Text(user.name)),
-                      DataCell(Text(user.email)),
-                      DataCell(
-                        ElevatedButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return UserPopUp(
-                                  updateCallback: update,
-                                  user: user,
-                                ); // Show the register popup
-                              },
-                            );
-                          },
-                          child: const Text("View"),
-                        )
-                      ),
-                    ]
+                  cells: [
+                    DataCell(Text(user.name)),
+                    DataCell(Text(user.email)),
+                    DataCell(
+                      ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return UserPopUp(
+                                updateCallback: update,
+                                user: user,
+                              ); // Show the register popup
+                            },
+                          );
+                        },
+                        child: const Text(
+                          "View",
+                          style: TextStyle(
+                              color: Colors.red
+                          ),
+                        ),
+                      )
+                    ),
+                  ]
                 )).toList(),
               ),
             )
