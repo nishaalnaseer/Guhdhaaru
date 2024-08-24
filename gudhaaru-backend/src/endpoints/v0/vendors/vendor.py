@@ -76,7 +76,7 @@ async def _get_my_vendors(current_user: int):
     super_vendor_query = select(
         VendorRecord
     ).where(
-        VendorRecord.super_user == current_user
+        VendorRecord.super_admin == current_user
     )
     ordinary_vendor_query = select(
         VendorRecord
