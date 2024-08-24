@@ -5,7 +5,7 @@ from sqlalchemy import update, select
 
 from src.crud.models import UserRecord
 from src.crud.queries.users import select_user_by_id
-from src.crud.utils import add_object, execute_safely, scalars_selection
+from src.crud.utils import add_object, execute_safely, scalars_selection, scalar_selection
 from src.schema.factrories.user import UserFactory
 from src.schema.users import User
 from src.security.security import get_password_hash, get_current_active_user
@@ -36,13 +36,19 @@ async def register(
     return UserFactory.get_user(user_record)
 
 
-@router.patch("/user", status_code=201)
+@router.patch("/user/me", status_code=201)
 async def update_me(
         current_user: Annotated[
             User, Security(get_current_active_user, scopes=[])
         ],
         user: User
 ) -> User:
+
+    if current_user.id != user.id:
+        raise HTTPException(
+            403, "Forbidden"
+        )
+
     query = update(
         UserRecord
     ).values(
@@ -88,3 +94,27 @@ async def get_admins(
     return [
         UserFactory.get_user(record) for record in records
     ]
+
+
+@router.patch("/user/status")
+async def update_user(
+        current_user: Annotated[
+            User, Security(get_current_active_user, scopes=[])
+        ],
+        user: User
+):
+    check_admin(current_user)
+
+    query = update(
+        UserRecord
+    ).values(
+        enabled=user.enabled,
+        is_admin=user.is_admin,
+    ).where(
+        UserRecord.id == user.id
+    )
+    await execute_safely(query)
+
+    select_query = select(UserRecord).where(UserRecord.id == user.id)
+    record = await scalar_selection(select_query)
+    return UserFactory.get_user(record)

@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="671a6beb-dad3-4f73-bc41-7335d3b217d2" name="Changes" comment="vendors/vendor/listings &#10;listings router for each vendor,&#10;more demo data in the form of test cases">
-      <change afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/request_vendor.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/structs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/structs/structs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/items/item_type_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/items/item_type_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../guhdaaru_frontend/lib/views/vendors/vendors.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/endpoints/v0/users/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/v0/users/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,6 +190,7 @@
       <workItem from="1724446613307" duration="10935000" />
       <workItem from="1724509438250" duration="26000" />
       <workItem from="1724521989695" duration="665000" />
+      <workItem from="1724527388892" duration="2774000" />
     </task>
     <task id="LOCAL-00001" summary="reinit">
       <option name="closed" value="true" />
@@ -591,20 +591,60 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py</url>
-          <line>161</line>
+          <line>180</line>
           <option name="timeStamp" value="45" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py</url>
-          <line>165</line>
+          <line>184</line>
           <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py</url>
+          <line>196</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py</url>
+          <line>204</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py</url>
+          <line>206</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py</url>
+          <line>22</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py</url>
+          <line>28</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py</url>
+          <line>30</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py</url>
+          <line>29</line>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/endpoints/v0/vendors/vendor.py</url>
+          <line>31</line>
+          <option name="timeStamp" value="55" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/gudhaaru_backend$run_tests.coverage" NAME="run_tests Coverage Results" MODIFIED="1724454506903" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
-    <SUITE FILE_PATH="coverage/gudhaaru_backend$uvicorn.coverage" NAME="uvicorn Coverage Results" MODIFIED="1724456908497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
+    <SUITE FILE_PATH="coverage/gudhaaru_backend$uvicorn.coverage" NAME="uvicorn Coverage Results" MODIFIED="1724530923160" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\nishaalnaseer\Documents\GitHub\Guhdhaaru\gudhaaru-backend" />
     <SUITE FILE_PATH="coverage/gudhaaru_backend$item.coverage" NAME="item Coverage Results" MODIFIED="1714325743795" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/schema" />
   </component>
 </project>
