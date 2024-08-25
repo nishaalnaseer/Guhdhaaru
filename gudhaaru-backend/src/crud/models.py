@@ -64,7 +64,7 @@ class TypeRecord(Base):
     )
     __table_args__ = (
         UniqueConstraint(
-            'parent', "name",
+            'parent', "name", "category",
             name='_category-name-parent'
         ),
     )

@@ -4,7 +4,6 @@ from pydantic import BaseModel
 
 
 class Test:
-
     def __init__(
             self, req_url_path: str, res_status_code: int,
             req_type: str,
